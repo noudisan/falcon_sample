@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.community.dao.CommunityMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyi.section.model.Community" >
+    <constructor >
+      <idArg column="COMMUNITY_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COMMUNITY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PINYIN_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CITY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="AREA" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SECTION" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ADDRESS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COMMUNITY_TYPE" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="POSTCODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MODIFY_YEARS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="HOUSEHOLDS" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ELEVATOR_FLAG" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="PRICES" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="LONGITUDE" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="LATITUDE" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="DELIVERY_FLAG" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TUDE_REMARKS" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="REMARKS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="STATUS_FLAG" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="MODIFY_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MODIFY_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="BUILD_TYPE" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="FUN_TYPE" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    COMMUNITY_CODE, COMMUNITY_NAME, PINYIN_CODE, CITY, AREA, SECTION, ADDRESS, COMMUNITY_TYPE, 
+    POSTCODE, MODIFY_YEARS, HOUSEHOLDS, ELEVATOR_FLAG, PRICES, LONGITUDE, LATITUDE, DELIVERY_FLAG, 
+    TUDE_REMARKS, REMARKS, STATUS_FLAG, MODIFY_USER, MODIFY_TIME, BUILD_TYPE, FUN_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_COMMUNITY
+    where COMMUNITY_CODE = #{communityCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_COMMUNITY
+    where COMMUNITY_CODE = #{communityCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyi.section.model.Community" >
+    insert into TB_COMMUNITY (COMMUNITY_CODE, COMMUNITY_NAME, PINYIN_CODE, 
+      CITY, AREA, SECTION, 
+      ADDRESS, COMMUNITY_TYPE, POSTCODE, 
+      MODIFY_YEARS, HOUSEHOLDS, ELEVATOR_FLAG, 
+      PRICES, LONGITUDE, LATITUDE, 
+      DELIVERY_FLAG, TUDE_REMARKS, REMARKS, 
+      STATUS_FLAG, MODIFY_USER, MODIFY_TIME, 
+      BUILD_TYPE, FUN_TYPE)
+    values (#{communityCode,jdbcType=VARCHAR}, #{communityName,jdbcType=VARCHAR}, #{pinyinCode,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{section,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{communityType,jdbcType=TINYINT}, #{postcode,jdbcType=VARCHAR}, 
+      #{modifyYears,jdbcType=VARCHAR}, #{households,jdbcType=INTEGER}, #{elevatorFlag,jdbcType=TINYINT}, 
+      #{prices,jdbcType=INTEGER}, #{longitude,jdbcType=DOUBLE}, #{latitude,jdbcType=DOUBLE}, 
+      #{deliveryFlag,jdbcType=INTEGER}, #{tudeRemarks,jdbcType=TINYINT}, #{remarks,jdbcType=VARCHAR}, 
+      #{statusFlag,jdbcType=TINYINT}, #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{buildType,jdbcType=INTEGER}, #{funType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyi.section.model.Community" >
+    insert into TB_COMMUNITY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="communityCode != null" >
+        COMMUNITY_CODE,
+      </if>
+      <if test="communityName != null" >
+        COMMUNITY_NAME,
+      </if>
+      <if test="pinyinCode != null" >
+        PINYIN_CODE,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="area != null" >
+        AREA,
+      </if>
+      <if test="section != null" >
+        SECTION,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="communityType != null" >
+        COMMUNITY_TYPE,
+      </if>
+      <if test="postcode != null" >
+        POSTCODE,
+      </if>
+      <if test="modifyYears != null" >
+        MODIFY_YEARS,
+      </if>
+      <if test="households != null" >
+        HOUSEHOLDS,
+      </if>
+      <if test="elevatorFlag != null" >
+        ELEVATOR_FLAG,
+      </if>
+      <if test="prices != null" >
+        PRICES,
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE,
+      </if>
+      <if test="latitude != null" >
+        LATITUDE,
+      </if>
+      <if test="deliveryFlag != null" >
+        DELIVERY_FLAG,
+      </if>
+      <if test="tudeRemarks != null" >
+        TUDE_REMARKS,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="statusFlag != null" >
+        STATUS_FLAG,
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER,
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME,
+      </if>
+      <if test="buildType != null" >
+        BUILD_TYPE,
+      </if>
+      <if test="funType != null" >
+        FUN_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="communityCode != null" >
+        #{communityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="communityName != null" >
+        #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyinCode != null" >
+        #{pinyinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="section != null" >
+        #{section,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="communityType != null" >
+        #{communityType,jdbcType=TINYINT},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyYears != null" >
+        #{modifyYears,jdbcType=VARCHAR},
+      </if>
+      <if test="households != null" >
+        #{households,jdbcType=INTEGER},
+      </if>
+      <if test="elevatorFlag != null" >
+        #{elevatorFlag,jdbcType=TINYINT},
+      </if>
+      <if test="prices != null" >
+        #{prices,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="deliveryFlag != null" >
+        #{deliveryFlag,jdbcType=INTEGER},
+      </if>
+      <if test="tudeRemarks != null" >
+        #{tudeRemarks,jdbcType=TINYINT},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="statusFlag != null" >
+        #{statusFlag,jdbcType=TINYINT},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buildType != null" >
+        #{buildType,jdbcType=INTEGER},
+      </if>
+      <if test="funType != null" >
+        #{funType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.section.model.Community" >
+    update TB_COMMUNITY
+    <set >
+      <if test="communityName != null" >
+        COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyinCode != null" >
+        PINYIN_CODE = #{pinyinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        AREA = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="section != null" >
+        SECTION = #{section,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="communityType != null" >
+        COMMUNITY_TYPE = #{communityType,jdbcType=TINYINT},
+      </if>
+      <if test="postcode != null" >
+        POSTCODE = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyYears != null" >
+        MODIFY_YEARS = #{modifyYears,jdbcType=VARCHAR},
+      </if>
+      <if test="households != null" >
+        HOUSEHOLDS = #{households,jdbcType=INTEGER},
+      </if>
+      <if test="elevatorFlag != null" >
+        ELEVATOR_FLAG = #{elevatorFlag,jdbcType=TINYINT},
+      </if>
+      <if test="prices != null" >
+        PRICES = #{prices,jdbcType=INTEGER},
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="latitude != null" >
+        LATITUDE = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="deliveryFlag != null" >
+        DELIVERY_FLAG = #{deliveryFlag,jdbcType=INTEGER},
+      </if>
+      <if test="tudeRemarks != null" >
+        TUDE_REMARKS = #{tudeRemarks,jdbcType=TINYINT},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="statusFlag != null" >
+        STATUS_FLAG = #{statusFlag,jdbcType=TINYINT},
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buildType != null" >
+        BUILD_TYPE = #{buildType,jdbcType=INTEGER},
+      </if>
+      <if test="funType != null" >
+        FUN_TYPE = #{funType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where COMMUNITY_CODE = #{communityCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.section.model.Community" >
+    update TB_COMMUNITY
+    set COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+      PINYIN_CODE = #{pinyinCode,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      AREA = #{area,jdbcType=VARCHAR},
+      SECTION = #{section,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      COMMUNITY_TYPE = #{communityType,jdbcType=TINYINT},
+      POSTCODE = #{postcode,jdbcType=VARCHAR},
+      MODIFY_YEARS = #{modifyYears,jdbcType=VARCHAR},
+      HOUSEHOLDS = #{households,jdbcType=INTEGER},
+      ELEVATOR_FLAG = #{elevatorFlag,jdbcType=TINYINT},
+      PRICES = #{prices,jdbcType=INTEGER},
+      LONGITUDE = #{longitude,jdbcType=DOUBLE},
+      LATITUDE = #{latitude,jdbcType=DOUBLE},
+      DELIVERY_FLAG = #{deliveryFlag,jdbcType=INTEGER},
+      TUDE_REMARKS = #{tudeRemarks,jdbcType=TINYINT},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      STATUS_FLAG = #{statusFlag,jdbcType=TINYINT},
+      MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      BUILD_TYPE = #{buildType,jdbcType=INTEGER},
+      FUN_TYPE = #{funType,jdbcType=VARCHAR}
+    where COMMUNITY_CODE = #{communityCode,jdbcType=VARCHAR}
+  </update>
+
+  <select id="searchByCoordinates" resultMap="BaseResultMap">
+    <![CDATA[
+
+          select * from TB_COMMUNITY
+          where (ABS((#{lng}-longitude))*102834.74258026089786013677476285) < 5000
+          and (ABS((#{lat}-latitude))*111712.69150641055729984301412873) < 5000
+        ]]>
+
+
+  </select>
+</mapper>

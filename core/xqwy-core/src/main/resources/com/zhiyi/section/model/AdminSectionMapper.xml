@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.section.dao.AdminSectionMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyi.section.model.AdminSection" >
+    <constructor >
+      <idArg column="SECTION_CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SECTION_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="AREA" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CITY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MODIFY_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MODIFY_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SECTION_CODE, SECTION_NAME, AREA, CITY, MODIFY_USER, MODIFY_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_SECTION
+    where SECTION_CODE = #{sectionCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_SECTION
+    where SECTION_CODE = #{sectionCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyi.section.model.AdminSection" >
+    insert into TB_SECTION (SECTION_CODE, SECTION_NAME, AREA, 
+      CITY, MODIFY_USER, MODIFY_TIME
+      )
+    values (#{sectionCode,jdbcType=VARCHAR}, #{sectionName,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyi.section.model.AdminSection" >
+    insert into TB_SECTION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sectionCode != null" >
+        SECTION_CODE,
+      </if>
+      <if test="sectionName != null" >
+        SECTION_NAME,
+      </if>
+      <if test="area != null" >
+        AREA,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER,
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sectionCode != null" >
+        #{sectionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionName != null" >
+        #{sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.section.model.AdminSection" >
+    update TB_SECTION
+    <set >
+      <if test="sectionName != null" >
+        SECTION_NAME = #{sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        AREA = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null" >
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SECTION_CODE = #{sectionCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.section.model.AdminSection" >
+    update TB_SECTION
+    set SECTION_NAME = #{sectionName,jdbcType=VARCHAR},
+      AREA = #{area,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP}
+    where SECTION_CODE = #{sectionCode,jdbcType=VARCHAR}
+  </update>
+
+  <select id="search" parameterType="com.zhiyi.section.dto.AdminSectionSearchDto"  resultMap="BaseResultMap">
+    <![CDATA[
+          select * from TB_SECTION
+        ]]>
+    <include refid="sectionSearchCondition"/>
+  </select>
+
+
+  <select id="count" resultType="java.lang.Integer" parameterType="com.zhiyi.section.dto.AdminSectionSearchDto">
+    <![CDATA[
+          select count(1) from TB_SECTION
+        ]]>
+    <include refid="sectionSearchCondition"/>
+  </select>
+
+  <sql id="sectionSearchCondition">
+    <trim prefix="where" prefixOverrides="AND | OR ">
+      <if test="code != null and code != ''">
+        AND SECTION_CODE like concat('%', #{code}, '%')
+      </if>
+      <if test="name != null and name != ''">
+        AND SECTION_NAME like concat('%', #{name}, '%')
+      </if>
+      <if test="city != null and city != ''">
+        AND CITY like concat('%', #{city}, '%')
+      </if>
+      <if test="area != null and area != ''">
+        AND AREA like concat('%', #{area}, '%')
+      </if>
+    </trim>
+  </sql>
+</mapper>

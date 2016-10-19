@@ -1,0 +1,57 @@
+1、二级url调整
+基础信息管理→板块管理	/deliverySection/index -->调整为/deliverySection
+
+2、按钮权限添加
+   2.1、基础信息
+       2.1.1城市管理
+       新增城市	baseCity:addCity	基础信息管理→城市管理→新增城市	/basecity/saveOrUpdate	城市管理	1	falcon	新增城市
+       修改城市	baseCity:updateCity	基础信息管理→城市管理→修改城市	/basecity/saveOrUpdate	城市管理	2	falcon	修改城市
+       2.1.2小区管理
+       新增小区	baseCommunity:add	    基础信息管理→小区管理→新增小区	deliveryCommunity/saveOrUpdate	小区管理	1	falcon	新增小区
+       修改小区	baseCommunity:update	基础信息管理→小区管理→修改小区	deliveryCommunity/saveOrUpdate	小区管理	2	falcon	修改小区
+       2.1.3楼栋管理
+       新增楼栋  	baseBuilding:add	基础信息管理→楼栋管理→新增楼栋	communityBuilding/saveBuilding	    楼栋管理	1	falcon	新增楼栋
+       修改楼栋  baseBuilding:update	基础信息管理→楼栋管理→修改楼栋	communityBuilding/updateBuilding	楼栋管理	2	falcon	修改楼栋
+       删除楼栋  baseBuilding:delete	基础信息管理→楼栋管理→删除楼栋	communityBuilding/delete	        楼栋管理	3	falcon	删除楼栋
+       2.1.4单元管理
+       修改单元	baseCommunityUnit:update	基础信息管理→单元管理→修改单元	communityunit/updateUnit	单元管理	1	falcon	修改单元
+       删除单元	baseCommunityUnit:delete	基础信息管理→单元管理→删除单元	communityunit/delete	    单元管理	2	falcon	删除单元
+
+   2.2、派送信息查看
+       2.2.1单元派送数据
+       修改数据  dataCommunityUnit:update	    派送信息查看→单元派送数据→修改数据	/deliverydatacommunityunit/updateData	单元派送数据	1	falcon	单元派送数据修改
+       完成抽检  dataCommunityUnit:sampling	派送信息查看→单元派送数据→完成抽检	/deliverydatacommunityunit/sampling	    单元派送数据	2	falcon	完成抽检
+       2.2.2楼栋派送数据
+       查看详情  dataBuilding:update	        派送信息查看→楼栋派送数据→修改数据	/deliverydatabuilding/updateData	    楼栋派送数据	1	falcon	查看详情
+       2.2.3小区派送数据
+       查看详情  dataCommunity:update	        派送信息查看→小区派送数据→修改数据	/deliverydatacommunity/updateData	    小区派送数据	1	falcon	查看详情
+
+   2.3、员工管理
+       2.3.1员工管理
+       新增员工	employee:add	员工管理→员工管理→新增员工	/employee/saveOrUpdate	员工管理	0	falcon	新增员工按钮
+       修改员工	employee:update	员工管理→员工管理→修改员工	/employee/saveOrUpdate	员工管理	1	falcon	修改员工按钮
+       批量锁定	employee:lock	员工管理→员工管理→批量锁定	/employee/lockEmployee	员工管理	2	falcon	批量锁定按钮
+       批量解锁	employee:unlock	员工管理→员工管理→批量解锁	/employee/lockEmployee	员工管理	3	falcon	批量解锁按钮
+
+   2.4、版本管理
+       2.4.1版本管理
+       新增版本 version:add	    版本管理→版本管理→新增版本	/deliveryversion/saveOrUpdate 版本管理 0 falcon 新增版本按钮
+       修改版本 version:update	版本管理→版本管理→修改版本	/deliveryversion/saveOrUpdate 版本管理 1 falcon 修改版本按钮
+
+   2.5、结算管理
+       2.5.1结算单价
+       新增单价	settlePrice:add	    结算管理→结算单价→新增单价	/settlePrice/saveOrUpdate	   结算单价	0 falcon 新增单价按钮
+       修改单价	settlePrice:update	结算管理→结算单价→修改单价	/settlePrice/saveOrUpdate	   结算单价	1 falcon 修改单价按钮
+       2.5.2结算信息
+       查看明细	settle:detail	    结算管理→结算信息→查看明细	/settle/detail	               结算信息	0 falcon 查看明细按钮
+       补贴      settle:addAllowance 结算管理→结算信息→补贴                                     结算信息  1  falcon 为用户增加补贴
+       2.5.3提现查询
+       打款失败	cash:fail	        结算管理→提现查询→打款失败	/cash/update	提现查询	0	falcon	打款失败按钮
+       已打款	cash:success	    结算管理→提现查询→已打款	    /cash/update	提现查询	1	falcon	已打款按钮
+       2.5.4定时任务
+       执行	    settle:settleAmount	结算管理→定时任务→执行	    /settle/settleAmount	定时任务	0	falcon	执行按钮
+
+   2.6、派送任务管理
+       2.6.1新增派送任务
+       新增任务	deliveryTask:add	派送任务管理→新增派送任务→新增任务	/deliverytask/saveOrUpdate	新增派送任务	1	falcon	新增任务
+       修改任务	deliveryTask:update	派送任务管理→新增派送任务→修改任务	/deliverytask/saveOrUpdate	新增派送任务	2	falcon	修改任务

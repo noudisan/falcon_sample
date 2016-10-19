@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyi.city.dto.BaseCityMapper">
+  <resultMap id="BaseResultMap" type="com.zhiyi.city.model.BaseCity">
+    <constructor>
+      <idArg column="ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="PROVINCE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CITY_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CITY_ABBR" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="MODIFY_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="MODIFY_DT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="CREATE_USER" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CREATE_DT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="IS_LOCKED" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    ID, PROVINCE, CITY_NAME, CITY_ABBR, MODIFY_USER, MODIFY_DT, CREATE_USER, CREATE_DT, 
+    IS_LOCKED
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TB_BASE_CITY
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from TB_BASE_CITY
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zhiyi.city.model.BaseCity">
+    insert into TB_BASE_CITY (ID, PROVINCE, CITY_NAME, 
+      CITY_ABBR, MODIFY_USER, MODIFY_DT, 
+      CREATE_USER, CREATE_DT, IS_LOCKED
+      )
+    values (#{id,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{cityAbbr,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, #{modifyDt,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, #{isLocked,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyi.city.model.BaseCity">
+    insert into TB_BASE_CITY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="province != null">
+        PROVINCE,
+      </if>
+      <if test="cityName != null">
+        CITY_NAME,
+      </if>
+      <if test="cityAbbr != null">
+        CITY_ABBR,
+      </if>
+      <if test="modifyUser != null">
+        MODIFY_USER,
+      </if>
+      <if test="modifyDt != null">
+        MODIFY_DT,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createDt != null">
+        CREATE_DT,
+      </if>
+      <if test="isLocked != null">
+        IS_LOCKED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityAbbr != null">
+        #{cityAbbr,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null">
+        #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null">
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLocked != null">
+        #{isLocked,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.city.model.BaseCity">
+    update TB_BASE_CITY
+    <set>
+      <if test="province != null">
+        PROVINCE = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityAbbr != null">
+        CITY_ABBR = #{cityAbbr,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null">
+        MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null">
+        MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null">
+        CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isLocked != null">
+        IS_LOCKED = #{isLocked,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.city.model.BaseCity">
+    update TB_BASE_CITY
+    set PROVINCE = #{province,jdbcType=VARCHAR},
+      CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      CITY_ABBR = #{cityAbbr,jdbcType=VARCHAR},
+      MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      IS_LOCKED = #{isLocked,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <sql id="searchDto_select_conditions">
+    <trim prefix="where" prefixOverrides="AND |OR ">
+      <if test="id != null">
+        <![CDATA[ ID = #{id}]]>
+      </if>
+      <if test="province != null and province != ''">
+        <![CDATA[ AND PROVINCE = #{province}]]>
+      </if>
+      <if test="cityName != null and cityName != ''">
+        <![CDATA[ AND CITY_NAME = #{cityName}]]>
+      </if>
+      <if test="cityAbbr != null and cityAbbr != ''">
+        <![CDATA[ AND CITY_ABBR = #{cityAbbr}]]>
+      </if>
+      <if test="modifyUser != null and modifyUser != ''">
+        <![CDATA[ AND MODIFY_USER = #{modifyUser}]]>
+      </if>
+      <if test="modifyDt != null ">
+        <![CDATA[ AND MODIFY_DT = #{modifyDt}]]>
+      </if>
+      <if test="createUser != null and createUser !=''">
+        <![CDATA[ AND CREATE_USER = #{createUser}]]>
+      </if>
+      <if test="createDt != null ">
+        <![CDATA[ AND CREATE_DT = #{createDt}]]>
+      </if>
+      <if test="isLocked != null and isLocked != ''">
+        <![CDATA[ AND IS_LOCKED = #{isLocked}]]>
+      </if>
+    </trim>
+  </sql>
+
+  <select id="count" parameterType="com.zhiyi.city.dto.BaseCitySearchDto"  resultType="int">
+    SELECT  count(*) from TB_BASE_CITY
+    <include refid="searchDto_select_conditions" />
+  </select>
+
+  <select id="search" parameterType="com.zhiyi.city.dto.BaseCitySearchDto" resultMap="BaseResultMap">
+    SELECT  * from TB_BASE_CITY
+    <include refid="searchDto_select_conditions" />
+  </select>
+
+  <select id="cityList" resultType="java.lang.String">
+     SELECT  DISTINCT  CITY_NAME from TB_BASE_CITY
+  </select>
+ </mapper>

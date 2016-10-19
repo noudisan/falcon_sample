@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.falcon.core.dao.SettlePriceMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyi.falcon.core.model.SettlePrice" >
+    <constructor >
+      <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PROVINCE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CITY" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SEND_STYLE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="PRICE" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="PRICE_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="COMENT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="MODIFY_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MODIFY_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PROVINCE, CITY, SEND_STYLE, PRICE, PRICE_STATUS, COMENT, CREATE_USER, CREATE_DT, 
+    MODIFY_USER, MODIFY_DT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_BASIC_SETTLE_PRICE
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TB_BASIC_SETTLE_PRICE
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyi.falcon.core.model.SettlePrice" >
+    insert into TB_BASIC_SETTLE_PRICE (ID, PROVINCE, CITY, 
+      SEND_STYLE, PRICE, PRICE_STATUS, 
+      COMENT, CREATE_USER, CREATE_DT, 
+      MODIFY_USER, MODIFY_DT)
+    values (#{id,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{sendStyle,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{priceStatus,jdbcType=INTEGER}, 
+      #{coment,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, 
+      #{modifyUser,jdbcType=VARCHAR}, #{modifyDt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyi.falcon.core.model.SettlePrice" >
+    insert into TB_BASIC_SETTLE_PRICE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="province != null" >
+        PROVINCE,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="sendStyle != null" >
+        SEND_STYLE,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="priceStatus != null" >
+        PRICE_STATUS,
+      </if>
+      <if test="coment != null" >
+        COMENT,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT,
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER,
+      </if>
+      <if test="modifyDt != null" >
+        MODIFY_DT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="sendStyle != null" >
+        #{sendStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="priceStatus != null" >
+        #{priceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="coment != null" >
+        #{coment,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null" >
+        #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.falcon.core.model.SettlePrice" >
+    update TB_BASIC_SETTLE_PRICE
+    <set >
+      <if test="province != null" >
+        PROVINCE = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="sendStyle != null" >
+        SEND_STYLE = #{sendStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="priceStatus != null" >
+        PRICE_STATUS = #{priceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="coment != null" >
+        COMENT = #{coment,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null" >
+        MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.falcon.core.model.SettlePrice" >
+    update TB_BASIC_SETTLE_PRICE
+    set PROVINCE = #{province,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      SEND_STYLE = #{sendStyle,jdbcType=VARCHAR},
+      PRICE = #{price,jdbcType=DOUBLE},
+      PRICE_STATUS = #{priceStatus,jdbcType=INTEGER},
+      COMENT = #{coment,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <sql id="searchDto_select_conditions">
+    <trim prefix="where" prefixOverrides="AND |OR ">
+      <if test="id != null">
+        <![CDATA[ ID = #{id}]]>
+      </if>
+      <if test="province != null and province != ''">
+        <![CDATA[ AND PROVINCE = #{province}]]>
+      </if>
+      <if test="city != null and city != ''">
+        <![CDATA[ AND CITY = #{city}]]>
+      </if>
+      <if test="sendStyle != null and sendStyle != ''">
+        <![CDATA[ AND SEND_STYLE = #{sendStyle}]]>
+      </if>
+      <if test="price != null ">
+        <![CDATA[ AND PRICE = #{price}]]>
+      </if>
+
+      <if test="coment != null and coment !=''">
+        <![CDATA[ AND COMENT = #{coment}]]>
+      </if>
+
+    </trim>
+  </sql>
+
+  <!--查询总数据条数-->
+  <select id="count" parameterType="com.zhiyi.falcon.api.dto.SettlePriceDto" resultType="java.lang.Integer">
+    SELECT COUNT(*) from TB_BASIC_SETTLE_PRICE
+    <include refid="searchDto_select_conditions"/>
+  </select>
+
+  <!--条件搜索-->
+  <select id="search" parameterType="com.zhiyi.falcon.api.dto.SettlePriceDto" resultMap="BaseResultMap">
+    SELECT * from TB_BASIC_SETTLE_PRICE
+    <include refid="searchDto_select_conditions"/>
+  </select>
+
+
+
+  <select id="querySettlePrice" parameterType="com.zhiyi.falcon.api.dto.SettlePriceDto" resultMap="BaseResultMap">
+    SELECT * from TB_BASIC_SETTLE_PRICE
+    <include refid="searchDto_select_conditions"/>
+  </select>
+
+</mapper>

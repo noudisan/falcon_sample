@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.falcon.core.dao.CityMapper" >
+	  
+	<resultMap id="City" type="com.zhiyi.falcon.core.model.City" >
+		<id column="ID" property="id" />
+		<result column="PROVINCE" property="province" />
+		<result column="CITY_NAME" property="cityName" />
+		<result column="CITYABBR" property="cityAbbr" />
+		<result column="MODIFY_USER" property="modifyUser" />
+		<result column="MODIFY_DT" property="modifyDt" javaType="java.util.Date" jdbcType="DATE" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DT" property="createDt" javaType="java.util.Date" jdbcType="DATE" />
+		<result column="IS_LOCKED" property="isLocked" />
+	</resultMap>
+	  
+	<select id="getUnlockedCitys" resultMap="City">
+	SELECT * FROM `TB_BASE_CITY` WHERE `IS_LOCKED`='UNLOCK'
+	</select>
+
+</mapper>

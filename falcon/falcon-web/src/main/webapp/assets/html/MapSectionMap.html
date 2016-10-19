@@ -1,0 +1,446 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript"
+	src="http://api.map.baidu.com/api?v=1.5&ak=C49aedf9309001fdbdca805ab3952023"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+<script type="text/javascript" src="../js/jquery-2.0.3.min.js"></script>
+<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
+<title>地址</title>
+<style type="text/css">
+body,html,#containerSectionCommunity {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	margin: 0;
+}
+</style>
+</head>
+<body>
+	<div id="containerSectionCommunity"></div>
+</body>
+</html>
+<script type="text/javascript">
+function getRootPath(){
+	//获取当前网址，如： http://localhost:8080/Tmall/index.jsp 
+	var curWwwPath=window.document.location.href,
+
+	//获取主机地址之后的目录如：/Tmall/index.jsp 
+	pathName=window.document.location.pathname,
+	pos=curWwwPath.indexOf(pathName),
+	
+	//获取主机地址，如： http://localhost:8080 
+	localhostPaht=curWwwPath.substring(0,pos),
+
+	//获取带"/"的项目名，如：/Tmall 
+	projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1),
+	strs= new Array(); //定义一数组
+	strs=pathName.split("/"); //字符分割 
+	if(strs[1] == "delivery"){
+		return localhostPaht + "/delivery";
+	}
+    else {
+        return localhostPaht;
+    }
+
+}
+
+
+
+	var map = null;
+	if(!map){
+		map = new BMap.Map("containerSectionCommunity");
+	}
+	map.enableScrollWheelZoom();//启用滚轮放大缩小，默认禁用
+	map.enableContinuousZoom();//启用地图惯性拖拽，默认禁用
+	map.addControl(new BMap.NavigationControl());//添加默认缩放平移控件
+	
+	var polygon = null;
+	var isNeedDisplayMarker = true;
+	var p1,p2,p3,p4;
+	var marker1 ,marker2,marker3,marker4;
+	var centerLng,centerLat;
+	var clickLng = 0,clickLat = 0;
+	var clickPoint = 0;
+	    
+	//初始化各个点
+	var d = 0.005;
+	var pi = Math.PI;
+	var duobian = 4;
+	
+	drawPolygon = function(){
+		if(null != polygon){
+			//map.removeOverlay(polygon);
+		}
+		polygon = new BMap.Polygon([ p1, p2,p3,p4], {strokeColor:"#f50704",fillColor:"#a1cde6", strokeWeight:3, strokeOpacity:0,fillOpacity:0});
+	    map.addOverlay(polygon);
+	};
+	
+	createPoint = function(lng , lat ,index){
+		if(1 == index){
+			p1 = new BMap.Point(lng, lat);
+		}else if(2 == index){
+			p2 = new BMap.Point(lng, lat);
+		}else if(3 == index){
+			p3 = new BMap.Point(lng, lat);
+		}else if(4 == index){
+			p4 = new BMap.Point(lng, lat);
+		}
+	};
+	
+	addMarker = function(marker,index){
+    	if(!false){
+    		return;
+    	}
+    	if(null != marker){
+    		map.addOverlay(marker);	
+    		marker.enableDragging();
+        	marker.addEventListener("dragend", function(e){
+        		var longitude = e.point.lng;
+        		var latitude = e.point.lat;
+        		createPoint(longitude,latitude,index);
+       	    	drawPolygon();
+       	    });
+    	}
+    };
+   
+    create15Points = function(){
+    	p1 = new BMap.Point(lng1, lat1);
+		marker1 = new BMap.Marker(p1);
+		p2 = new BMap.Point(lng2, lat2);
+		marker2 = new BMap.Marker(p2);
+		p3 = new BMap.Point(lng3, lat3);
+		marker3 = new BMap.Marker(p3);
+		p4 = new BMap.Point(lng4, lat4);
+		marker4 = new BMap.Marker(p4);
+    };
+    
+    create15Marker = function(){
+    	addMarker(marker1,1);
+	    addMarker(marker2,2);
+	    addMarker(marker3,3);
+	    addMarker(marker4,4);
+    };
+   
+ 	initPolygonWithNoData = function(clickLng,clickLat){
+	 	lat1 = clickLat + d * Math.cos(2*pi/duobian);
+		lng1 = clickLng + d * Math.sin(2*pi/duobian);
+		var sp1 = new SectionPoint(-1,1,lng1,lat1);
+		wholePoints[0] = sp1;
+		
+		lat2 = clickLat + d * Math.cos(2*pi/duobian*2);
+		lng2 = clickLng + d * Math.sin(2*pi/duobian*2);
+		var sp2 = new SectionPoint(-1,2,lng1,lat1);
+		wholePoints[1] = sp2;
+		
+		lat3 = clickLat + d * Math.cos(2*pi/duobian*3);
+		lng3 = clickLng + d * Math.sin(2*pi/duobian*3);
+		var sp3 = new SectionPoint(-1,3,lng3,lat3);
+		wholePoints[2] = sp3;
+		
+		lat4 = clickLat + d * Math.cos(2*pi/duobian*4);
+		lng4 = clickLng + d * Math.sin(2*pi/duobian*4);
+		var sp4 = new SectionPoint(-1,4,lng4,lat4);
+		wholePoints[3] = sp4;
+
+		create15Points();
+		drawPolygon();
+		create15Marker();
+ 	};
+ 	
+ 	getPointsLngLat = function(points){
+ 		lng1 = points[0].lng;
+		lat1 = points[0].lat;
+		lng2 = points[1].lng;
+		lat2 = points[1].lat;
+		lng3 = points[2].lng;
+		lat3 = points[2].lat;
+		lng4 = points[3].lng;
+		lat4 = points[3].lat;
+//		lng5 = points[4].lng;
+//		lat5 = points[4].lat;
+//		lng6 = points[5].lng;
+//		lat6 = points[5].lat;
+//		lng7 = points[6].lng;
+//		lat7 = points[6].lat;
+//		lng8 = points[7].lng;
+//		lat8 = points[7].lat;
+//		lng9 = points[8].lng;
+//		lat9 = points[8].lat;
+//		lng10 = points[9].lng;
+//		lat10 = points[9].lat;
+//		lng11 = points[10].lng;
+//		lat11 = points[10].lat;
+//		lng12 = points[11].lng;
+//		lat12 = points[11].lat;
+ 	};
+ 	
+ 	addLabel = function(point,tips){
+ 		var opts = {
+				position : point,    // 指定文本标注所在的地理位置
+				offset   : new BMap.Size(10, -30)    //设置文本偏移量
+		}
+      	var label = new BMap.Label(tips, opts);  // 创建文本标注对象
+	  	label.setStyle({
+			 color : "red",
+			 fontSize : "12px",
+			 height : "20px",
+			 lineHeight : "20px",
+			 fontFamily:"微软雅黑"
+	  	});
+	  	map.addOverlay(label);
+ 	};
+	//此方法为用距离查询小区服务
+	locate = function(records){
+		map.clearOverlays();
+		var sectionLng = 0;
+		var sectionLat = 0;
+		for(var i=0;i<records.length;i++){
+			var record = records[i];
+			sectionLng = record.longitude;
+			sectionLat = record.latitude;
+			var point = new BMap.Point(sectionLng,sectionLat);
+			var tips = record.sectionName;
+			addLabel(point,tips);
+			map.addOverlay(new BMap.Marker(point));
+			var points = record.sectionPointDtoList;
+			if(null != points && "[]" != points && "" != points){
+				getPointsLngLat(points);
+				create15Points();
+				
+				drawPolygon();
+				create15Marker();	
+			}
+		}
+		var point = new BMap.Point(sectionLng,sectionLat);
+		map.centerAndZoom(point,14);
+	};
+	var posMarker = null;
+	var posLabel = null;
+	locatePos = function(city,address){
+		var myGeo = new BMap.Geocoder();
+		myGeo.getPoint(address, function(point) {
+			if (point) {
+				if(null != posMarker){
+					map.removeOverlay(posMarker);
+				}
+				if(null != posLabel){
+					map.removeOverlay(posLabel);
+				}
+				var tips = "定位位置",
+				opts = {
+						position : point,    // 指定文本标注所在的地理位置
+						offset   : new BMap.Size(10, -30)    //设置文本偏移量
+				},
+		      	posLabel = new BMap.Label(tips, opts);  // 创建文本标注对象
+		      	posLabel.setStyle({
+					 color : "blue",
+					 fontSize : "12px",
+					 height : "20px",
+					 lineHeight : "20px",
+					 fontFamily:"微软雅黑"
+			  	});
+			  	map.addOverlay(posLabel);
+			  	
+			  	var myIcon = new BMap.Icon("pos_icon.png", new BMap.Size(23, 30), {  
+                    offset: new BMap.Size(0, 25), // 指定定位位置  
+                    imageOffset: new BMap.Size(0, 0) // 设置图片偏移  
+                });  
+			  	
+				posMarker = new BMap.Marker(point);
+				posMarker.setIcon(myIcon);
+				map.addOverlay(posMarker);
+				map.centerAndZoom(point, 15);
+			}
+		}, city);
+	};
+	clearOverlays = function(){
+		map.clearOverlays();
+	};
+	getPoints = function(){
+		return wholePoints;
+	};
+	
+	
+	var xqwy = {
+			lng:0,
+			lat:0,
+			lng_spacing:0.01,
+			lat_spacing:0.0085,
+			pStart:0,
+			pEnd:0
+    },
+	//添加板块
+	menu = new BMap.ContextMenu(),
+	txtMenuItem = [
+		{
+			text:'添加板块',
+			callback:function(e){
+				xqwy.lng = e.lng;
+			    xqwy.lat = e.lat;
+			    
+				var marker = new BMap.Marker(new BMap.Point(xqwy.lng, xqwy.lat)); // 创建点
+				xqwy.pStart = new BMap.Point(xqwy.lng+parseFloat(xqwy.lng_spacing),xqwy.lat+parseFloat(xqwy.lat_spacing));
+				xqwy.pEnd = new BMap.Point(xqwy.lng-parseFloat(xqwy.lng_spacing),xqwy.lat-parseFloat(xqwy.lat_spacing));
+				
+				var rectangle = new BMap.Polygon([
+					new BMap.Point(xqwy.pStart.lng,xqwy.pStart.lat),
+					new BMap.Point(xqwy.pEnd.lng,xqwy.pStart.lat),
+					new BMap.Point(xqwy.pEnd.lng,xqwy.pEnd.lat),
+					new BMap.Point(xqwy.pStart.lng,xqwy.pEnd.lat)
+				], {strokeColor:"blue", strokeWeight:2, strokeOpacity:1});  //创建矩形
+				
+				//console.log("创建："+xqwy.lng+","+xqwy.lat);
+				
+				map.addOverlay(marker);            //增加点
+				map.addOverlay(rectangle);         //增加矩形
+				marker.enableDragging();
+				
+		
+				
+				var searchInfoWindow = null;
+				
+				marker.addEventListener("dragging", function(e){
+					rectangle.remove();
+					if(searchInfoWindow){
+						searchInfoWindow.close();
+					}
+					xqwy.lng = e.point.lng;
+				    xqwy.lat = e.point.lat;
+					//console.log("拖拽："+xqwy.lng+","+xqwy.lat);
+					xqwy.pStart = new BMap.Point(xqwy.lng+parseFloat(xqwy.lng_spacing),xqwy.lat+parseFloat(xqwy.lat_spacing));
+					xqwy.pEnd = new BMap.Point(xqwy.lng-parseFloat(xqwy.lng_spacing),xqwy.lat-parseFloat(xqwy.lat_spacing));
+    				rectangle = new BMap.Polygon([
+    					new BMap.Point(xqwy.pStart.lng,xqwy.pStart.lat),
+						new BMap.Point(xqwy.pEnd.lng,xqwy.pStart.lat),
+						new BMap.Point(xqwy.pEnd.lng,xqwy.pEnd.lat),
+						new BMap.Point(xqwy.pStart.lng,xqwy.pEnd.lat)
+    				], {strokeColor:"blue", strokeWeight:2, strokeOpacity:1});  //创建矩形
+    				map.addOverlay(rectangle);         //增加矩形
+               });
+				
+				
+				
+				var content = '<div style="margin:0;line-height:20px;padding:2px;">' +'板块名称：<input type="text" id="onSiteFlagName" name="onSiteFlagName"> <input type="button" value="添加" onclick="addOnSiteFlag()">' +
+                '</div>';
+
+			  //创建检索信息窗口对象
+			 
+				searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+						title  : "添加板块",      //标题
+						width  : 290,             //宽度
+						height : 50,              //高度
+						panel  : "panel",         //检索结果面板
+						enableAutoPan : true,     //自动平移
+						searchTypes   :[
+						]
+					});
+				
+			   marker.addEventListener("click", markerShowInfo=function(e){
+					    searchInfoWindow.open(new BMap.Point(xqwy.lng,xqwy.lat));
+					    addOnSiteFlag = function(){
+							var onSiteFlagName = $("#onSiteFlagName").val();
+							if(!onSiteFlagName || !onSiteFlagName.trim()){
+								alert("请先输入板块名称");
+								return;
+							}
+
+		    				//console.log("保存："+xqwy.lng+","+xqwy.lat);
+
+							var id= -1;
+							var pointsArr = "[";
+							pointsArr += ("{\"lng\"" + ":" + xqwy.pStart.lng + "," + "\"lat\"" + ":"
+										+ xqwy.pStart.lat + "," + "\"id\"" + ":" + id + "," + "\"index\""
+										+ ":" + 1 + "},");
+							pointsArr += ("{\"lng\"" + ":" + xqwy.pEnd.lng + "," + "\"lat\"" + ":"
+									+ xqwy.pStart.lat + "," + "\"id\"" + ":" + id + "," + "\"index\""
+									+ ":" + 2 + "},");
+							pointsArr += ("{\"lng\"" + ":" + xqwy.pEnd.lng + "," + "\"lat\"" + ":"
+									+ xqwy.pEnd.lat + "," + "\"id\"" + ":" + id + "," + "\"index\""
+									+ ":" + 3 + "},");	
+							pointsArr += ("{\"lng\"" + ":" + xqwy.pStart.lng + "," + "\"lat\"" + ":"
+									+ xqwy.pEnd.lat + "," + "\"id\"" + ":" + id + "," + "\"index\""
+									+ ":" + 4 + "},");	
+								
+								
+							pointsArr = pointsArr.substring(0, pointsArr.length - 1);
+							pointsArr += "]";
+
+							
+		
+							var myGeo = new BMap.Geocoder();
+							var pt = new BMap.Point(xqwy.lng,xqwy.lat);
+							myGeo.getLocation(pt, function(rs){
+								var addComp = rs.addressComponents;
+								var city = addComp.city;
+								$.ajax({
+							        url: getRootPath()+"/sectionmap/addSectionMap",
+							        method: "post",
+							        data:{
+							        	sectionName : onSiteFlagName,
+							        	city : city,
+							        	address:onSiteFlagName,
+							        	longitude:xqwy.lng,
+							        	latitude:xqwy.lat,
+							        	pointItems:pointsArr
+							        },
+							        success: function (data, textStatus, jqXHR) {
+							        	if(searchInfoWindow){
+											searchInfoWindow.close();
+										}
+							        	rectangle.remove();
+							        	marker.disableDragging(); 
+							        	marker.removeEventListener("click",markerShowInfo);
+							        	rectangle = new BMap.Polygon([
+							        	          					new BMap.Point(xqwy.pStart.lng,xqwy.pStart.lat),
+																	new BMap.Point(xqwy.pEnd.lng,xqwy.pStart.lat),
+																	new BMap.Point(xqwy.pEnd.lng,xqwy.pEnd.lat),
+																	new BMap.Point(xqwy.pStart.lng,xqwy.pEnd.lat)
+							        	          				], {strokeColor:"#f50704",fillColor:"#a1cde6", strokeWeight:3, strokeOpacity:0,fillOpacity:0});  //创建矩形
+							        	          				map.addOverlay(rectangle);         //增加矩形
+							        	          				var label = new BMap.Label(onSiteFlagName,{offset:new BMap.Size(20,-10)});
+							        	          				label.setStyle({
+							        	          					 color : "red",
+							        	          					 fontSize : "12px",
+							        	          					 height : "20px",
+							        	          					 lineHeight : "20px",
+							        	          					 fontFamily:"微软雅黑"
+							        	          			  	});
+							        	          				marker.setLabel(label);
+							        	alert(data);
+							        	
+							        	
+							        	
+							        	
+							        },
+							        error: function (jqXHR, textStatus, errorThrown) {
+							            alert("服务器异常，请联系管理员！", "错误");
+							        }
+							    });	
+								
+							});
+
+							
+							
+							
+						}
+				});
+
+			}
+		}
+	];
+	for(var i=0; i < txtMenuItem.length; i++){
+		menu.addItem(new BMap.MenuItem(txtMenuItem[i].text,txtMenuItem[i].callback,100));
+	}
+	map.addContextMenu(menu);
+
+    changeLatSpacing = function(width){
+        xqwy.lng_spacing = width;
+    };
+
+	changeLngSpacing = function(height){
+		xqwy.lat_spacing = height;
+	}
+	
+</script>

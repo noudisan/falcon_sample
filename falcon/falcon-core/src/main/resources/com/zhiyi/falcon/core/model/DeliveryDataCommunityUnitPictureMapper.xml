@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.falcon.core.dao.DeliveryDataCommunityUnitPictureMapper" >
+    <resultMap id="BaseResultMap" type="com.zhiyi.falcon.core.model.DeliveryDataCommunityUnitPicture">
+        <result column="DELIVERY_DATA_COMMUNITY_UNIT_ID" property="deliveryDataCommunityUnitId" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        <result column="SEQUENCE" property="sequence" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        <result column="PATH" property="path" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="SAVE_DATE" property="saveDate" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+    </resultMap>
+	<!-- 获取单元派送数据 中的一张图 -->
+	<select id="getPicture" resultMap="BaseResultMap">
+	SELECT * FROM `TB_DELIVERY_DATA_COMMUNITY_UNIT_PICTURE`
+	WHERE `DELIVERY_DATA_COMMUNITY_UNIT_ID`=#{0} AND `SEQUENCE`=#{1}
+	</select>
+	
+	<!-- 获取单元派送的所有图片 -->
+	<select id="listPictures" resultMap="BaseResultMap">
+	SELECT * FROM `TB_DELIVERY_DATA_COMMUNITY_UNIT_PICTURE`
+	WHERE `DELIVERY_DATA_COMMUNITY_UNIT_ID`=#{0} AND <![CDATA[`SEQUENCE`<4]]> ORDER BY `SEQUENCE` ASC LIMIT 4
+	</select>
+
+	<!-- 更新单元派送的图片 -->
+	<update id="updatePicture" parameterType="com.zhiyi.falcon.core.model.DeliveryDataCommunityUnitPicture">
+	UPDATE `TB_DELIVERY_DATA_COMMUNITY_UNIT_PICTURE`
+	SET `PATH`=#{path} ,`SAVE_DATE`=#{saveDate,jdbcType=TIMESTAMP}
+	WHERE `DELIVERY_DATA_COMMUNITY_UNIT_ID`=#{deliveryDataCommunityUnitId}
+		AND `SEQUENCE`=#{sequence}
+	</update>
+	
+	<!-- 插入单元派送的图片 -->
+	<insert id="insertPicture" parameterType="com.zhiyi.falcon.core.model.DeliveryDataCommunityUnitPicture">
+	INSERT INTO `TB_DELIVERY_DATA_COMMUNITY_UNIT_PICTURE`(
+		`DELIVERY_DATA_COMMUNITY_UNIT_ID`,`SEQUENCE`,`PATH`,`SAVE_DATE`
+	)VALUES(
+		#{deliveryDataCommunityUnitId},#{sequence},#{path},#{saveDate,jdbcType=TIMESTAMP}
+	)
+	</insert>
+	
+	<!-- 删除图片 -->
+	<delete id="remmovePicture">
+	DELETE FROM `TB_DELIVERY_DATA_COMMUNITY_UNIT_PICTURE` WHERE `DELIVERY_DATA_COMMUNITY_UNIT_ID`=#{0} AND `SEQUENCE`=#{1}
+	</delete>
+	
+</mapper>

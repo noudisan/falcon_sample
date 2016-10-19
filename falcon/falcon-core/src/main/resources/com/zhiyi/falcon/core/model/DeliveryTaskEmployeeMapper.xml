@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.falcon.core.dao.DeliveryTaskEmployeeMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyi.falcon.core.model.DeliveryTaskEmployee" >
+    <constructor >
+      <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="EMPLOYEE_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SEND_TASK_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TASK_STATUS" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ID, EMPLOYEE_ID, SEND_TASK_ID,TASK_STATUS
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_DELIVERY_TASK_EMPLOYEE
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByEmployeeId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from TB_DELIVERY_TASK_EMPLOYEE
+    where EMPLOYEE_ID = #{employeeId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectBySendTaskId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    <include refid="Base_Column_List" />
+    from TB_DELIVERY_TASK_EMPLOYEE
+    where SEND_TASK_ID = #{sendTaskId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TB_DELIVERY_TASK_EMPLOYEE
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.zhiyi.falcon.core.model.DeliveryTaskEmployee" >
+    insert into TB_DELIVERY_TASK_EMPLOYEE (ID, EMPLOYEE_ID, SEND_TASK_ID,TASK_STATUS
+      )
+    values (#{id,jdbcType=INTEGER}, #{employeeId,jdbcType=INTEGER}, #{sendTaskId,jdbcType=INTEGER},#{taskStatus,jdbcType=VARCHAR}
+
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.zhiyi.falcon.core.model.DeliveryTaskEmployee" >
+    insert into TB_DELIVERY_TASK_EMPLOYEE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="employeeId != null" >
+        EMPLOYEE_ID,
+      </if>
+      <if test="sendTaskId != null" >
+        SEND_TASK_ID,
+      </if>
+      <if test="taskStatus != null" >
+        TASK_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="employeeId != null" >
+        #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="sendTaskId != null" >
+        #{sendTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskStatus != null" >
+        #{taskStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.falcon.core.model.DeliveryTaskEmployee" >
+    update TB_DELIVERY_TASK_EMPLOYEE
+    <set >
+      <if test="employeeId != null" >
+        EMPLOYEE_ID = #{employeeId,jdbcType=INTEGER},
+      </if>
+      <if test="sendTaskId != null" >
+        SEND_TASK_ID = #{sendTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskStatus != null" >
+        TASK_STATUS =  #{taskStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.falcon.core.model.DeliveryTaskEmployee" >
+    update TB_DELIVERY_TASK_EMPLOYEE
+    set EMPLOYEE_ID = #{employeeId,jdbcType=INTEGER},
+      SEND_TASK_ID = #{sendTaskId,jdbcType=INTEGER},
+       TASK_STATUS = #{taskStatus,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteByTaskId" parameterType="java.lang.Integer" >
+     delete from TB_DELIVERY_TASK_EMPLOYEE
+    where SEND_TASK_ID = #{sendTaskId,jdbcType=INTEGER}
+  </delete>
+
+  <select id="search" parameterType="com.zhiyi.falcon.api.dto.DeliveryTaskEmployeeDto" resultMap="BaseResultMap" >
+    select * from TB_DELIVERY_TASK_EMPLOYEE
+
+    <trim prefix="where" prefixOverrides="AND|OR">
+      <if test="id !=null">
+        <![CDATA[ID = #{id}]]>
+      </if>
+      <if test="employeeId !=null">
+        <![CDATA[ and EMPLOYEE_ID = #{employeeId}]]>
+      </if>
+      <if test="sendTaskId !=null">
+        <![CDATA[ and SEND_TASK_ID = #{sendTaskId}]]>
+      </if>
+    </trim>
+  </select>
+
+</mapper>

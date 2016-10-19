@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+    <description>zy 1.0 core library</description>
+    <display-name>zy core</display-name>
+    <tlib-version>1.0</tlib-version>
+    <short-name>hero</short-name>
+    <uri>http://www.xiaoquwuyou.com/zhiyi/tags</uri>
+
+    <tag>
+        <name>button</name>
+        <tag-class>com.zhiyi.hero.common.taglib.ResourcesButton</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>permission</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>id</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>className</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>authorize</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>menu</name>
+        <tag-class>com.zhiyi.hero.common.taglib.ResourcesMenu</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>permission</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+</taglib>
+

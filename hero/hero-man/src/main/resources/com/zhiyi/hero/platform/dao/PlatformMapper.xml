@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyi.hero.platform.dao.PlatformMapper">
+
+    <resultMap id="platformMap" type="com.zhiyi.hero.platform.model.Platform">
+        <id column="ID" property="id"/>
+        <result column="NAME" property="name"/>
+        <result column="URL" property="url"/>
+        <result column="SECRET_KEY" property="secretKey"/>
+        <result column="CREATE_USER" property="createUser"/>
+        <result column="CREATE_DT" property="createDt"/>
+        <result column="MODIFY_USER" property="modifyUser"/>
+        <result column="MODIFY_DT" property="modifyDt"/>
+    </resultMap>
+
+    <sql id="result">
+	    SELECT * FROM TB_SYS_PLATFORM
+    </sql>
+
+    <insert id="save" parameterType="com.zhiyi.hero.platform.model.Platform">
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+        <![CDATA[
+          insert into TB_SYS_PLATFORM(NAME,URL,SECRET_KEY,CREATE_USER,CREATE_DT, MODIFY_USER,MODIFY_DT)
+              values (
+                #{name},#{url},#{secretKey},#{createUser},now(),#{modifyUser},now()
+              )
+        ]]>
+    </insert>
+
+    <update id="update" parameterType="com.zhiyi.hero.platform.model.Platform">
+      update
+              TB_SYS_PLATFORM
+          set
+              NAME = #{name},
+              URL = #{url},
+              SECRET_KEY = #{secretKey},
+              MODIFY_USER = #{modifyUser},
+              MODIFY_DT = now()
+         where
+             ID =#{id}
+    </update>
+
+    <select id="search" resultMap="platformMap" parameterType="com.zhiyi.hero.platform.dto.PlatformSearchDto">
+        <include refid="result"/>
+        <include refid="searchCondition"/>
+    </select>
+
+    <select id="searchCount" resultType="int" parameterType="com.zhiyi.hero.role.dto.SysRoleSearchDto">
+        select count(*) from TB_SYS_PLATFORM
+        <include refid="searchCondition"/>
+    </select>
+
+    <select id="get" resultMap="platformMap">
+        <include refid="result"/>
+        where ID =#{id}
+    </select>
+
+    <sql id="searchCondition">
+        <trim prefix="where" prefixOverrides="AND | OR ">
+            <if test="@Ognl@isNotEmpty(name)">
+                AND NAME like concat('%',#{name},'%')
+            </if>
+            <if test="@Ognl@isNotEmpty(url)">
+                AND URL like concat('%',#{url},'%')
+            </if>
+              <if test="@Ognl@isNotEmpty(startD)">
+                <![CDATA[ AND MODIFY_DT >= #{startD}]]>
+            </if>
+             <if test="@Ognl@isNotEmpty(endD)">
+               <![CDATA[  AND MODIFY_DT <= #{endD}]]>
+            </if>
+        </trim>
+    </sql>
+	
+    <select id="searchList"  resultMap="platformMap">
+	select ID,NAME from TB_SYS_PLATFORM 
+    </select>	
+    
+    <select id="getByName" resultMap="platformMap" parameterType="java.lang.String">
+    	select  *  from TB_SYS_PLATFORM where  NAME = #{name}
+    </select>
+
+</mapper>

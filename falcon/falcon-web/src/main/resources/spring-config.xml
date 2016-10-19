@@ -1,0 +1,81 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        ">
+
+    <context:component-scan base-package="com.zhiyi"/>
+
+    <bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+        <property name="order" value="0"/>
+    </bean>
+
+    <bean id="defaultRequestMappingHandlerAdapter"
+          class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/index"/>
+            <mvc:exclude-mapping path="/index/*"/>
+            <mvc:exclude-mapping path="/assets/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/images/**"/>
+            <mvc:exclude-mapping path="/widgetCode/**"/>
+            <bean class="com.zhiyi.falcon.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+    <mvc:resources location="/assets/" mapping="/assets/**"/>
+    <mvc:resources location="/js/" mapping="/js/**"/>
+    <mvc:resources location="/css/" mapping="/css/**"/>
+    <mvc:resources location="/images/" mapping="/images/**"/>
+    <mvc:resources location="/widgetCode/" mapping="/widgetCode/**"/>
+
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/tiles/tiles.xml</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- 文件上传，打开后添加 pom
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize">
+            <value>8388608</value>
+        </property>
+        <property name="defaultEncoding" value="UTF-8"/>
+
+    </bean>-->
+
+    <context:property-placeholder  order="1"  location="classpath:configuration.properties"  />
+
+    <!-- 依赖hero api-->
+    <import resource="appContext_hero_api.xml"></import>
+
+    <import resource="appContext_falcon_api.xml"></import>
+
+    <import resource="appContext_xqwy_api.xml"></import>
+    
+</beans>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyi.falcon.core.dao.DeliveryDataCommunityMapper">
+  <resultMap id="BaseResultMap" type="com.zhiyi.falcon.core.model.DeliveryDataCommunity">
+    <constructor>
+      <idArg column="ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="COMMUNITY_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="DELIVERY_NUM" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="SECTION_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="DELIVERY_TASK_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="DELIVERY_STATUS" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="DELIVERY_DT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="BEGIN_DT" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="REMARK" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="COMMUNITY_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="DELIVERY_CITY" jdbcType="VARCHAR" javaType="java.lang.String"/>
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, COMMUNITY_ID, DELIVERY_NUM, SECTION_ID, DELIVERY_TASK_ID, DELIVERY_STATUS, DELIVERY_DT,
+    BEGIN_DT, REMARK, COMMUNITY_NAME, DELIVERY_CITY
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from TB_DELIVERY_DATA_COMMUNITY
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from TB_DELIVERY_DATA_COMMUNITY
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyi.falcon.core.model.DeliveryDataCommunity">
+    insert into TB_DELIVERY_DATA_COMMUNITY (ID, COMMUNITY_ID, DELIVERY_NUM,
+      SECTION_ID, DELIVERY_TASK_ID, DELIVERY_STATUS,
+      DELIVERY_DT, BEGIN_DT, REMARK,
+      COMMUNITY_NAME, DELIVERY_CITY)
+    values (#{id,jdbcType=INTEGER}, #{communityId,jdbcType=INTEGER}, #{deliveryNum,jdbcType=INTEGER},
+      #{sectionId,jdbcType=INTEGER}, #{deliveryTaskId,jdbcType=INTEGER}, #{deliveryStatus,jdbcType=VARCHAR},
+      #{deliveryDt,jdbcType=TIMESTAMP}, #{beginDt,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR},
+      #{communityName,jdbcType=VARCHAR}, #{deliveryCity,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyi.falcon.core.model.DeliveryDataCommunity">
+    insert into TB_DELIVERY_DATA_COMMUNITY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="communityId != null">
+        COMMUNITY_ID,
+      </if>
+      <if test="deliveryNum != null">
+        DELIVERY_NUM,
+      </if>
+      <if test="sectionId != null">
+        SECTION_ID,
+      </if>
+      <if test="deliveryTaskId != null">
+        DELIVERY_TASK_ID,
+      </if>
+      <if test="deliveryStatus != null">
+        DELIVERY_STATUS,
+      </if>
+      <if test="deliveryDt != null">
+        DELIVERY_DT,
+      </if>
+      <if test="beginDt != null">
+        BEGIN_DT,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="communityName != null">
+        COMMUNITY_NAME,
+      </if>
+      <if test="deliveryCity != null">
+        DELIVERY_CITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="communityId != null">
+        #{communityId,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryNum != null">
+        #{deliveryNum,jdbcType=INTEGER},
+      </if>
+      <if test="sectionId != null">
+        #{sectionId,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryTaskId != null">
+        #{deliveryTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryStatus != null">
+        #{deliveryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDt != null">
+        #{deliveryDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beginDt != null">
+        #{beginDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="communityName != null">
+        #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryCity != null">
+        #{deliveryCity,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.falcon.core.model.DeliveryDataCommunity">
+    update TB_DELIVERY_DATA_COMMUNITY
+    <set>
+      <if test="communityId != null">
+        COMMUNITY_ID = #{communityId,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryNum != null">
+        DELIVERY_NUM = #{deliveryNum,jdbcType=INTEGER},
+      </if>
+      <if test="sectionId != null">
+        SECTION_ID = #{sectionId,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryTaskId != null">
+        DELIVERY_TASK_ID = #{deliveryTaskId,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryStatus != null">
+        DELIVERY_STATUS = #{deliveryStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDt != null">
+        DELIVERY_DT = #{deliveryDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beginDt != null">
+        BEGIN_DT = #{beginDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="communityName != null">
+        COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryCity != null">
+        DELIVERY_CITY = #{deliveryCity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.falcon.core.model.DeliveryDataCommunity">
+    update TB_DELIVERY_DATA_COMMUNITY
+    set COMMUNITY_ID = #{communityId,jdbcType=INTEGER},
+      DELIVERY_NUM = #{deliveryNum,jdbcType=INTEGER},
+      SECTION_ID = #{sectionId,jdbcType=INTEGER},
+      DELIVERY_TASK_ID = #{deliveryTaskId,jdbcType=INTEGER},
+      DELIVERY_STATUS = #{deliveryStatus,jdbcType=VARCHAR},
+      DELIVERY_DT = #{deliveryDt,jdbcType=TIMESTAMP},
+      BEGIN_DT = #{beginDt,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR}
+      DELIVERY_CITY = #{deliveryCity,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="count" parameterType="com.zhiyi.falcon.api.dto.DeliveryDataCommunitySearchDto" resultType="int">
+    select count(*) from TB_DELIVERY_DATA_COMMUNITY AS dc,TB_BASE_COMMUNITY AS bc where dc.COMMUNITY_ID = bc.ID
+    <include refid="searchDto_select_conditions" />
+  </select>
+
+  <select id="search" parameterType="com.zhiyi.falcon.api.dto.DeliveryDataCommunitySearchDto" resultMap="BaseResultMap">
+    select dc.*,bc.COMMUNITY_NAME,bc.CITY  from TB_DELIVERY_DATA_COMMUNITY AS dc,TB_BASE_COMMUNITY AS bc where dc.COMMUNITY_ID = bc.ID
+    <include refid="searchDto_select_conditions" />
+  </select>
+
+  <sql id="searchDto_select_conditions">    
+    <if test="communityName !=null and communityName !=''">
+      <![CDATA[AND bc.COMMUNITY_NAME = #{communityName}]]>
+    </if>
+    <if test="city !=null and city !=''">
+      <![CDATA[AND bc.CITY = #{city}]]>
+    </if>
+    <if test="id != null">
+      <![CDATA[AND dc.ID = #{id}]]>
+    </if>
+    <if test="communityId != null and communityId != ''">
+      <![CDATA[ AND dc.COMMUNITY_ID = #{communityId}]]>
+    </if>
+    <if test="deliveryNum != null and deliveryNum != ''">
+      <![CDATA[ AND dc.DELIVERY_NUM = #{deliveryNum}]]>
+    </if>
+    <if test="sectionId !=null and sectionId != ''">
+      <![CDATA[ AND dc.SECTION_ID = #{sectionId}]]>
+    </if>
+    <if test="deliveryStatus != null and deliveryStatus != ''">
+      <![CDATA[ AND dc.DELIVERY_STATUS = #{deliveryStatus}]]>
+    </if>
+    <if test="deliveryTaskId != null and deliveryTaskId !=''">
+      <![CDATA[ AND dc.DELIVERY_TASK_ID = #{deliveryTaskId}]]>
+    </if>
+    <if test="deliveryDt != null ">
+      <![CDATA[ AND dc.DELIVERY_DT = #{deliveryDt}]]>
+    </if>
+    <if test="beginDt != null ">
+      <![CDATA[ AND dc.BEGIN_DT = #{beginDt}]]>
+    </if>
+    <if test="remark != null and remark !='' ">
+      <![CDATA[ AND dc.REMARK = #{remark}]]>
+    </if>
+    <if test="deliveryCity != null and deliveryCity !='' ">
+      <![CDATA[ AND dc.DELIVERY_CITY = #{deliveryCity}]]>
+    </if>
+    <if test="startDate != null ">
+      <![CDATA[ AND dc.DELIVERY_DT >= #{startDate}]]>
+    </if>
+    <if test="endDate != null ">
+      <![CDATA[ AND dc.DELIVERY_DT <= #{endDate}]]>
+    </if>
+  </sql>
+</mapper>

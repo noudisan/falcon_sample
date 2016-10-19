@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.falcon.core.dao.SettleMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyi.falcon.core.model.Settle" >
+      <id column="ID" property="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <result column="USER_ID" property="userId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <result column="NAME" property="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="TASK_ID" property="taskId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <result column="SEND_NUM" property="sendNum" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <result column="SETTLE_AMOUNT" property="settleAmount" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <result column="SETTLE_DATE" property="settleDate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <result column="TOTAL_TIME" property="totalTime" jdbcType="INTEGER" javaType="java.lang.Long" />
+      <result column="COMMUNITY_NUM" property="communityNum" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <result column="BUILDING_NUM" property="buildingNum" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <result column="COMMUNITY_UNIT_NUM" property="communityUnitNum" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="CREATE_DT" property="createDt" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <result column="MODIFY_USER" property="modifyUser" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <result column="MODIFY_DT" property="modifyDt" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <result column="DELIVERY_CITY" property="deliveryCity" jdbcType="VARCHAR" javaType="java.lang.String" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, NAME, TASK_ID, SEND_NUM,  SETTLE_AMOUNT, SETTLE_DATE,  START_TIME,
+    END_TIME, TOTAL_TIME, COMMUNITY_NUM, BUILDING_NUM, COMMUNITY_UNIT_NUM, CREATE_USER, CREATE_DT,
+    MODIFY_USER, MODIFY_DT, DELIVERY_CITY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_SETTLE
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TB_SETTLE
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyi.falcon.core.model.Settle" useGeneratedKeys="true" keyProperty="id" >
+    insert into TB_SETTLE (ID,USER_ID, TASK_ID, NAME, SEND_NUM,
+       SETTLE_AMOUNT, SETTLE_DATE,
+       START_TIME, END_TIME,
+      TOTAL_TIME, COMMUNITY_NUM, BUILDING_NUM,
+      COMMUNITY_UNIT_NUM, CREATE_USER, CREATE_DT, 
+      MODIFY_USER, MODIFY_DT, DELIVERY_CITY)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER},
+     #{name,jdbcType=VARCHAR}, #{sendNum,jdbcType=INTEGER},
+       #{settleAmount,jdbcType=DOUBLE}, #{settleDate,jdbcType=TIMESTAMP},
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
+      #{totalTime,jdbcType=INTEGER}, #{communityNum,jdbcType=INTEGER}, #{buildingNum,jdbcType=INTEGER},
+      #{communityUnitNum,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP},
+      #{modifyUser,jdbcType=VARCHAR}, #{modifyDt,jdbcType=TIMESTAMP}, #{deliveryCity,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyi.falcon.core.model.Settle" >
+    insert into TB_SETTLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="sendNum != null" >
+        SEND_NUM,
+      </if>
+
+      <if test="settleAmount != null" >
+        SETTLE_AMOUNT,
+      </if>
+      <if test="settleDate != null" >
+        SETTLE_DATE,
+      </if>
+
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="totalTime != null" >
+        TOTAL_TIME,
+      </if>
+      <if test="communityNum != null" >
+        COMMUNITY_NUM,
+      </if>
+      <if test="buildingNum != null" >
+        BUILDING_NUM,
+      </if>
+      <if test="communityUnitNum != null" >
+        COMMUNITY_UNIT_NUM,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT,
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER,
+      </if>
+      <if test="modifyDt != null" >
+        MODIFY_DT,
+      </if>
+      <if test="deliveryCity != null and deliveryCity != ''" >
+        DELIVERY_CITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sendNum != null" >
+        #{sendNum,jdbcType=INTEGER},
+      </if>
+
+      <if test="settleAmount != null" >
+        #{settleAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="settleDate != null" >
+        #{settleDate,jdbcType=TIMESTAMP},
+      </if>
+
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalTime != null" >
+        #{totalTime,jdbcType=INTEGER},
+      </if>
+      <if test="communityNum != null" >
+        #{communityNum,jdbcType=INTEGER},
+      </if>
+      <if test="buildingNum != null" >
+        #{buildingNum,jdbcType=INTEGER},
+      </if>
+      <if test="communityUnitNum != null" >
+        #{communityUnitNum,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null" >
+        #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryCity != null and deliveryCity != ''" >
+        #{deliveryCity,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.falcon.core.model.Settle" >
+    update TB_SETTLE
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sendNum != null" >
+        SEND_NUM = #{sendNum,jdbcType=INTEGER},
+      </if>
+
+      <if test="settleAmount != null" >
+        SETTLE_AMOUNT = #{settleAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="settleDate != null" >
+        SETTLE_DATE = #{settleDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalTime != null" >
+        TOTAL_TIME = #{totalTime,jdbcType=INTEGER},
+      </if>
+      <if test="communityNum != null" >
+        COMMUNITY_NUM = #{communityNum,jdbcType=INTEGER},
+      </if>
+      <if test="buildingNum != null" >
+        BUILDING_NUM = #{buildingNum,jdbcType=INTEGER},
+      </if>
+      <if test="communityUnitNum != null" >
+        COMMUNITY_UNIT_NUM = #{communityUnitNum,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null" >
+        MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliveryCity != null and deliveryCity != ''" >
+        DELIVERY_CITY = #{deliveryCity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.falcon.core.model.Settle" >
+    update TB_SETTLE
+    set NAME = #{name,jdbcType=VARCHAR},
+      SEND_NUM = #{sendNum,jdbcType=INTEGER},
+      SETTLE_AMOUNT = #{settleAmount,jdbcType=DOUBLE},
+      SETTLE_DATE = #{settleDate,jdbcType=TIMESTAMP},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      TOTAL_TIME = #{totalTime,jdbcType=INTEGER},
+      COMMUNITY_NUM = #{communityNum,jdbcType=INTEGER},
+      BUILDING_NUM = #{buildingNum,jdbcType=INTEGER},
+      COMMUNITY_UNIT_NUM = #{communityUnitNum,jdbcType=INTEGER},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      DELIVERY_CITY = #{deliveryCity,jdbcType=VARCHAR},
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <sql id="searchDto_select_conditions">
+    <trim prefix="where" prefixOverrides="AND |OR ">
+      <if test="id != null">
+        <![CDATA[ ID = #{id}]]>
+      </if>
+
+      <if test="name != null and name != ''">
+        <![CDATA[ AND NAME = #{name}]]>
+      </if>
+
+      <if test="taskId != null and taskId != ''">
+        <![CDATA[ AND TASK_ID = #{taskId}]]>
+      </if>
+
+      <if test="userId != null and userId != ''">
+        <![CDATA[ AND USER_ID = #{userId}]]>
+      </if>
+
+      <if test="sendNum != null and sendNum != ''">
+        <![CDATA[ AND SEND_NUM = #{sendNum}]]>
+      </if>
+      <if test="settleAmount != null and settleAmount != ''">
+        <![CDATA[ AND SETTLE_AMOUNT = #{settleAmount}]]>
+      </if>
+      <if test="startTime != null ">
+        <![CDATA[ AND START_TIME >= #{startTime}]]>
+      </if>
+      <if test="endTime != null ">
+        <![CDATA[ AND START_TIME <= #{endTime}]]>
+      </if>
+      <if test="deliveryCity != null and deliveryCity != ''">
+        <![CDATA[ AND DELIVERY_CITY = #{deliveryCity}]]>
+      </if>
+
+    </trim>
+  </sql>
+
+  <!--查询总数据条数-->
+  <select id="count" parameterType="com.zhiyi.falcon.api.dto.SettleDto" resultType="java.lang.Integer">
+    SELECT COUNT(*) from TB_SETTLE
+    <include refid="searchDto_select_conditions"/>
+  </select>
+
+  <!--条件搜索-->
+  <select id="search" parameterType="com.zhiyi.falcon.api.dto.SettleDto" resultMap="BaseResultMap">
+    SELECT * from TB_SETTLE
+    <include refid="searchDto_select_conditions"/>
+  </select>
+
+
+</mapper>

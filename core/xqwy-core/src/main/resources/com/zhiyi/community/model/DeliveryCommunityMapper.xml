@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.community.dao.DeliveryCommunityMapper">
+    <resultMap id="BaseResultMap" type="com.zhiyi.community.model.DeliveryCommunity">
+        <constructor>
+            <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="COMMUNITY_CODE" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="ADDRESS" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="AREA" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CITY" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="COMMUNITY_NAME" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="LATITUDE" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+            <arg column="LONGITUDE" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+            <arg column="PINYIN_CODE" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="POSTCODE" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="REMARKS" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="DELIVERY_SECTION_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="STATUS_FLAG" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="ELEVATOR_FLAG" jdbcType="TINYINT" javaType="java.lang.String"/>
+            <arg column="HOUSEHOLDS" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="PRICES" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="MODIFY_YEARS" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="COMMUNITY_TYPE" jdbcType="TINYINT" javaType="java.lang.String"/>
+            <arg column="SECTION" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="BUILD_TYPE" jdbcType="INTEGER" javaType="java.lang.String"/>
+            <arg column="FUN_TYPE" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="MODIFY_USER" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="MODIFY_DT" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="CREATE_USER" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CREATE_DT" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, COMMUNITY_CODE, ADDRESS, AREA, CITY, COMMUNITY_NAME, LATITUDE, LONGITUDE, PINYIN_CODE, 
+    POSTCODE, REMARKS, DELIVERY_SECTION_ID, STATUS_FLAG, ELEVATOR_FLAG, HOUSEHOLDS, PRICES, 
+    MODIFY_YEARS, COMMUNITY_TYPE, SECTION, BUILD_TYPE, FUN_TYPE,  MODIFY_USER,
+    MODIFY_DT, CREATE_USER, CREATE_DT
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from TB_BASE_COMMUNITY
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from TB_BASE_COMMUNITY
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zhiyi.community.model.DeliveryCommunity">
+    insert into TB_BASE_COMMUNITY (ID, COMMUNITY_CODE, ADDRESS, 
+      AREA, CITY, COMMUNITY_NAME, 
+      LATITUDE, LONGITUDE, PINYIN_CODE, 
+      POSTCODE, REMARKS, DELIVERY_SECTION_ID, 
+      STATUS_FLAG, ELEVATOR_FLAG, HOUSEHOLDS, 
+      PRICES, MODIFY_YEARS, COMMUNITY_TYPE, 
+      SECTION, BUILD_TYPE, FUN_TYPE, 
+      MODIFY_USER, MODIFY_DT,
+      CREATE_USER, CREATE_DT)
+    values (#{id,jdbcType=INTEGER}, #{communityCode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{communityName,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=DOUBLE}, #{longitude,jdbcType=DOUBLE}, #{pinyinCode,jdbcType=VARCHAR}, 
+      #{postcode,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{deliverySectionId,jdbcType=INTEGER}, 
+      #{statusFlag,jdbcType=VARCHAR}, #{elevatorFlag,jdbcType=VARCHAR}, #{households,jdbcType=INTEGER},
+      #{prices,jdbcType=INTEGER}, #{modifyYears,jdbcType=VARCHAR}, #{communityType,jdbcType=VARCHAR},
+      #{section,jdbcType=VARCHAR}, #{buildType,jdbcType=VARCHAR}, #{funType,jdbcType=VARCHAR},
+      #{modifyUser,jdbcType=VARCHAR}, #{modifyDt,jdbcType=TIMESTAMP},
+      #{createUser,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.zhiyi.community.model.DeliveryCommunity">
+        insert into TB_BASE_COMMUNITY
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="communityCode != null">
+                COMMUNITY_CODE,
+            </if>
+            <if test="address != null">
+                ADDRESS,
+            </if>
+            <if test="area != null">
+                AREA,
+            </if>
+            <if test="city != null">
+                CITY,
+            </if>
+            <if test="communityName != null">
+                COMMUNITY_NAME,
+            </if>
+            <if test="latitude != null">
+                LATITUDE,
+            </if>
+            <if test="longitude != null">
+                LONGITUDE,
+            </if>
+            <if test="pinyinCode != null">
+                PINYIN_CODE,
+            </if>
+            <if test="postcode != null">
+                POSTCODE,
+            </if>
+            <if test="remarks != null">
+                REMARKS,
+            </if>
+            <if test="deliverySectionId != null">
+                DELIVERY_SECTION_ID,
+            </if>
+            <if test="statusFlag != null">
+                STATUS_FLAG,
+            </if>
+            <if test="elevatorFlag != null">
+                ELEVATOR_FLAG,
+            </if>
+            <if test="households != null">
+                HOUSEHOLDS,
+            </if>
+            <if test="prices != null">
+                PRICES,
+            </if>
+            <if test="modifyYears != null">
+                MODIFY_YEARS,
+            </if>
+            <if test="communityType != null">
+                COMMUNITY_TYPE,
+            </if>
+            <if test="section != null">
+                SECTION,
+            </if>
+            <if test="buildType != null">
+                BUILD_TYPE,
+            </if>
+            <if test="funType != null">
+                FUN_TYPE,
+            </if>
+            <if test="modifyUser != null">
+                MODIFY_USER,
+            </if>
+            <if test="modifyDt != null">
+                MODIFY_DT,
+            </if>
+            <if test="createUser != null">
+                CREATE_USER,
+            </if>
+            <if test="createDt != null">
+                CREATE_DT,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="communityCode != null">
+                #{communityCode,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="communityName != null">
+                #{communityName,jdbcType=VARCHAR},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=DOUBLE},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=DOUBLE},
+            </if>
+            <if test="pinyinCode != null">
+                #{pinyinCode,jdbcType=VARCHAR},
+            </if>
+            <if test="postcode != null">
+                #{postcode,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="deliverySectionId != null">
+                #{deliverySectionId,jdbcType=INTEGER},
+            </if>
+            <if test="statusFlag != null">
+                #{statusFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="elevatorFlag != null">
+                #{elevatorFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="households != null">
+                #{households,jdbcType=INTEGER},
+            </if>
+            <if test="prices != null">
+                #{prices,jdbcType=INTEGER},
+            </if>
+            <if test="modifyYears != null">
+                #{modifyYears,jdbcType=VARCHAR},
+            </if>
+            <if test="communityType != null">
+                #{communityType,jdbcType=VARCHAR},
+            </if>
+            <if test="section != null">
+                #{section,jdbcType=VARCHAR},
+            </if>
+            <if test="buildType != null">
+                #{buildType,jdbcType=VARCHAR},
+            </if>
+            <if test="funType != null">
+                #{funType,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyUser != null">
+                #{modifyUser,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyDt != null">
+                #{modifyDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDt != null">
+                #{createDt,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.community.model.DeliveryCommunity">
+        update TB_BASE_COMMUNITY
+        <set>
+            <if test="communityCode != null">
+                COMMUNITY_CODE = #{communityCode,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                ADDRESS = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="area != null">
+                AREA = #{area,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                CITY = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="communityName != null">
+                COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+            </if>
+            <if test="latitude != null">
+                LATITUDE = #{latitude,jdbcType=DOUBLE},
+            </if>
+            <if test="longitude != null">
+                LONGITUDE = #{longitude,jdbcType=DOUBLE},
+            </if>
+            <if test="pinyinCode != null">
+                PINYIN_CODE = #{pinyinCode,jdbcType=VARCHAR},
+            </if>
+            <if test="postcode != null">
+                POSTCODE = #{postcode,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                REMARKS = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="deliverySectionId != null">
+                DELIVERY_SECTION_ID = #{deliverySectionId,jdbcType=INTEGER},
+            </if>
+            <if test="statusFlag != null">
+                STATUS_FLAG = #{statusFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="elevatorFlag != null">
+                ELEVATOR_FLAG = #{elevatorFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="households != null">
+                HOUSEHOLDS = #{households,jdbcType=INTEGER},
+            </if>
+            <if test="prices != null">
+                PRICES = #{prices,jdbcType=INTEGER},
+            </if>
+            <if test="modifyYears != null">
+                MODIFY_YEARS = #{modifyYears,jdbcType=VARCHAR},
+            </if>
+            <if test="communityType != null">
+                COMMUNITY_TYPE = #{communityType,jdbcType=VARCHAR},
+            </if>
+            <if test="section != null">
+                SECTION = #{section,jdbcType=VARCHAR},
+            </if>
+            <if test="buildType != null">
+                BUILD_TYPE = #{buildType,jdbcType=VARCHAR},
+            </if>
+            <if test="funType != null">
+                FUN_TYPE = #{funType,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyUser != null">
+                MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyDt != null">
+                MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                CREATE_USER = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDt != null">
+                CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zhiyi.community.model.DeliveryCommunity">
+    update TB_BASE_COMMUNITY
+    set COMMUNITY_CODE = #{communityCode,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      AREA = #{area,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+      LATITUDE = #{latitude,jdbcType=DOUBLE},
+      LONGITUDE = #{longitude,jdbcType=DOUBLE},
+      PINYIN_CODE = #{pinyinCode,jdbcType=VARCHAR},
+      POSTCODE = #{postcode,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      DELIVERY_SECTION_ID = #{deliverySectionId,jdbcType=INTEGER},
+      STATUS_FLAG = #{statusFlag,jdbcType=VARCHAR},
+      ELEVATOR_FLAG = #{elevatorFlag,jdbcType=VARCHAR},
+      HOUSEHOLDS = #{households,jdbcType=INTEGER},
+      PRICES = #{prices,jdbcType=INTEGER},
+      MODIFY_YEARS = #{modifyYears,jdbcType=VARCHAR},
+      COMMUNITY_TYPE = #{communityType,jdbcType=VARCHAR},
+      SECTION = #{section,jdbcType=VARCHAR},
+      BUILD_TYPE = #{buildType,jdbcType=VARCHAR},
+      FUN_TYPE = #{funType,jdbcType=VARCHAR},
+      MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+    <sql id="searchDto_select_conditions">
+        <trim prefix="where" prefixOverrides="AND |OR ">
+            <if test="id != null">
+                <![CDATA[ ID = #{id}]]>
+            </if>
+            <if test="communityCode != null and communityCode != ''">
+                <![CDATA[ AND COMMUNITY_CODE = #{communityCode}]]>
+            </if>
+            <if test="address != null and address != ''">
+                <![CDATA[ AND ADDRESS like concat('%', #{address}, '%')]]>
+            </if>
+            <if test="area != null and area != ''">
+                <![CDATA[ AND AREA = #{area}]]>
+            </if>
+            <if test="city != null and city != ''">
+                <![CDATA[ AND CITY = #{city}]]>
+            </if>
+            <if test="communityName != null and communityName != ''">
+                <![CDATA[ AND COMMUNITY_NAME = #{communityName}]]>
+            </if>
+            <if test="pinyinCode != null and pinyinCode != ''">
+                <![CDATA[ AND PINYIN_CODE = #{pinyinCode}]]>
+            </if>
+            <if test="buildType != null and buildType != ''">
+                <![CDATA[ AND BUILD_TYPE = #{buildType}]]>
+            </if>
+            <if test="funType != null and funType != ''">
+                <![CDATA[ AND FUN_TYPE like concat('%', #{funType}, '%')]]>
+            </if>
+
+            <if test="section != null and section != '' ">
+                <![CDATA[ AND SECTION = #{section}]]>
+            </if>
+            <if test="deliverySectionId != null  ">
+                <![CDATA[ AND DELIVERY_SECTION_ID = #{deliverySectionId}]]>
+            </if>
+        </trim>
+    </sql>
+
+    <select id="search" parameterType="com.zhiyi.community.dto.DeliveryCommunitySearchDto" resultMap="BaseResultMap">
+        SELECT * from TB_BASE_COMMUNITY
+        <include refid="searchDto_select_conditions"></include>
+    </select>
+
+    <select id="count" parameterType="com.zhiyi.community.dto.DeliveryCommunitySearchDto" resultType="int">
+        SELECT count(*) from TB_BASE_COMMUNITY
+        <include refid="searchDto_select_conditions"></include>
+    </select>
+
+    <update id="resetSectionId" parameterType="int">
+     <![CDATA[
+
+          update TB_BASE_COMMUNITY set DELIVERY_SECTION_ID = 0  where DELIVERY_SECTION_ID =#{sectionId}
+
+        ]]>
+  </update>
+
+    <select id="searchNearbyCommunity" parameterType="com.zhiyi.community.dto.CommunityExportSearchDto"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM TB_BASE_COMMUNITY
+        WHERE LONGITUDE BETWEEN #{ltLongOffset} AND #{gtLongOffset} AND LATITUDE BETWEEN #{ltLatOffset} AND
+        #{gtLatOffset};
+    </select>
+
+
+</mapper>

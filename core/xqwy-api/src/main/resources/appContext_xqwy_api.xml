@@ -1,0 +1,30 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="deliveryCityService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="${hessian.remote.core.url}/deliveryCityService"/>
+        <property name="serviceInterface" value="com.zhiyi.city.api.IBaseCityService"/>
+    </bean>
+    <bean id="deliveryCommunityService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="${hessian.remote.core.url}/deliveryCommunityService"/>
+        <property name="serviceInterface" value="com.zhiyi.community.api.IDeliveryCommunityService"/>
+    </bean>
+    <bean id="deliveryCommunityBuildingService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="${hessian.remote.core.url}/deliveryCommunityBuildingService"/>
+        <property name="serviceInterface" value="com.zhiyi.communitybuilding.api.IDeliveryCommunityBuildingService"/>
+    </bean>
+    <bean id="deliveryCommunityUnitService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="${hessian.remote.core.url}/deliveryCommunityUnitService"/>
+        <property name="serviceInterface" value="com.zhiyi.communityunit.api.IDeliveryCommunityUnitService"/>
+    </bean>
+    <bean id="deliverySectionService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="${hessian.remote.core.url}/deliverySectionService"/>
+        <property name="serviceInterface" value="com.zhiyi.section.api.IDeliverySectionService"/>
+    </bean>
+    <bean id="adminSectionProxyService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="${hessian.remote.core.url}/adminSectionProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.section.api.IAdminSectionService"/>
+    </bean>
+</beans>

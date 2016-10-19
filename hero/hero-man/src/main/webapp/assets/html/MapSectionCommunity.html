@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript"
+	src="http://api.map.baidu.com/api?v=1.5&ak=C49aedf9309001fdbdca805ab3952023"></script>
+<title>地址</title>
+<style type="text/css">
+body,html,#containerSectionCommunity {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	margin: 0;
+}
+</style>
+</head>
+<body>
+	<div id="containerSectionCommunity"></div>
+</body>
+</html>
+<script type="text/javascript">
+	var map = null;
+	if(!map){
+		map = new BMap.Map("containerSectionCommunity");
+	}
+	map.enableScrollWheelZoom();//启用滚轮放大缩小，默认禁用
+	map.enableContinuousZoom();//启用地图惯性拖拽，默认禁用
+	map.addControl(new BMap.NavigationControl());//添加默认缩放平移控件
+	
+	var polygon = null;
+	var isNeedDisplayMarker = true;
+	var p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12;
+	var marker1 ,marker2,marker3,marker4,marker5,marker6,marker7,marker8,marker9,marker10,marker11,marker12;
+	var centerLng,centerLat;
+	var clickLng = 0,clickLat = 0;
+	var clickPoint = 0;
+	    
+	//初始化各个点
+	var d = 0.005;
+	var pi = Math.PI;
+	var duobian = 12;
+	var wholePoints = null;
+	
+	drawPolygon = function(){
+		if(null != polygon){
+			map.removeOverlay(polygon);
+		}
+		polygon = new BMap.Polygon([ p1, p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12 ], {strokeColor:"#f50704",fillColor:"#a1cde6", strokeWeight:3, strokeOpacity:0,fillOpacity:0,});  
+	    map.addOverlay(polygon);
+	};
+	
+	createPoint = function(lng , lat ,index){
+		if(1 == index){
+			p1 = new BMap.Point(lng, lat);
+		}else if(2 == index){
+			p2 = new BMap.Point(lng, lat);
+		}else if(3 == index){
+			p3 = new BMap.Point(lng, lat);
+		}else if(4 == index){
+			p4 = new BMap.Point(lng, lat);
+		}else if(5 == index){
+			p5 = new BMap.Point(lng, lat);
+		}else if(6 == index){
+			p6 = new BMap.Point(lng, lat);
+		}else if(7 == index){
+			p7 = new BMap.Point(lng, lat);
+		}else if(8 == index){
+			p8 = new BMap.Point(lng, lat);
+		}else if(9 == index){
+			p9 = new BMap.Point(lng, lat);
+		}else if(10 == index){
+			p10 = new BMap.Point(lng, lat);
+		}else if(11 == index){
+			p11 = new BMap.Point(lng, lat);
+		}else if(12 == index){
+			p12 = new BMap.Point(lng, lat);
+		}
+		if(null != wholePoints && "" != wholePoints){
+			var i = index-1;
+			wholePoints[i].lat = lat;
+			wholePoints[i].lng = lng;
+		}
+	};
+	
+	addMarker = function(marker,index){
+    	if(!isNeedDisplayMarker){
+    		return;
+    	}
+    	if(null != marker){
+    		map.addOverlay(marker);	
+    		marker.enableDragging();
+        	marker.addEventListener("dragend", function(e){
+        		var longitude = e.point.lng;
+        		var latitude = e.point.lat;
+        		createPoint(longitude,latitude,index);
+       	    	drawPolygon();
+       	    });
+    	}
+    };
+   
+    create15Points = function(){
+    	p1 = new BMap.Point(lng1, lat1);
+		marker1 = new BMap.Marker(p1);
+		p2 = new BMap.Point(lng2, lat2);
+		marker2 = new BMap.Marker(p2);
+		p3 = new BMap.Point(lng3, lat3);
+		marker3 = new BMap.Marker(p3);
+		p4 = new BMap.Point(lng4, lat4);
+		marker4 = new BMap.Marker(p4);
+		p5 = new BMap.Point(lng5, lat5);
+		marker5 = new BMap.Marker(p5);
+		p6 = new BMap.Point(lng6, lat6);
+		marker6 = new BMap.Marker(p6);
+		p7 = new BMap.Point(lng7, lat7);
+		marker7 = new BMap.Marker(p7);
+		p8 = new BMap.Point(lng8, lat8);
+		marker8 = new BMap.Marker(p8);
+		p9 = new BMap.Point(lng9, lat9);
+		marker9 = new BMap.Marker(p9);
+		p10 = new BMap.Point(lng10, lat10);
+		marker10 = new BMap.Marker(p10);
+		p11 = new BMap.Point(lng11, lat11);
+		marker11 = new BMap.Marker(p11);
+		p12 = new BMap.Point(lng12, lat12);
+		marker12 = new BMap.Marker(p12);
+    }
+    
+    create15Marker = function(){
+    	addMarker(marker1,1);
+	    addMarker(marker2,2);
+	    addMarker(marker3,3);
+	    addMarker(marker4,4);
+	    addMarker(marker5,5);
+	    addMarker(marker6,6);
+	    addMarker(marker7,7);
+	    addMarker(marker8,8);
+	    addMarker(marker9,9);
+	    addMarker(marker10,10);
+	    addMarker(marker11,11);
+	    addMarker(marker12,12);
+    }
+   
+ 	initPolygonWithNoData = function(clickLng,clickLat){
+	 	lat1 = clickLat + d * Math.cos(2*pi/duobian);
+		lng1 = clickLng + d * Math.sin(2*pi/duobian);
+		var sp1 = new SectionPoint(-1,1,lng1,lat1);
+		wholePoints[0] = sp1;
+		
+		lat2 = clickLat + d * Math.cos(2*pi/duobian*2);
+		lng2 = clickLng + d * Math.sin(2*pi/duobian*2);
+		var sp2 = new SectionPoint(-1,2,lng1,lat1);
+		wholePoints[1] = sp2;
+		
+		lat3 = clickLat + d * Math.cos(2*pi/duobian*3);
+		lng3 = clickLng + d * Math.sin(2*pi/duobian*3);
+		var sp3 = new SectionPoint(-1,3,lng3,lat3);
+		wholePoints[2] = sp3;
+		
+		lat4 = clickLat + d * Math.cos(2*pi/duobian*4);
+		lng4 = clickLng + d * Math.sin(2*pi/duobian*4);
+		var sp4 = new SectionPoint(-1,4,lng4,lat4);
+		wholePoints[3] = sp4;
+		
+		lat5 = clickLat + d * Math.cos(2*pi/duobian*5);
+		lng5 = clickLng + d * Math.sin(2*pi/duobian*5);
+		var sp5 = new SectionPoint(-1,5,lng5,lat5);
+		wholePoints[4] = sp5;
+		
+		lat6 = clickLat + d * Math.cos(2*pi/duobian*6);
+		lng6 = clickLng + d * Math.sin(2*pi/duobian*6);
+		var sp6 = new SectionPoint(-1,6,lng6,lat6);
+		wholePoints[5] = sp6;
+		
+		lat7 = clickLat + d * Math.cos(2*pi/duobian*7);
+		lng7 = clickLng + d * Math.sin(2*pi/duobian*7);
+		var sp7 = new SectionPoint(-1,7,lng7,lat7);
+		wholePoints[6] = sp7;
+		
+		lat8 = clickLat + d * Math.cos(2*pi/duobian*8);
+		lng8 = clickLng + d * Math.sin(2*pi/duobian*8);
+		var sp8 = new SectionPoint(-1,8,lng8,lat8);
+		wholePoints[7] = sp8;
+		
+		lat9 = clickLat + d * Math.cos(2*pi/duobian*9);
+		lng9 = clickLng + d * Math.sin(2*pi/duobian*9);
+		var sp9 = new SectionPoint(-1,9,lng9,lat9);
+		wholePoints[8] = sp9;
+		
+		lat10 = clickLat + d * Math.cos(2*pi/duobian*10);
+		lng10 = clickLng + d * Math.sin(2*pi/duobian*10);
+		var sp10 = new SectionPoint(-1,10,lng10,lat10);
+		wholePoints[9] = sp10;
+		
+		lat11 = clickLat + d * Math.cos(2*pi/duobian*11);
+		lng11 = clickLng + d * Math.sin(2*pi/duobian*11);
+		var sp11 = new SectionPoint(-1,11,lng11,lat11);
+		wholePoints[10] = sp11;
+		
+		lat12 = clickLat + d * Math.cos(2*pi/duobian*12);
+		lng12 = clickLng + d * Math.sin(2*pi/duobian*12);
+		var sp12 = new SectionPoint(-1,12,lng12,lat12);
+		wholePoints[11] = sp12;
+		
+		create15Points();
+		drawPolygon();
+		create15Marker();
+ 	};
+ 	getPointsLngLat = function(points){
+ 		lng1 = points[0].lng;
+		lat1 = points[0].lat;
+		lng2 = points[1].lng;
+		lat2 = points[1].lat;
+		lng3 = points[2].lng;
+		lat3 = points[2].lat;
+		lng4 = points[3].lng;
+		lat4 = points[3].lat;
+		lng5 = points[4].lng;
+		lat5 = points[4].lat;
+		lng6 = points[5].lng;
+		lat6 = points[5].lat;
+		lng7 = points[6].lng;
+		lat7 = points[6].lat;
+		lng8 = points[7].lng;
+		lat8 = points[7].lat;
+		lng9 = points[8].lng;
+		lat9 = points[8].lat;
+		lng10 = points[9].lng;
+		lat10 = points[9].lat;
+		lng11 = points[10].lng;
+		lat11 = points[10].lat;
+		lng12 = points[11].lng;
+		lat12 = points[11].lat;
+ 	};
+ 	addLabel = function(point,tips){
+ 		var opts = {
+				position : point,    // 指定文本标注所在的地理位置
+				offset   : new BMap.Size(10, -30)    //设置文本偏移量
+		  }
+      var label = new BMap.Label(tips, opts);  // 创建文本标注对象
+	  label.setStyle({
+			 color : "red",
+			 fontSize : "12px",
+			 height : "20px",
+			 lineHeight : "20px",
+			 fontFamily:"微软雅黑"
+	  });
+	  map.addOverlay(label);
+ 	};
+ 	getLocationByAddress = function(address,city,sectionName,isNeedToDraw){
+ 		var myGeo = new BMap.Geocoder();
+		myGeo.getPoint(address, function(point){
+		  if (point) {
+		      map.centerAndZoom(point, 14);
+		      map.addOverlay(new BMap.Marker(point));
+		      var tips = sectionName;
+			  addLabel(point,tips);
+			  if(isNeedToDraw){
+				  initPolygonWithNoData(point.lng,point.lat);
+			  }
+		  }
+		}, city);
+ 	};
+ 	getLocationByLngLat = function(sectionLng,sectionLat,sectionName,isNeedToDraw){
+ 		var point = new BMap.Point(sectionLng,sectionLat);
+		map.centerAndZoom(point,14);
+		map.addOverlay(new BMap.Marker(point));
+		var tips = sectionName;
+		addLabel(point,tips);
+		if(isNeedToDraw){
+			initPolygonWithNoData(sectionLng,sectionLat);
+		}
+ 	}
+	locate = function(points,params){
+		map.clearOverlays();
+		var city = params[0];
+		var address = params[1];
+		var sectionName = params[2];
+		var sectionLng = params[3];
+		var sectionLat = params[4];
+		wholePoints = points;
+		if(null == points || "" == points){
+			if(null == sectionLng || 0 == sectionLng || null == sectionLat || 0 == sectionLat){
+				getLocationByAddress(city,address,sectionName,true);
+			}else{
+				getLocationByLngLat(sectionLng,sectionLat,sectionName,true);
+			}
+			
+		}else{
+			if(null == sectionLng || 0 == sectionLng || null == sectionLat || 0 == sectionLat){
+				getLocationByAddress(city,address,sectionName,false);
+			}else{
+				getLocationByLngLat(sectionLng,sectionLat,sectionName,false);
+			}
+			getPointsLngLat(points);
+			create15Points();
+			drawPolygon();
+			create15Marker();
+		}
+	};
+	clearOverlays = function(){
+		map.clearOverlays();
+	};
+	getPoints = function(){
+		return wholePoints;
+	};
+	
+	function SectionPoint(id,index,lng,lat){
+	    this.id=id,
+	    this.index=index,
+	    this.lng=lng,
+	    this.lat=lat,
+	    this.getId=function(){
+	        return this.id;
+	    },
+	    this.getIndex=function(){
+	        return this.index;
+	    },
+	    this.getLng=function(){
+	        return this.lng;
+	    },
+	    this.getLat=function(){
+	        return this.lat;
+	    }
+	}
+</script>

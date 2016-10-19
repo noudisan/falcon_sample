@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.falcon.core.dao.DeliveryVersionMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyi.falcon.core.model.DeliveryVersion" >
+    <constructor >
+      <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="VERSION_CODE" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="VERSION_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SYSTEM_TYPE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UPDATE_CONTENT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="IS_FORCE_UPDATE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MODIFY_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MODIFY_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CREATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, VERSION_CODE, VERSION_NAME, SYSTEM_TYPE, UPDATE_CONTENT, IS_FORCE_UPDATE, MODIFY_USER,
+    MODIFY_DT, CREATE_USER, CREATE_DT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from TB_DELIVERY_VERSION
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TB_DELIVERY_VERSION
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyi.falcon.core.model.DeliveryVersion" >
+    insert into TB_DELIVERY_VERSION (ID, VERSION_CODE, VERSION_NAME,
+    SYSTEM_TYPE, UPDATE_CONTENT, IS_FORCE_UPDATE,
+    MODIFY_USER, MODIFY_DT, CREATE_USER,
+    CREATE_DT)
+    values (#{id,jdbcType=INTEGER}, #{versionCode,jdbcType=INTEGER}, #{versionName,jdbcType=VARCHAR},
+    #{systemType,jdbcType=VARCHAR}, #{updateContent,jdbcType=VARCHAR}, #{isForceUpdate,jdbcType=VARCHAR},
+    #{modifyUser,jdbcType=VARCHAR}, #{modifyDt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR},
+    #{createDt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyi.falcon.core.model.DeliveryVersion" >
+    insert into TB_DELIVERY_VERSION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="versionCode != null" >
+        VERSION_CODE,
+      </if>
+      <if test="versionName != null" >
+        VERSION_NAME,
+      </if>
+      <if test="systemType != null" >
+        SYSTEM_TYPE,
+      </if>
+      <if test="updateContent != null" >
+        UPDATE_CONTENT,
+      </if>
+      <if test="isForceUpdate != null" >
+        IS_FORCE_UPDATE,
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER,
+      </if>
+      <if test="modifyDt != null" >
+        MODIFY_DT,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="versionCode != null" >
+        #{versionCode,jdbcType=INTEGER},
+      </if>
+      <if test="versionName != null" >
+        #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemType != null" >
+        #{systemType,jdbcType=VARCHAR},
+      </if>
+      <if test="updateContent != null" >
+        #{updateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isForceUpdate != null" >
+        #{isForceUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null" >
+        #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.falcon.core.model.DeliveryVersion" >
+    update TB_DELIVERY_VERSION
+    <set >
+      <if test="versionCode != null" >
+        VERSION_CODE = #{versionCode,jdbcType=INTEGER},
+      </if>
+      <if test="versionName != null" >
+        VERSION_NAME = #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="systemType != null" >
+        SYSTEM_TYPE = #{systemType,jdbcType=VARCHAR},
+      </if>
+      <if test="updateContent != null" >
+        UPDATE_CONTENT = #{updateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isForceUpdate != null" >
+        IS_FORCE_UPDATE = #{isForceUpdate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null" >
+        MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.falcon.core.model.DeliveryVersion" >
+    update TB_DELIVERY_VERSION
+    set VERSION_CODE = #{versionCode,jdbcType=INTEGER},
+    VERSION_NAME = #{versionName,jdbcType=VARCHAR},
+    SYSTEM_TYPE = #{systemType,jdbcType=VARCHAR},
+    UPDATE_CONTENT = #{updateContent,jdbcType=VARCHAR},
+    IS_FORCE_UPDATE = #{isForceUpdate,jdbcType=VARCHAR},
+    MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+    MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+    CREATE_USER = #{createUser,jdbcType=VARCHAR},
+    CREATE_DT = #{createDt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <sql id="searchDto_select_conditions">
+    <trim prefix="where" prefixOverrides="AND |OR ">
+      <if test="versionCode != null" >
+        <![CDATA[ VERSION_CODE = #{versionCode}]]>
+      </if>
+      <if test="versionName != null and versionName != ''" >
+        <![CDATA[ AND VERSION_NAME = #{versionName}]]>
+      </if>
+      <if test="systemType != null and systemType != ''" >
+        <![CDATA[ AND SYSTEM_TYPE = #{systemType}]]>
+      </if>
+      <if test="updateContent != null and updateContent != ''" >
+        <![CDATA[ AND UPDATE_CONTENT = #{updateContent}]]>
+      </if>
+      <if test="isForceUpdate != null and isForceUpdate != ''" >
+        <![CDATA[ AND IS_FORCE_UPDATE = #{isForceUpdate}]]>
+      </if>
+      <if test="modifyUser != null and modifyUser != ''" >
+        <![CDATA[ AND MODIFY_USER = #{modifyUser}]]>
+      </if>
+      <if test="modifyDt != null and modifyDt != ''" >
+        <![CDATA[ AND MODIFY_DT = #{modifyDt}]]>
+      </if>
+      <if test="createUser != null and createUser != ''" >
+        <![CDATA[ AND CREATE_USER = #{createUser}]]>
+      </if>
+      <if test="createDt != null and createDt != ''" >
+        <![CDATA[ AND CREATE_DT = #{createDt}]]>
+      </if>
+    </trim>
+  </sql>
+
+
+  <select id="search" parameterType="com.zhiyi.falcon.api.dto.DeliveryVersionSearchDto"  resultMap="BaseResultMap">
+    SELECT * FROM TB_DELIVERY_VERSION
+    <include refid="searchDto_select_conditions" />
+  </select>
+
+  <select id="count" parameterType="com.zhiyi.falcon.api.dto.DeliveryVersionSearchDto"  resultType="int">
+    SELECT COUNT(*) FROM TB_DELIVERY_VERSION
+    <include refid="searchDto_select_conditions" />
+  </select>
+
+  <select id="selectByDeviceType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from TB_DELIVERY_VERSION
+    where SYSTEM_TYPE = #{systemType,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

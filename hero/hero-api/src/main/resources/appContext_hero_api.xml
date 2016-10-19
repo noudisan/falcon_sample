@@ -1,0 +1,13 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="heroStatelessLoginService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="${hessian.remote.hero_url}/heroStatelessLoginService"/>
+        <property name="serviceInterface" value="com.zhiyi.hero.user.api.IHeroStatelessLoginService"/>
+    </bean>
+
+
+</beans>

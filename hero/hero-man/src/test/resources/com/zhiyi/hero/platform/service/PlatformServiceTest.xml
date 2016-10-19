@@ -1,0 +1,22 @@
+<dataset>
+    <table name="TB_SYS_PLATFORM">
+        <column>ID</column>
+        <column>NAME</column>
+        <column>URL</column>
+        <column>SECRET_KEY</column>
+        <column>CREATE_USER</column>
+        <column>CREATE_DT</column>
+        <column>MODIFY_USER</column>
+        <column>MODIFY_DT</column>
+        <row>
+            <value>112</value>
+            <value>hero</value>
+            <value>/hero/admin</value>
+            <value>123456</value>
+            <value>admin</value>
+            <value>2014-08-11 08:00:00</value>
+            <value>wolf</value>
+            <value>2014-08-11 08:00:00</value>
+        </row>
+    </table>
+</dataset>

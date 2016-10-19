@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.falcon.core.dao.AllowanceMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyi.falcon.core.model.Allowance" >
+    <constructor >
+      <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SETTLE_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="USER_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="USER_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TASK_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ALLOWANCE_TYPE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ALLOWANCE_AMOUNT" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="CREATE_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CREATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, SETTLE_ID, USER_ID, USER_NAME, TASK_ID, ALLOWANCE_TYPE, ALLOWANCE_AMOUNT, CREATE_DT, 
+    CREATE_USER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_ALLOWANCE
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TB_ALLOWANCE
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyi.falcon.core.model.Allowance" >
+    insert into TB_ALLOWANCE (ID, SETTLE_ID, USER_ID, 
+      USER_NAME, TASK_ID, ALLOWANCE_TYPE, 
+      ALLOWANCE_AMOUNT, CREATE_DT, CREATE_USER
+      )
+    values (#{id,jdbcType=INTEGER}, #{settleId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{userName,jdbcType=VARCHAR}, #{taskId,jdbcType=INTEGER}, #{allowanceType,jdbcType=VARCHAR}, 
+      #{allowanceAmount,jdbcType=DOUBLE}, #{createDt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyi.falcon.core.model.Allowance" >
+    insert into TB_ALLOWANCE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="settleId != null" >
+        SETTLE_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="taskId != null" >
+        TASK_ID,
+      </if>
+      <if test="allowanceType != null" >
+        ALLOWANCE_TYPE,
+      </if>
+      <if test="allowanceAmount != null" >
+        ALLOWANCE_AMOUNT,
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="settleId != null" >
+        #{settleId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="allowanceType != null" >
+        #{allowanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="allowanceAmount != null" >
+        #{allowanceAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.falcon.core.model.Allowance" >
+    update TB_ALLOWANCE
+    <set >
+      <if test="settleId != null" >
+        SETTLE_ID = #{settleId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null" >
+        TASK_ID = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="allowanceType != null" >
+        ALLOWANCE_TYPE = #{allowanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="allowanceAmount != null" >
+        ALLOWANCE_AMOUNT = #{allowanceAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.falcon.core.model.Allowance" >
+    update TB_ALLOWANCE
+    set SETTLE_ID = #{settleId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      TASK_ID = #{taskId,jdbcType=INTEGER},
+      ALLOWANCE_TYPE = #{allowanceType,jdbcType=VARCHAR},
+      ALLOWANCE_AMOUNT = #{allowanceAmount,jdbcType=DOUBLE},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+  <!--sql查询条件-->
+  <sql id="searchDto_select_conditions">
+    <trim prefix="where" prefixOverrides="AND |OR ">
+      <if test="id != null">
+        <![CDATA[ ID = #{id}]]>
+      </if>
+      <if test="settleId != null and settleId != ''">
+        <![CDATA[ AND SETTLE_ID = #{settleId}]]>
+      </if>
+      <if test="userId != null and userId != ''">
+        <![CDATA[ AND USER_ID = #{userId}]]>
+      </if>
+      <if test="userName != null and userName != ''">
+        <![CDATA[ AND USER_NAME = #{userName}]]>
+      </if>
+      <if test="taskId != null and taskId != ''">
+        <![CDATA[ AND TASK_ID = #{taskId}]]>
+      </if>
+      <if test="allowanceType != null ">
+        <![CDATA[ AND ALLOWANCE_TYPE = #{allowanceType}]]>
+      </if>
+      <if test="allowanceAmount != null and allowanceAmount !=''">
+        <![CDATA[ AND ALLOWANCE_AMOUNT = #{allowanceAmount}]]>
+      </if>
+      <if test="createDt != null ">
+        <![CDATA[ AND CREATE_DT = #{createDt}]]>
+      </if>
+      <if test="createUser != null and createUser != ''">
+        <![CDATA[ AND CREATE_USER = #{createUser}]]>
+      </if>
+    </trim>
+  </sql>
+
+  <!--根据条件查询-->
+  <select id="search" parameterType="com.zhiyi.falcon.api.dto.AllowanceDto" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from TB_ALLOWANCE
+    <include refid="searchDto_select_conditions"/>
+  </select>
+
+  <!--查询数据总条数-->
+  <select id="count" parameterType="com.zhiyi.falcon.api.dto.AllowanceDto" resultType="Integer">
+    SELECT count(ID) from TB_ALLOWANCE
+    <include refid="searchDto_select_conditions"/>
+  </select>
+
+
+</mapper>

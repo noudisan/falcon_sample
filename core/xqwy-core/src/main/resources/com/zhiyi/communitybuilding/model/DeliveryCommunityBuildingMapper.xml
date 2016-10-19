@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.communitybuilding.dao.DeliveryCommunityBuildingMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyi.communitybuilding.model.DeliveryCommunityBuilding" >
+    <constructor >
+      <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="LATITUDE" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="LONGITUDE" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="REMARK" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COMMUNITY_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="COMMUNITY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MODIFY_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MODIFY_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CREATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME, LATITUDE, LONGITUDE, REMARK, COMMUNITY_ID, COMMUNITY_NAME, MODIFY_USER, 
+    MODIFY_DT, CREATE_USER, CREATE_DT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_BASE_COMMUNITY_BUILDING
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TB_BASE_COMMUNITY_BUILDING
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyi.communitybuilding.model.DeliveryCommunityBuilding" >
+    insert into TB_BASE_COMMUNITY_BUILDING (ID, NAME, LATITUDE, 
+      LONGITUDE, REMARK, COMMUNITY_ID, 
+      COMMUNITY_NAME, MODIFY_USER, MODIFY_DT, 
+      CREATE_USER, CREATE_DT)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{latitude,jdbcType=DOUBLE}, 
+      #{longitude,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR}, #{communityId,jdbcType=INTEGER}, 
+      #{communityName,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, #{modifyDt,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyi.communitybuilding.model.DeliveryCommunityBuilding" >
+    insert into TB_BASE_COMMUNITY_BUILDING
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="latitude != null" >
+        LATITUDE,
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="communityId != null" >
+        COMMUNITY_ID,
+      </if>
+      <if test="communityName != null" >
+        COMMUNITY_NAME,
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER,
+      </if>
+      <if test="modifyDt != null" >
+        MODIFY_DT,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="communityId != null" >
+        #{communityId,jdbcType=INTEGER},
+      </if>
+      <if test="communityName != null" >
+        #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null" >
+        #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.communitybuilding.model.DeliveryCommunityBuilding" >
+    update TB_BASE_COMMUNITY_BUILDING
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        LATITUDE = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="communityId != null" >
+        COMMUNITY_ID = #{communityId,jdbcType=INTEGER},
+      </if>
+      <if test="communityName != null" >
+        COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null" >
+        MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.communitybuilding.model.DeliveryCommunityBuilding" >
+    update TB_BASE_COMMUNITY_BUILDING
+    set NAME = #{name,jdbcType=VARCHAR},
+      LATITUDE = #{latitude,jdbcType=DOUBLE},
+      LONGITUDE = #{longitude,jdbcType=DOUBLE},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      COMMUNITY_ID = #{communityId,jdbcType=INTEGER},
+      COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+      MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <sql id="searchDto_select_conditions">
+    <trim prefix="where" prefixOverrides="AND |OR ">
+      <if test="id != null">
+        <![CDATA[ ID = #{id}]]>
+      </if>
+      <if test="name != null and name !='' ">
+        <![CDATA[AND NAME = #{name}]]>
+      </if>
+      <if test="communityName != null and communityName !='' ">
+        <![CDATA[AND COMMUNITY_NAME = #{communityName}]]>
+      </if>
+      <if test="communityId != null ">
+        <![CDATA[AND COMMUNITY_ID = #{communityId}]]>
+      </if>
+      <if test="modifyUser != null and modifyUser !='' ">
+        <![CDATA[AND MODIFY_USER = #{modifyUser}]]>
+      </if>
+      <if test="createUser != null and createUser !='' ">
+        <![CDATA[AND CREATE_USER = #{createUser}]]>
+      </if>
+    </trim>
+  </sql>
+
+
+
+  <select id="search" parameterType="com.zhiyi.communitybuilding.dto.DeliveryCommunityBuildingSearchDto" resultMap="BaseResultMap">
+    <![CDATA[ SELECT * from TB_BASE_COMMUNITY_BUILDING ]]>
+    <include refid="searchDto_select_conditions"></include>
+
+  </select>
+
+
+  <select id="count" parameterType="com.zhiyi.communitybuilding.dto.DeliveryCommunityBuildingSearchDto" resultType="int">
+    <![CDATA[ SELECT count(*) from TB_BASE_COMMUNITY_BUILDING ]]>
+    <include refid="searchDto_select_conditions"></include>
+
+  </select>
+
+</mapper>

@@ -1,0 +1,36 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean name="/deliveryCityService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="deliveryCityProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.city.api.IBaseCityService"/>
+    </bean>
+
+    <bean name="/deliverySectionService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="deliverySectionProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.section.api.IDeliverySectionService"/>
+    </bean>
+
+    <bean name="/deliveryCommunityService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="deliveryCommunityProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.community.api.IDeliveryCommunityService"/>
+    </bean>
+
+    <bean name="/deliveryCommunityBuildingService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="deliveryCommunityBuildingPorxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.communitybuilding.api.IDeliveryCommunityBuildingService"/>
+    </bean>
+
+    <bean name="/deliveryCommunityUnitService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="deliveryCommunityUnitProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.communityunit.api.IDeliveryCommunityUnitService"/>
+    </bean>
+
+    <bean name="/adminSectionProxyService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="adminSectionProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.section.api.IAdminSectionService"/>
+    </bean>
+</beans>

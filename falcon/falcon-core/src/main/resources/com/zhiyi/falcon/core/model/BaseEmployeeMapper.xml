@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.falcon.core.dao.BaseEmployeeMapper">
+    <resultMap id="BaseResultMap" type="com.zhiyi.falcon.core.model.BaseEmployee">
+        <constructor>
+            <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="USER_NAME" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="PASSWORD" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="SEX" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CAREER" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="PHONE" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="ID_NO" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CARD_HOLDER" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="BANK_NAME" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="BANK_NO" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="HEAD_FILE" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="ROLE" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CITY" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="IS_LOCKED" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="DEVICE_ID" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="MODIFY_USER" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="MODIFY_DT" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="CREATE_USER" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="CREATE_DT" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, USER_NAME, PASSWORD, SEX, CAREER, PHONE, ID_NO, CARD_HOLDER, BANK_NAME,
+        BANK_NO, HEAD_FILE, ROLE, CITY, IS_LOCKED, DEVICE_ID, MODIFY_USER, MODIFY_DT, CREATE_USER,
+        CREATE_DT
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from TB_BASE_DELIVERY_EMPLOYEE
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from TB_BASE_DELIVERY_EMPLOYEE
+        where ID = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.zhiyi.falcon.core.model.BaseEmployee">
+        insert into TB_BASE_DELIVERY_EMPLOYEE (ID, USER_NAME,
+        PASSWORD, SEX, CAREER,
+        PHONE, ID_NO, CARD_HOLDER,
+        BANK_NAME, BANK_NO, HEAD_FILE,
+        ROLE, CITY, IS_LOCKED,
+        DEVICE_ID, MODIFY_USER, MODIFY_DT,
+        CREATE_USER, CREATE_DT)
+        values (#{id,jdbcType=INTEGER},#{userName,jdbcType=VARCHAR},
+        #{password,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{career,jdbcType=VARCHAR},
+        #{phone,jdbcType=VARCHAR}, #{idNo,jdbcType=VARCHAR}, #{cardHolder,jdbcType=VARCHAR},
+        #{bankName,jdbcType=VARCHAR}, #{bankNo,jdbcType=VARCHAR}, #{headFile,jdbcType=VARCHAR},
+        #{role,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{isLocked,jdbcType=VARCHAR},
+        #{deviceId,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, #{modifyDt,jdbcType=TIMESTAMP},
+        #{createUser,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zhiyi.falcon.core.model.BaseEmployee">
+        insert into TB_BASE_DELIVERY_EMPLOYEE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="userName != null">
+                USER_NAME,
+            </if>
+            <if test="password != null">
+                PASSWORD,
+            </if>
+            <if test="sex != null">
+                SEX,
+            </if>
+            <if test="career != null">
+                CAREER,
+            </if>
+            <if test="phone != null">
+                PHONE,
+            </if>
+            <if test="idNo != null">
+                ID_NO,
+            </if>
+            <if test="cardHolder != null">
+                CARD_HOLDER,
+            </if>
+            <if test="bankName != null">
+                BANK_NAME,
+            </if>
+            <if test="bankNo != null">
+                BANK_NO,
+            </if>
+            <if test="headFile != null">
+                HEAD_FILE,
+            </if>
+            <if test="role != null">
+                ROLE,
+            </if>
+            <if test="city != null">
+                CITY,
+            </if>
+            <if test="isLocked != null">
+                IS_LOCKED,
+            </if>
+            <if test="deviceId != null">
+                DEVICE_ID,
+            </if>
+            <if test="modifyUser != null">
+                MODIFY_USER,
+            </if>
+            <if test="modifyDt != null">
+                MODIFY_DT,
+            </if>
+            <if test="createUser != null">
+                CREATE_USER,
+            </if>
+            <if test="createDt != null">
+                CREATE_DT,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="career != null">
+                #{career,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="idNo != null">
+                #{idNo,jdbcType=VARCHAR},
+            </if>
+            <if test="cardHolder != null">
+                #{cardHolder,jdbcType=VARCHAR},
+            </if>
+            <if test="bankName != null">
+                #{bankName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankNo != null">
+                #{bankNo,jdbcType=VARCHAR},
+            </if>
+            <if test="headFile != null">
+                #{headFile,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                #{role,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="isLocked != null">
+                #{isLocked,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceId != null">
+                #{deviceId,jdbcType=INTEGER},
+            </if>
+            <if test="modifyUser != null">
+                #{modifyUser,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyDt != null">
+                #{modifyDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDt != null">
+                #{createDt,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.falcon.core.model.BaseEmployee">
+        update TB_BASE_DELIVERY_EMPLOYEE
+        <set>
+            <if test="userName != null">
+                USER_NAME = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                PASSWORD = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                SEX = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="career != null">
+                CAREER = #{career,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                PHONE = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="idNo != null">
+                ID_NO = #{idNo,jdbcType=VARCHAR},
+            </if>
+            <if test="cardHolder != null">
+                CARD_HOLDER = #{cardHolder,jdbcType=VARCHAR},
+            </if>
+            <if test="bankName != null">
+                BANK_NAME = #{bankName,jdbcType=VARCHAR},
+            </if>
+            <if test="bankNo != null">
+                BANK_NO = #{bankNo,jdbcType=VARCHAR},
+            </if>
+            <if test="headFile != null">
+                HEAD_FILE = #{headFile,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                ROLE = #{role,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                CITY = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="isLocked != null">
+                IS_LOCKED = #{isLocked,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceId != null">
+                DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyUser != null">
+                MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyDt != null">
+                MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                CREATE_USER = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDt != null">
+                CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zhiyi.falcon.core.model.BaseEmployee">
+        update TB_BASE_DELIVERY_EMPLOYEE
+        set USER_NAME = #{userName,jdbcType=VARCHAR},
+        PASSWORD = #{password,jdbcType=VARCHAR},
+        SEX = #{sex,jdbcType=VARCHAR},
+        CAREER = #{career,jdbcType=VARCHAR},
+        PHONE = #{phone,jdbcType=VARCHAR},
+        ID_NO = #{idNo,jdbcType=VARCHAR},
+        CARD_HOLDER = #{cardHolder,jdbcType=VARCHAR},
+        BANK_NAME = #{bankName,jdbcType=VARCHAR},
+        BANK_NO = #{bankNo,jdbcType=VARCHAR},
+        HEAD_FILE = #{headFile,jdbcType=VARCHAR},
+        ROLE = #{role,jdbcType=VARCHAR},
+        CITY = #{city,jdbcType=VARCHAR},
+        IS_LOCKED = #{isLocked,jdbcType=VARCHAR},
+        DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+        MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+        MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+        CREATE_DT = #{createDt,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+
+    <sql id="searchDto_select_conditions">
+        <trim prefix="where" prefixOverrides="AND |OR ">
+
+            <if test="id != null">
+                <![CDATA[ ID = #{id}]]>
+            </if>
+            <if test="userName != null and userName != ''">
+                <![CDATA[ AND USER_NAME LIKE "%"#{userName}"%"]]>
+            </if>
+            <if test="password != null and password != ''">
+                <![CDATA[ AND PASSWORD = #{password}]]>
+            </if>
+            <if test="sex != null and sex != ''">
+                <![CDATA[ AND SEX = #{sex}]]>
+            </if>
+            <if test="career != null and career != ''">
+                <![CDATA[ AND CAREER = #{career}]]>
+            </if>
+            <if test="phone != null and phone != ''">
+                <![CDATA[ AND PHONE LIKE "%"#{phone}"%"]]>
+            </if>
+            <if test="idNo != null and idNo != ''">
+                <![CDATA[ AND ID_NO = #{idNo}]]>
+            </if>
+            <if test="cardHolder != null and cardHolder != ''">
+                <![CDATA[ AND CARD_HOLDER = #{cardHolder}]]>
+            </if>
+            <if test="bankName != null and bankName != ''">
+                <![CDATA[ AND BANK_NAME = #{bankName}]]>
+            </if>
+            <if test="bankNo != null and bankNo != ''">
+                <![CDATA[ AND BANK_NO = #{bankNo}]]>
+            </if>
+            <if test="headFile != null and headFile != ''">
+                <![CDATA[ AND HEAD_FILE = #{headFile}]]>
+            </if>
+            <if test="role != null and role != ''">
+                <![CDATA[ AND ROLE = #{role}]]>
+            </if>
+            <if test="city != null and city != ''">
+                <![CDATA[ AND CITY = #{city}]]>
+            </if>
+            <if test="isLocked != null and isLocked != ''">
+                <![CDATA[ AND IS_LOCKED = #{isLocked}]]>
+            </if>
+            <if test="deviceId != null and deviceId != ''">
+                <![CDATA[ AND DEVICE_ID = #{deviceId}]]>
+            </if>
+            <if test="modifyUser != null and modifyUser != ''">
+                <![CDATA[ AND MODIFY_USER = #{modifyUser}]]>
+            </if>
+            <if test="modifyDt != null and modifyDt != ''">
+                <![CDATA[ AND MODIFY_DT = #{modifyDt}]]>
+            </if>
+            <if test="createUser != null and createUser != ''">
+                <![CDATA[ AND CREATE_USER = #{createUser}]]>
+            </if>
+            <if test="createDt != null and createDt != ''">
+                <![CDATA[ AND CREATE_DT = #{createDt}]]>
+            </if>
+        </trim>
+    </sql>
+
+    <select id="search" parameterType="com.zhiyi.falcon.api.dto.BaseEmployeeSearchDto" resultMap="BaseResultMap">
+        SELECT * FROM TB_BASE_DELIVERY_EMPLOYEE
+        <include refid="searchDto_select_conditions"/>
+    </select>
+
+    <select id="count" parameterType="com.zhiyi.falcon.api.dto.BaseEmployeeSearchDto" resultType="int">
+        SELECT COUNT(*) FROM TB_BASE_DELIVERY_EMPLOYEE
+        <include refid="searchDto_select_conditions"/>
+    </select>
+
+    <select id="queryActivityEmployee" parameterType="com.zhiyi.falcon.api.dto.BaseEmployeeDto"
+            resultMap="BaseResultMap">
+      SELECT * FROM TB_BASE_DELIVERY_EMPLOYEE BCE
+        WHERE
+          BCE.ID IN (SELECT DELIVERY_EMPLOYEE_ID FROM  TB_DELIVERY_DATA_COMMUNITY_UNIT WHERE 1=1
+           <if test="deliveryResult != null and deliveryResult != ''">
+             AND  DELIVERY_RESULT = #{deliveryResult}
+           </if>
+           <if test="settleStatus != null and settleStatus != ''">
+             AND SETTLESTATUS = #{settleStatus}
+           </if>
+           <if test="taskSampling != null and taskSampling != ''">
+             AND TASK_SAMPLING =#{taskSampling}
+           </if>
+           <if test="deliveryDt != null and deliveryDt != ''">
+             AND DELIVERY_DT LIKE '${deliveryDt}%'
+           </if>
+           );
+    </select>
+
+    <select id="getUserByPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM TB_BASE_DELIVERY_EMPLOYEE WHERE  PHONE=#{phone}
+    </select>
+
+</mapper>

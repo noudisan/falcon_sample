@@ -1,0 +1,53 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="com.zhiyi"/>
+
+    <!-- enable @AspectJ support with XML based configuration -->
+    <aop:aspectj-autoproxy/>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="${jdbc.driverClass}"/>
+        <property name="jdbcUrl" value="${jdbc.connectionURL}"/>
+        <property name="user" value="${jdbc.userId}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxPoolSize" value="${jdbc.connection.maxPoolSize}"/>
+        <property name="minPoolSize" value="${jdbc.connection.minPoolSize}"/>
+        <property name="initialPoolSize" value="${jdbc.connection.initialPoolSize}"/>
+        <property name="maxIdleTime" value="180"/>
+        <property name="checkoutTimeout" value="3000"/>
+        <property name="acquireIncrement" value="5"/>
+        <property name="acquireRetryAttempts" value="3"/>
+        <property name="preferredTestQuery" value="select 1"></property>
+        <property name="testConnectionOnCheckin" value="true"></property>
+        <property name="idleConnectionTestPeriod" value="120"/>
+        <property name="maxConnectionAge" value="150"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatisConfig.xml"/>
+        <property name="mapperLocations" value="classpath*:com/zhiyi/**/*.xml"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.zhiyi"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+
+</beans>

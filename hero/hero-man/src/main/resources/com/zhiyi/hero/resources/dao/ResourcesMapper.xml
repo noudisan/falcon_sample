@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyi.hero.resources.dao.ResourcesMapper">
+
+	<resultMap id="resourcesMap" type="com.zhiyi.hero.resources.model.Resources">
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" />
+		<result column="DESCRIBER" property="describer" />
+		<result column="PARENT_ID" property="parentId" />
+		<result column="LEAF_FLAG" property="leafFlag" />
+		<result column="LINK_URL" property="linkUrl" />
+		<result column="ICON_CLS" property="iconCls" />
+		<result column="PLATFORM_ID" property="platformId" />
+		<result column="PLATFORM_NAME" property="platformName" />
+		<result column="ORDERS" property="orders" />
+		<result column="AUTHORIZE" property="authorize" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DT" property="createDt" />
+		<result column="MODIFY_USER" property="modifyUser" />
+		<result column="MODIFY_DT" property="modifyDt" />
+	</resultMap>
+
+	<sql id="result">
+		SELECT * FROM TB_SYS_RESOURCES
+	</sql>
+
+	<insert id="save" parameterType="com.zhiyi.hero.resources.model.Resources">
+		<selectKey resultType="java.lang.Long" order="AFTER"
+			keyProperty="id">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+		</selectKey>
+        <![CDATA[
+          insert into TB_SYS_RESOURCES(NAME,DESCRIBER,PARENT_ID,LEAF_FLAG,LINK_URL,
+          ICON_CLS,PLATFORM_ID,ORDERS,AUTHORIZE,CREATE_USER,CREATE_DT,MODIFY_USER,MODIFY_DT)
+              values (
+                #{name},#{describer},#{parentId},#{leafFlag},#{linkUrl},#{iconCls},
+                #{platformId},#{orders},#{authorize},#{createUser},now(),#{modifyUser},now()
+              )
+        ]]>
+	</insert>
+
+	<update id="update" parameterType="com.zhiyi.hero.resources.model.Resources">
+		update
+		TB_SYS_RESOURCES
+		set
+		NAME
+		= #{name},
+		DESCRIBER = #{describer},
+		PARENT_ID = #{parentId},
+		LEAF_FLAG =
+		#{leafFlag},
+		LINK_URL = #{linkUrl},
+		ICON_CLS = #{iconCls},
+		PLATFORM_ID =
+		#{platformId},
+		ORDERS = #{orders},
+		AUTHORIZE = #{authorize},
+		MODIFY_USER
+		= #{modifyUser},
+		MODIFY_DT = now()
+		where
+		ID =#{id}
+	</update>
+
+	<select id="search" resultMap="resourcesMap"
+		parameterType="com.zhiyi.hero.resources.dto.ResourcesSearchDto">
+		select
+		A.ID,
+		A.NAME,
+		A.DESCRIBER,
+		A.PARENT_ID,
+		A.LEAF_FLAG,
+		A.LINK_URL,
+		A.ICON_CLS,
+		A.PLATFORM_ID,
+		B.NAME as PLATFORM_NAME,
+		A.ORDERS,
+		A.AUTHORIZE,
+		A.CREATE_USER,
+		A.CREATE_DT,
+		A.MODIFY_USER,
+		A.MODIFY_DT
+		from TB_SYS_RESOURCES A LEFT JOIN TB_SYS_PLATFORM B
+		on A.PLATFORM_ID = B.ID
+		<include refid="searchCondition" />
+	</select>
+
+	<select id="searchCount" resultType="int"
+		parameterType="com.zhiyi.hero.resources.dto.ResourcesSearchDto">
+		select
+		count(*)
+		from TB_SYS_RESOURCES A
+		left join TB_SYS_PLATFORM B
+		on A.PLATFORM_ID = B.ID
+		<include refid="searchCondition" />
+	</select>
+
+	<select id="get" resultMap="resourcesMap">
+		<include refid="result" />
+		where ID =#{id}
+	</select>
+
+
+	<sql id="searchCondition">
+		<trim prefix="where" prefixOverrides="AND | OR ">
+			<if test="@Ognl@isNotEmpty(platformId)">
+				AND A.PLATFORM_ID = #{platformId}
+			</if>
+			<if test="@Ognl@isNotEmpty(authorize)">
+				AND A.AUTHORIZE = #{authorize}
+			</if>
+			<if test="@Ognl@isNotEmpty(name)">
+				AND A.NAME like concat('%',#{name},'%')
+			</if>
+			<if test="@Ognl@isNotEmpty(describer)">
+				AND A.DESCRIBER like concat('%',#{describer},'%')
+			</if>
+			<if test="@Ognl@isNotEmpty(platformName)">
+				AND B.NAME like concat('%',#{platformName},'%')
+			</if>
+			<if test="@Ognl@isNotEmpty(parentId)">
+				AND A.PARENT_ID = #{parentId}
+			</if>
+			<if test="@Ognl@isNotEmpty(startD)">
+                 <![CDATA[ AND A.MODIFY_DT >= #{startD}]]>
+			</if>
+			<if test="@Ognl@isNotEmpty(endD)">
+                 <![CDATA[  AND A.MODIFY_DT <= #{endD}]]>
+			</if>
+		</trim>
+	</sql>
+
+	<select id="searchSubList" resultMap="resourcesMap"
+		parameterType="java.lang.Long">
+		select ID, NAME from TB_SYS_RESOURCES where PARENT_ID =
+		#{parentId}
+	</select>
+
+	<delete id="deleteResources">
+		DELETE FROM TB_SYS_RESOURCES WHERE ID = #{id}
+	</delete>
+
+	<delete id="deleteRoleRes">
+		DELETE FROM TB_SYS_ROLE_RESOURCES WHERE RESOURCE_ID =
+		#{id}
+	</delete>
+</mapper>

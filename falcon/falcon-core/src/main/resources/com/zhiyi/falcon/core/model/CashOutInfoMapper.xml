@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.falcon.core.dao.CashOutInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyi.falcon.core.model.CashOutInfo" >
+    <constructor >
+      <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <idArg column="USER_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CASH_AMOUNT" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="CASH_DATE" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="OPEN_BANK" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CASH_CARD" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DEAL_STATUS" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="RESULT_COMENT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="MIDIFY_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CREATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MODIFY_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, NAME, CASH_AMOUNT, CASH_DATE, OPEN_BANK, CASH_CARD, DEAL_STATUS, RESULT_COMENT,
+    CREATE_DT, MIDIFY_DT, CREATE_USER, MODIFY_USER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_CASH_OUT_INFO
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TB_CASH_OUT_INFO
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyi.falcon.core.model.CashOutInfo" >
+    insert into TB_CASH_OUT_INFO (ID,USER_ID, NAME, CASH_AMOUNT,
+      CASH_DATE, OPEN_BANK, CASH_CARD, 
+      DEAL_STATUS, RESULT_COMENT, CREATE_DT, 
+      MIDIFY_DT, CREATE_USER, MODIFY_USER
+      )
+    values (#{id,jdbcType=INTEGER},#{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{cashAmount,jdbcType=DOUBLE},
+      #{cashDate,jdbcType=TIMESTAMP}, #{openBank,jdbcType=VARCHAR}, #{cashCard,jdbcType=VARCHAR}, 
+      #{dealStatus,jdbcType=INTEGER}, #{resultComent,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, 
+      #{midifyDt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyi.falcon.core.model.CashOutInfo" >
+    insert into TB_CASH_OUT_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="cashAmount != null" >
+        CASH_AMOUNT,
+      </if>
+      <if test="cashDate != null" >
+        CASH_DATE,
+      </if>
+      <if test="openBank != null" >
+        OPEN_BANK,
+      </if>
+      <if test="cashCard != null" >
+        CASH_CARD,
+      </if>
+      <if test="dealStatus != null" >
+        DEAL_STATUS,
+      </if>
+      <if test="resultComent != null" >
+        RESULT_COMENT,
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT,
+      </if>
+      <if test="midifyDt != null" >
+        MIDIFY_DT,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cashAmount != null" >
+        #{cashAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="cashDate != null" >
+        #{cashDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openBank != null" >
+        #{openBank,jdbcType=VARCHAR},
+      </if>
+      <if test="cashCard != null" >
+        #{cashCard,jdbcType=VARCHAR},
+      </if>
+      <if test="dealStatus != null" >
+        #{dealStatus,jdbcType=INTEGER},
+      </if>
+      <if test="resultComent != null" >
+        #{resultComent,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="midifyDt != null" >
+        #{midifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.falcon.core.model.CashOutInfo" >
+    update TB_CASH_OUT_INFO
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cashAmount != null" >
+        CASH_AMOUNT = #{cashAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="cashDate != null" >
+        CASH_DATE = #{cashDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="openBank != null" >
+        OPEN_BANK = #{openBank,jdbcType=VARCHAR},
+      </if>
+      <if test="cashCard != null" >
+        CASH_CARD = #{cashCard,jdbcType=VARCHAR},
+      </if>
+      <if test="dealStatus != null" >
+        DEAL_STATUS = #{dealStatus,jdbcType=INTEGER},
+      </if>
+      <if test="resultComent != null" >
+        RESULT_COMENT = #{resultComent,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="midifyDt != null" >
+        MIDIFY_DT = #{midifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.falcon.core.model.CashOutInfo" >
+    update TB_CASH_OUT_INFO
+    set NAME = #{name,jdbcType=VARCHAR},
+      CASH_AMOUNT = #{cashAmount,jdbcType=DOUBLE},
+      CASH_DATE = #{cashDate,jdbcType=TIMESTAMP},
+      OPEN_BANK = #{openBank,jdbcType=VARCHAR},
+      CASH_CARD = #{cashCard,jdbcType=VARCHAR},
+      DEAL_STATUS = #{dealStatus,jdbcType=INTEGER},
+      RESULT_COMENT = #{resultComent,jdbcType=VARCHAR},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      MIDIFY_DT = #{midifyDt,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      MODIFY_USER = #{modifyUser,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <sql id="searchDto_select_conditions">
+    <trim prefix="where" prefixOverrides="AND |OR ">
+      <if test="id != null">
+        <![CDATA[ ID = #{id}]]>
+      </if>
+      <if test="userId != null">
+        <![CDATA[ USER_ID = #{userId}]]>
+      </if>
+      <if test="name != null and name != ''">
+        <![CDATA[ AND NAME = #{name}]]>
+      </if>
+      <if test="cashAmount != null and cashAmount != ''">
+        <![CDATA[ AND CASH_AMOUNT = #{cashAmount}]]>
+      </if>
+      <if test="cashDate != null and cashDate != ''">
+        <![CDATA[ AND CASH_DATE = #{cashDate}]]>
+      </if>
+      <if test="openBank != null and openBank != ''">
+        <![CDATA[ AND OPEN_BANK = #{openBank}]]>
+      </if>
+      <if test="dealStatus != null ">
+        <![CDATA[ AND DEAL_STATUS = #{dealStatus}]]>
+      </if>
+      <if test="resultComent != null and resultComent !=''">
+        <![CDATA[ AND RESULT_COMENT = #{resultComent}]]>
+      </if>
+      <if test="createDt != null ">
+        <![CDATA[ AND CREATE_DT = #{createDt}]]>
+      </if>
+      <if test="midifyDt != null and midifyDt != ''">
+        <![CDATA[ AND MIDIFY_DT = #{midifyDt}]]>
+      </if>
+       <if test="createUser != null and createUser != ''">
+        <![CDATA[ AND CREATE_USER = #{createUser}]]>
+      </if>
+      <if test="modifyUser != null and modifyUser != ''">
+        <![CDATA[ AND MODIFY_USER = #{modifyUser}]]>
+      </if>
+
+      <if test="startDate != null ">
+        <![CDATA[ AND CASH_DATE >= #{startDate}]]>
+      </if>
+
+      <if test="endDate != null ">
+        <![CDATA[ AND CASH_DATE <= #{endDate}]]>
+      </if>
+
+    </trim>
+  </sql>
+
+  <!--查询总数据条数-->
+  <select id="count" parameterType="com.zhiyi.falcon.api.dto.CashOutInfoDto" resultType="java.lang.Integer">
+    SELECT COUNT(*) from TB_CASH_OUT_INFO
+    <include refid="searchDto_select_conditions"/>
+  </select>
+
+  <!--条件搜索-->
+  <select id="search" parameterType="com.zhiyi.falcon.api.dto.CashOutInfoDto" resultMap="BaseResultMap">
+    SELECT * from TB_CASH_OUT_INFO
+    <include refid="searchDto_select_conditions"/>
+  </select>
+
+</mapper>

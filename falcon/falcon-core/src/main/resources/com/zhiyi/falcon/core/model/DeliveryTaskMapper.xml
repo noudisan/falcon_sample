@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.falcon.core.dao.DeliveryTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyi.falcon.core.model.DeliveryTask" >
+    <constructor >
+      <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="CODE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SEND_COUNT" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="MASS_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="MASS_ADDRESS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="LEADER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="LEADER_PHONE_NUM" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DRIVER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="DRIVER_PHONE_NUM" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="IS_SAMPLING" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="TASK_DESC" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="STATUS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="START_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="MODIFY_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MODIFY_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CREATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="REGION" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SECTION_NAMES" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CODE, SEND_COUNT, MASS_TIME, MASS_ADDRESS, LEADER, LEADER_PHONE_NUM, DRIVER, 
+    DRIVER_PHONE_NUM, IS_SAMPLING, TASK_DESC, STATUS, START_TIME, MODIFY_USER, MODIFY_DT, 
+    CREATE_USER, CREATE_DT, REGION,SECTION_NAMES
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_DELIVERY_TASK
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TB_DELIVERY_TASK
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.zhiyi.falcon.core.model.DeliveryTask" useGeneratedKeys="true"  keyProperty="id">
+    insert into TB_DELIVERY_TASK (ID, CODE, SEND_COUNT, 
+      MASS_TIME, MASS_ADDRESS, LEADER, 
+      LEADER_PHONE_NUM, DRIVER, DRIVER_PHONE_NUM, 
+      IS_SAMPLING, TASK_DESC, STATUS, 
+      START_TIME, MODIFY_USER, MODIFY_DT, 
+      CREATE_USER, CREATE_DT, REGION,SECTION_NAMES
+      )
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{sendCount,jdbcType=INTEGER}, 
+      #{massTime,jdbcType=TIMESTAMP}, #{massAddress,jdbcType=VARCHAR}, #{leader,jdbcType=VARCHAR}, 
+      #{leaderPhoneNum,jdbcType=VARCHAR}, #{driver,jdbcType=VARCHAR}, #{driverPhoneNum,jdbcType=VARCHAR}, 
+      #{isSampling,jdbcType=VARCHAR}, #{taskDesc,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{modifyUser,jdbcType=VARCHAR}, #{modifyDt,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, #{region,jdbcType=VARCHAR},#{sectionNames,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.zhiyi.falcon.core.model.DeliveryTask" useGeneratedKeys="true"  keyProperty="id">
+    insert into TB_DELIVERY_TASK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="sendCount != null" >
+        SEND_COUNT,
+      </if>
+      <if test="massTime != null" >
+        MASS_TIME,
+      </if>
+      <if test="massAddress != null" >
+        MASS_ADDRESS,
+      </if>
+      <if test="leader != null" >
+        LEADER,
+      </if>
+      <if test="leaderPhoneNum != null" >
+        LEADER_PHONE_NUM,
+      </if>
+      <if test="driver != null" >
+        DRIVER,
+      </if>
+      <if test="driverPhoneNum != null" >
+        DRIVER_PHONE_NUM,
+      </if>
+      <if test="isSampling != null" >
+        IS_SAMPLING,
+      </if>
+      <if test="taskDesc != null" >
+        TASK_DESC,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER,
+      </if>
+      <if test="modifyDt != null" >
+        MODIFY_DT,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT,
+      </if>
+      <if test="region != null" >
+        REGION,
+      </if>
+      <if test="sectionNames != null" >
+        SECTION_NAMES,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="sendCount != null" >
+        #{sendCount,jdbcType=INTEGER},
+      </if>
+      <if test="massTime != null" >
+        #{massTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="massAddress != null" >
+        #{massAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="leader != null" >
+        #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderPhoneNum != null" >
+        #{leaderPhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="driver != null" >
+        #{driver,jdbcType=VARCHAR},
+      </if>
+      <if test="driverPhoneNum != null" >
+        #{driverPhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="isSampling != null" >
+        #{isSampling,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDesc != null" >
+        #{taskDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null" >
+        #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionNames != null" >
+        #{sectionNames,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.falcon.core.model.DeliveryTask" >
+    update TB_DELIVERY_TASK
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="sendCount != null" >
+        SEND_COUNT = #{sendCount,jdbcType=INTEGER},
+      </if>
+      <if test="massTime != null" >
+        MASS_TIME = #{massTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="massAddress != null" >
+        MASS_ADDRESS = #{massAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="leader != null" >
+        LEADER = #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderPhoneNum != null" >
+        LEADER_PHONE_NUM = #{leaderPhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="driver != null" >
+        DRIVER = #{driver,jdbcType=VARCHAR},
+      </if>
+      <if test="driverPhoneNum != null" >
+        DRIVER_PHONE_NUM = #{driverPhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="isSampling != null" >
+        IS_SAMPLING = #{isSampling,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDesc != null" >
+        TASK_DESC = #{taskDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null" >
+        MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="region != null" >
+        REGION = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionNames != null" >
+        SECTION_NAMES = #{sectionNames,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.falcon.core.model.DeliveryTask" >
+    update TB_DELIVERY_TASK
+    set CODE = #{code,jdbcType=VARCHAR},
+      SEND_COUNT = #{sendCount,jdbcType=INTEGER},
+      MASS_TIME = #{massTime,jdbcType=TIMESTAMP},
+      MASS_ADDRESS = #{massAddress,jdbcType=VARCHAR},
+      LEADER = #{leader,jdbcType=VARCHAR},
+      LEADER_PHONE_NUM = #{leaderPhoneNum,jdbcType=VARCHAR},
+      DRIVER = #{driver,jdbcType=VARCHAR},
+      DRIVER_PHONE_NUM = #{driverPhoneNum,jdbcType=VARCHAR},
+      IS_SAMPLING = #{isSampling,jdbcType=VARCHAR},
+      TASK_DESC = #{taskDesc,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      REGION = #{region,jdbcType=VARCHAR},
+      SECTION_NAMES = #{sectionNames,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="search" parameterType="com.zhiyi.falcon.api.dto.DeliveryTaskSearchDto" resultMap="BaseResultMap">
+    SELECT * from TB_DELIVERY_TASK
+    <include refid="searchDto_select_conditions" />
+  </select>
+
+  <select id="count" parameterType="com.zhiyi.falcon.api.dto.DeliveryTaskSearchDto" resultType="int">
+    select count(*) from TB_DELIVERY_TASK
+    <include refid="searchDto_select_conditions"/>
+  </select>
+
+  <sql id="searchDto_select_conditions">
+    <trim prefix="where" prefixOverrides="AND|OR">
+      <if test="id !=null">
+        <![CDATA[ID = #{id}]]>
+      </if>
+      <if test="code !=null and code != ''">
+        <![CDATA[ AND CODE = #{code}]]>
+      </if>
+      <if test="sendCount !=null and sendCount != ''">
+        <![CDATA[ AND SEND_COUNT = #{sendCount}]]>
+      </if>
+      <if test="massTime !=null and massTime != ''">
+        <![CDATA[ AND MASS_TIME = #{massTime}]]>
+      </if>
+      <if test="massAddress !=null and massAddress != ''">
+        <![CDATA[ AND MASS_ADDRESS = #{massAddress}]]>
+      </if>
+      <if test="leader !=null and leader != ''">
+        <![CDATA[ AND LEADER = #{leader}]]>
+      </if>
+      <if test="leaderPhoneNum !=null and leaderPhoneNum != ''">
+        <![CDATA[ AND LEADER_PHONE_NUM = #{leaderPhoneNum}]]>
+      </if>
+      <if test="driver !=null and driver != ''">
+        <![CDATA[ AND DRIVER = #{driver}]]>
+      </if>
+      <if test="driverPhoneNum !=null and driverPhoneNum != ''">
+        <![CDATA[ AND DRIVER_PHONE_NUM = #{driverPhoneNum}]]>
+      </if>
+      <if test="isSampling !=null and isSampling != ''">
+        <![CDATA[ AND IS_SAMPLING = #{isSampling}]]>
+      </if>
+      <if test="taskDesc !=null and taskDesc != ''">
+        <![CDATA[ AND TASK_DESC = #{taskDesc}]]>
+      </if>
+      <if test="status !=null and status != ''">
+        <![CDATA[ AND STATUS = #{status}]]>
+      </if>
+      <if test="startTime !=null and startTime != ''">
+        <![CDATA[ AND START_TIME = #{startTime}]]>
+      </if>
+      <if test="modifyUser !=null and modifyUser != ''">
+        <![CDATA[ AND MODIFY_USER = #{modifyUser}]]>
+      </if>
+      <if test="modifyDt !=null and modifyDt != ''">
+        <![CDATA[ AND MODIFY_DT = #{modifyDt}]]>
+      </if>
+      <if test="createUser !=null and createUser != ''">
+        <![CDATA[ AND CREATE_USER = #{createUser}]]>
+      </if>
+      <if test="createDt !=null and createDt !=''">
+        <![CDATA[ AND CREATE_DT = #{createDt}]]>
+      </if>
+      <if test="region !=null and region !=''">
+        <![CDATA[ AND REGION = #{region}]]>
+      </if>
+      <if test="usefulTask!=null  ">
+        AND START_TIME >= #{usefulTask}
+      </if>
+      <if test="taskIdList !=null ">
+       AND ID in
+        <foreach collection="taskIdList" item="taskId"  open="(" separator="," close=")">
+          #{taskId}
+        </foreach>
+      </if>
+    </trim>
+  </sql>
+</mapper>

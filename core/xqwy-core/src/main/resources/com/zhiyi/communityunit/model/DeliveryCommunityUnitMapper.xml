@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.communityunit.dao.DeliveryCommunityUnitMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyi.communityunit.model.DeliveryCommunityUnit" >
+    <constructor >
+      <idArg column="ID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="BUILDING_ID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="FLOOR_NUM" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="HOUSEHOLDS" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ALL_NUM" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MODIFY_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="MODIFY_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="CREATE_USER" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="CREATE_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="COMMUNITY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="BUILDING_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BUILDING_ID, FLOOR_NUM, HOUSEHOLDS, ALL_NUM, NAME, MODIFY_USER, MODIFY_DT, CREATE_USER, 
+    CREATE_DT, COMMUNITY_NAME, BUILDING_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_BASE_COMMUNITY_UNIT
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from TB_BASE_COMMUNITY_UNIT
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyi.communityunit.model.DeliveryCommunityUnit" >
+    insert into TB_BASE_COMMUNITY_UNIT (ID, BUILDING_ID, FLOOR_NUM, 
+      HOUSEHOLDS, ALL_NUM, NAME, 
+      MODIFY_USER, MODIFY_DT, CREATE_USER, 
+      CREATE_DT, COMMUNITY_NAME, BUILDING_NAME
+      )
+    values (#{id,jdbcType=BIGINT}, #{buildingId,jdbcType=BIGINT}, #{floorNum,jdbcType=INTEGER},
+      #{households,jdbcType=INTEGER}, #{allNum,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{modifyUser,jdbcType=VARCHAR}, #{modifyDt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{createDt,jdbcType=TIMESTAMP}, #{communityName,jdbcType=VARCHAR}, #{buildingName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyi.communityunit.model.DeliveryCommunityUnit" useGeneratedKeys="true"  keyProperty="id">
+    insert into TB_BASE_COMMUNITY_UNIT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="buildingId != null" >
+        BUILDING_ID,
+      </if>
+      <if test="floorNum != null" >
+        FLOOR_NUM,
+      </if>
+      <if test="households != null" >
+        HOUSEHOLDS,
+      </if>
+      <if test="allNum != null" >
+        ALL_NUM,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER,
+      </if>
+      <if test="modifyDt != null" >
+        MODIFY_DT,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT,
+      </if>
+      <if test="communityName != null" >
+        COMMUNITY_NAME,
+      </if>
+      <if test="buildingName != null" >
+        BUILDING_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="buildingId != null" >
+        #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="floorNum != null" >
+        #{floorNum,jdbcType=INTEGER},
+      </if>
+      <if test="households != null" >
+        #{households,jdbcType=INTEGER},
+      </if>
+      <if test="allNum != null" >
+        #{allNum,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null" >
+        #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="communityName != null" >
+        #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingName != null" >
+        #{buildingName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.communityunit.model.DeliveryCommunityUnit" >
+    update TB_BASE_COMMUNITY_UNIT
+    <set >
+      <if test="buildingId != null" >
+        BUILDING_ID = #{buildingId,jdbcType=BIGINT},
+      </if>
+      <if test="floorNum != null" >
+        FLOOR_NUM = #{floorNum,jdbcType=INTEGER},
+      </if>
+      <if test="households != null" >
+        HOUSEHOLDS = #{households,jdbcType=INTEGER},
+      </if>
+      <if test="allNum != null" >
+        ALL_NUM = #{allNum,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyUser != null" >
+        MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDt != null" >
+        MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="communityName != null" >
+        COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingName != null" >
+        BUILDING_NAME = #{buildingName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.communityunit.model.DeliveryCommunityUnit" >
+    update TB_BASE_COMMUNITY_UNIT
+    set BUILDING_ID = #{buildingId,jdbcType=BIGINT},
+      FLOOR_NUM = #{floorNum,jdbcType=INTEGER},
+      HOUSEHOLDS = #{households,jdbcType=INTEGER},
+      ALL_NUM = #{allNum,jdbcType=INTEGER},
+      NAME = #{name,jdbcType=VARCHAR},
+      MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+      BUILDING_NAME = #{buildingName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+
+  <sql id="searchDto_select_conditions">
+    <trim prefix="where" prefixOverrides="AND |OR ">
+      <if test="id != null">
+        <![CDATA[ ID = #{id}]]>
+      </if>
+      <if test="buildingId != null ">
+        <![CDATA[AND BUILDING_ID = #{buildingId}]]>
+      </if>
+      <if test="floorNum != null  ">
+        <![CDATA[AND FLOOR_NUM = #{floorNum}]]>
+      </if>
+      <if test="households != null  ">
+        <![CDATA[AND HOUSEHOLDS = #{households}]]>
+      </if>
+      <if test="allNum != null  ">
+        <![CDATA[AND ALL_NUM = #{allNum}]]>
+      </if>
+      <if test="name != null and name!='' ">
+        <![CDATA[AND NAME = #{name}]]>
+      </if>
+      <if test="modifyUser != null and modifyUser!='' ">
+        <![CDATA[AND MODIFY_USER = #{modifyUser}]]>
+      </if>
+      <if test="createUser != null and createUser!='' ">
+        <![CDATA[AND CREATE_USER = #{createUser}]]>
+      </if>
+      <if test="communityName != null and communityName!='' ">
+        <![CDATA[AND COMMUNITY_NAME = #{communityName}]]>
+      </if>
+      <if test="buildingName != null and buildingName!='' ">
+        <![CDATA[AND BUILDING_NAME = #{buildingName}]]>
+      </if>
+    </trim>
+  </sql>
+
+  <select id="search"  parameterType="com.zhiyi.communityunit.dto.DeliveryCommunityUnitDto"  resultMap="BaseResultMap" >
+      select * from TB_BASE_COMMUNITY_UNIT
+    <include refid="searchDto_select_conditions"></include>
+  </select>
+
+  <select id="count" parameterType="com.zhiyi.communityunit.dto.DeliveryCommunityUnitDto"  resultType="int" >
+      select count(*) from TB_BASE_COMMUNITY_UNIT
+    <include refid="searchDto_select_conditions"></include>
+  </select>
+
+
+</mapper>

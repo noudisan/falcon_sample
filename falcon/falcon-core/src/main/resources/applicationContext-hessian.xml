@@ -1,0 +1,108 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+
+    <bean name="/deliveryDataCommunityUnitService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="deliveryDataCommunityUnitProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.IDeliveryDataCommunityUnitService"/>
+    </bean>
+
+    <bean name="/deliveryDataBuildingService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="deliveryDataBuildingProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.IDeliveryDataBuildingService"/>
+    </bean>
+
+    <bean name="/deliveryDataCommunityService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="deliveryDataCommunityProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.IDeliveryDataCommunityService"/>
+    </bean>
+
+    <bean name="/baseEmployeeService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="baseEmployeeProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.IBaseEmployeeService"/>
+    </bean>
+
+    <!--账户信息-->
+    <bean name="/accountService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="accountInfoProxyService" />
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.IAccountInfoService"/>
+    </bean>
+
+    <!--提现-->
+    <bean name="/cashOutInfoService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="cashOutInfoProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.ICashOutInfoService"/>
+    </bean>
+
+    <!--结算-->
+    <bean name="/settleProxyService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="settleProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.ISettleService"/>
+    </bean>
+
+    <!--结算明细-->
+    <bean name="/settleDetailProxyService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="settleDetailProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.ISettleDetailService"/>
+    </bean>
+
+    <!--单价设置-->
+    <bean name="/settlePriceProxyService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="settlePriceProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.ISettlePriceService"/>
+    </bean>
+
+    <!--版本管理-->
+    <bean name="/deliveryVersionService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="deliveryVersionProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.IDeliveryVersionService"/>
+    </bean>
+
+    <!--步数管理-->
+    <bean name="/deliveryStepsService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="deliveryStepsProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.IDeliveryStepsService"/>
+    </bean>
+
+    <!--任务管理-->
+    <bean name="/deliveryTaskService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="deliveryTaskProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.IDeliveryTaskService"/>
+    </bean>
+
+    <!--派送员-->
+    <bean name="/sendEmployeeService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="sendEmployeeProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.ISendEmployeeService"/>
+    </bean>
+
+    <!--人员关联任务-->
+    <bean name="/deliveryTaskEmployeeService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="deliveryTaskEmployeeProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.IDeliveryTaskEmployeeService"/>
+    </bean>
+
+    <!--板块关联任务-->
+    <bean name="/deliveryTaskSectionService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="deliveryTaskSectionProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.IDeliveryTaskSectionService"/>
+    </bean>
+
+    <!--补贴-->
+    <bean name="/allowanceService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="allowanceProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.IAllowanceService"/>
+    </bean>
+
+    <!--城市-->
+    <bean name="/cityService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+        <property name="service" ref="cityProxyService"/>
+        <property name="serviceInterface" value="com.zhiyi.falcon.api.service.ICityService"/>
+    </bean>
+
+
+</beans>

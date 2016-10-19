@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript"
+	src="http://api.map.baidu.com/api?v=1.5&ak=C49aedf9309001fdbdca805ab3952023"></script>
+<title>地址</title>
+<style type="text/css">
+body,html,#containerCommunitySendDrawPolygon {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	margin: 0;
+}
+</style>
+
+<style type="text/css"> 
+	#loader_container { 
+		text-align:center; 
+		position:absolute; 
+		top:40%; 
+		width:100%; 
+		left: 0; 
+	} 
+	#loader { 
+		font-family:Tahoma, Helvetica, sans; 
+		font-size:11.5px; 
+		color:#000000; 
+		background-color:#FFffff; 
+		padding:10px 0 16px 0; 
+		margin:0 auto; 
+		display:block; 
+		width:230px; 
+		border:1px solid #5a667b; 
+		text-align:left; 
+		z-index:2; 
+	} 
+	#loader_bg {background-color:#e4e7eb; 
+		position:relative; 
+		top:8px; 
+		left:8px; 
+		height:7px; 
+		width:213px; 
+		font-size:1px; 
+	} 
+	#progress { 
+		height:5px; 
+		font-size:1px; 
+		width:1px; 
+		position:relative; 
+		top:1px; 
+		left:0px; 
+		background-color:#77A9E0; 
+	} 
+</style> 
+
+</head>
+<body>
+	<div id="containerCommunitySendDrawPolygon"></div>
+</body>
+</html>
+<script type="text/javascript">
+	var map = null;
+	if(!map){
+		map = new BMap.Map("containerCommunitySendDrawPolygon");
+	}
+	map.enableScrollWheelZoom();//启用滚轮放大缩小，默认禁用
+	map.enableContinuousZoom();//启用地图惯性拖拽，默认禁用
+	map.addControl(new BMap.NavigationControl());//添加默认缩放平移控件
+
+	var polygon = null;
+	var isNeedDisplayMarker = true;
+	var p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12;
+	var marker1 ,marker2,marker3,marker4,marker5,marker6,marker7,marker8,marker9,marker10,marker11,marker12;
+	var centerLng,centerLat;
+	
+	//初始化各个点
+ 	var d = 0.005;
+	var pi = Math.PI;
+	var duobian = 12;
+	
+	drawPolygon = function(){
+		if(null != polygon){
+			map.removeOverlay(polygon);
+		}
+		polygon = new BMap.Polygon([ p1, p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12 ], {strokeColor:"#f50704",fillColor:"#a1cde6", strokeWeight:3, strokeOpacity:0,fillOpacity:0,});  
+	    map.addOverlay(polygon);
+	};
+	
+	createPoint = function(lng , lat ,index){
+		if(1 == index){
+			p1 = new BMap.Point(lng, lat);
+		}else if(2 == index){
+			p2 = new BMap.Point(lng, lat);
+		}else if(3 == index){
+			p3 = new BMap.Point(lng, lat);
+		}else if(4 == index){
+			p4 = new BMap.Point(lng, lat);
+		}else if(5 == index){
+			p5 = new BMap.Point(lng, lat);
+		}else if(6 == index){
+			p6 = new BMap.Point(lng, lat);
+		}else if(7 == index){
+			p7 = new BMap.Point(lng, lat);
+		}else if(8 == index){
+			p8 = new BMap.Point(lng, lat);
+		}else if(9 == index){
+			p9 = new BMap.Point(lng, lat);
+		}else if(10 == index){
+			p10 = new BMap.Point(lng, lat);
+		}else if(11 == index){
+			p11 = new BMap.Point(lng, lat);
+		}else if(12 == index){
+			p12 = new BMap.Point(lng, lat);
+		}
+	};
+	
+	addMarker = function(marker,index){
+    	if(!isNeedDisplayMarker){
+    		return;
+    	}
+    	if(null != marker){
+    		map.addOverlay(marker);	
+    		marker.enableDragging();
+        	marker.addEventListener("dragend", function(e){
+        		var longitude = e.point.lng;
+        		var latitude = e.point.lat;
+        		createPoint(longitude,latitude,index);
+       	    	drawPolygon();
+       	    });
+    	}
+    };
+   
+    create15Points = function(){
+    	p1 = new BMap.Point(lng1, lat1);
+		marker1 = new BMap.Marker(p1);
+		p2 = new BMap.Point(lng2, lat2);
+		marker2 = new BMap.Marker(p2);
+		p3 = new BMap.Point(lng3, lat3);
+		marker3 = new BMap.Marker(p3);
+		p4 = new BMap.Point(lng4, lat4);
+		marker4 = new BMap.Marker(p4);
+		p5 = new BMap.Point(lng5, lat5);
+		marker5 = new BMap.Marker(p5);
+		p6 = new BMap.Point(lng6, lat6);
+		marker6 = new BMap.Marker(p6);
+		p7 = new BMap.Point(lng7, lat7);
+		marker7 = new BMap.Marker(p7);
+		p8 = new BMap.Point(lng8, lat8);
+		marker8 = new BMap.Marker(p8);
+		p9 = new BMap.Point(lng9, lat9);
+		marker9 = new BMap.Marker(p9);
+		p10 = new BMap.Point(lng10, lat10);
+		marker10 = new BMap.Marker(p10);
+		p11 = new BMap.Point(lng11, lat11);
+		marker11 = new BMap.Marker(p11);
+		p12 = new BMap.Point(lng12, lat12);
+		marker12 = new BMap.Marker(p12);
+    }
+    
+    create15Marker = function(){
+    	addMarker(marker1,1);
+	    addMarker(marker2,2);
+	    addMarker(marker3,3);
+	    addMarker(marker4,4);
+	    addMarker(marker5,5);
+	    addMarker(marker6,6);
+	    addMarker(marker7,7);
+	    addMarker(marker8,8);
+	    addMarker(marker9,9);
+	    addMarker(marker10,10);
+	    addMarker(marker11,11);
+	    addMarker(marker12,12);
+    }
+    
+ 	initPolygonWithNoData = function(lng,lat){
+ 		lng = parseFloat(lng);
+ 		lat = parseFloat(lat);
+	 	lat1 = lat + d * Math.cos(2*pi/duobian);
+		lng1 = lng + d * Math.sin(2*pi/duobian);
+		
+		lat2 = lat + d * Math.cos(2*pi/duobian*2);
+		lng2 = lng + d * Math.sin(2*pi/duobian*2);
+		
+		lat3 = lat + d * Math.cos(2*pi/duobian*3);
+		lng3 = lng + d * Math.sin(2*pi/duobian*3);
+		
+		lat4 = lat + d * Math.cos(2*pi/duobian*4);
+		lng4 = lng + d * Math.sin(2*pi/duobian*4);
+		
+		lat5 = lat + d * Math.cos(2*pi/duobian*5);
+		lng5 = lng + d * Math.sin(2*pi/duobian*5);
+		
+		lat6 = lat + d * Math.cos(2*pi/duobian*6);
+		lng6 = lng + d * Math.sin(2*pi/duobian*6);
+		
+		lat7 = lat + d * Math.cos(2*pi/duobian*7);
+		lng7 = lng + d * Math.sin(2*pi/duobian*7);
+		
+		lat8 = lat + d * Math.cos(2*pi/duobian*8);
+		lng8 = lng + d * Math.sin(2*pi/duobian*8);
+		
+		lat9 = lat + d * Math.cos(2*pi/duobian*9);
+		lng9 = lng + d * Math.sin(2*pi/duobian*9);
+		
+		lat10 = lat + d * Math.cos(2*pi/duobian*10);
+		lng10 = lng + d * Math.sin(2*pi/duobian*10);
+		
+		lat11 = lat + d * Math.cos(2*pi/duobian*11);
+		lng11 = lng + d * Math.sin(2*pi/duobian*11);
+		
+		lat12 = lat + d * Math.cos(2*pi/duobian*12);
+		lng12 = lng + d * Math.sin(2*pi/duobian*12);
+		
+		create15Points();
+		drawPolygon();
+		create15Marker();
+ 	};
+ 	getPointLngLat = function(points){
+ 		lng1 = points[0].lng;
+		lat1 = points[0].lat;
+		lng2 = points[1].lng;
+		lat2 = points[1].lat;
+		lng3 = points[2].lng;
+		lat3 = points[2].lat;
+		lng4 = points[3].lng;
+		lat4 = points[3].lat;
+		lng5 = points[4].lng;
+		lat5 = points[4].lat;
+		lng6 = points[5].lng;
+		lat6 = points[5].lat;
+		lng7 = points[6].lng;
+		lat7 = points[6].lat;
+		lng8 = points[7].lng;
+		lat8 = points[7].lat;
+		lng9 = points[8].lng;
+		lat9 = points[8].lat;
+		lng10 = points[9].lng;
+		lat10 = points[9].lat;
+		lng11 = points[10].lng;
+		lat11 = points[10].lat;
+		lng12 = points[11].lng;
+		lat12 = points[11].lat;
+ 	};
+ 	addLabel = function(point,tips){
+ 		var opts = {
+				position : point,    // 指定文本标注所在的地理位置
+				offset   : new BMap.Size(10, -30)    //设置文本偏移量
+		  }
+      var label = new BMap.Label(tips, opts);  // 创建文本标注对象
+	  label.setStyle({
+			 color : "red",
+			 fontSize : "12px",
+			 height : "20px",
+			 lineHeight : "20px",
+			 fontFamily:"微软雅黑"
+	  });
+	  map.addOverlay(label);
+ 	};
+ 	initPoint_ = function(points,params){
+ 		map.clearOverlays();
+		
+		var city = params[0];
+		var address = params[1];
+		var cLng = parseFloat(params[2]);
+		var cLat = parseFloat(params[3]);
+		var radius = parseInt(params[4]);
+		var sectionName = params[5];
+		var sectionLng = parseFloat(params[6]);
+		var sectionLat = parseFloat(params[7]);
+		isNeedDisplayMarker = params[8];
+		if(null == points || "" == points){
+			var myGeo = new BMap.Geocoder();
+			myGeo.getPoint(address, function(point){
+			  if (point) {
+			      map.addOverlay(new BMap.Marker(point));
+			      
+			      var tips = "用户地址："+address;
+				  addLabel(point,tips);
+			  }
+			}, city);
+			
+			var sPoint = new BMap.Point(cLng,cLat);
+			map.addOverlay(new BMap.Marker(sPoint));
+		      
+			map.centerAndZoom(sPoint, 14);
+			var circle = new BMap.Circle(sPoint,parseInt(radius));
+			map.addOverlay(circle);
+			
+			var tips = "商家位置";
+			addLabel(sPoint,tips);
+			
+		}else{
+			getPointLngLat(points);
+			create15Points();
+			
+			drawPolygon();
+			create15Marker();
+			
+			var addressGeo = new BMap.Geocoder();
+			addressGeo.getPoint(address, function(point){
+			  if (point) {
+			      map.addOverlay(new BMap.Marker(point));
+			      
+			      var tips = "用户位置:"+address;
+			      addLabel(point,tips);
+			  }
+			}, city);
+			
+			if(null == sectionLng || 0 == sectionLng || "" == sectionLng){
+				var lng_ = points[0].lng;
+				var lat_ = points[0].lat;
+				var sectionPoint_ = new BMap.Point(lng_,lat_);
+				map.centerAndZoom(sectionPoint_,14);
+				var tips = "板块名称:"+sectionName;
+				addLabel(sectionPoint_,tips);
+			}else{
+				var sectionPoint = new BMap.Point(sectionLng,sectionLat);
+				map.centerAndZoom(sectionPoint,14);	
+				var tips = "板块名称:"+sectionName;
+				addLabel(sectionPoint,tips);
+			}
+		}
+	};
+	/* 
+	animate = function() {
+		var elem = document.getElementById('progress'); 
+		if(elem != null) { 
+			if (pos==0) len += dir; 
+			if (len>32 || pos>179) pos += dir; 
+			if (pos>179) len -= dir; 
+			if (pos>179 && len==0) pos=0; 
+			elem.style.left = pos; 
+			elem.style.width = len; 
+		} 
+	};
+	var t_id = setInterval(animate,20); 
+	var pos=0; 
+	var dir=2; 
+	var len=0; 
+	show_loading = function(){
+		document.write('<div id="loader_container"><div id="loader"><div align="center">页面组件加载中……<br />正在加载地图，请稍候...</div><div id="loader_bg"><div id="progress"> </div></div></div></div>'); 
+	};
+
+	remove_loading = function(){ 
+		this.clearInterval(t_id); 
+		var targelem = document.getElementById('loader_container'); 
+		targelem.style.display='none'; 
+		targelem.style.visibility='hidden'; 
+	}; */
+</script>

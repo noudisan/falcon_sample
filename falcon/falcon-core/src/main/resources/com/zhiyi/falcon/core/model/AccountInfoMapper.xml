@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.falcon.core.dao.AccountInfoMapper">
+    <resultMap id="BaseResultMap" type="com.zhiyi.falcon.core.model.AccountInfo">
+        <constructor>
+            <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="USER_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="USER_NAME" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="PHONE" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="ACCOUNT_AMOUNT" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+            <arg column="CREATE_DT" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="MIDIFY_DT" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="CREATE_USER" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="MODIFY_USER" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, USER_ID, USER_NAME, PHONE, ACCOUNT_AMOUNT, CREATE_DT, MIDIFY_DT, CREATE_USER, 
+    MODIFY_USER
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from TB_ACCOUNT_INFO
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from TB_ACCOUNT_INFO
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zhiyi.falcon.core.model.AccountInfo">
+    insert into TB_ACCOUNT_INFO (ID, USER_ID, USER_NAME, 
+      PHONE, ACCOUNT_AMOUNT, CREATE_DT, 
+      MIDIFY_DT, CREATE_USER, MODIFY_USER
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{accountAmount,jdbcType=DOUBLE}, #{createDt,jdbcType=TIMESTAMP}, 
+      #{midifyDt,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.zhiyi.falcon.core.model.AccountInfo">
+        insert into TB_ACCOUNT_INFO
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="userName != null">
+                USER_NAME,
+            </if>
+            <if test="phone != null">
+                PHONE,
+            </if>
+            <if test="accountAmount != null">
+                ACCOUNT_AMOUNT,
+            </if>
+            <if test="createDt != null">
+                CREATE_DT,
+            </if>
+            <if test="midifyDt != null">
+                MIDIFY_DT,
+            </if>
+            <if test="createUser != null">
+                CREATE_USER,
+            </if>
+            <if test="modifyUser != null">
+                MODIFY_USER,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="accountAmount != null">
+                #{accountAmount,jdbcType=DOUBLE},
+            </if>
+            <if test="createDt != null">
+                #{createDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="midifyDt != null">
+                #{midifyDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyUser != null">
+                #{modifyUser,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.falcon.core.model.AccountInfo">
+        update TB_ACCOUNT_INFO
+        <set>
+            <if test="userId != null">
+                USER_ID = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                USER_NAME = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                PHONE = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="accountAmount != null">
+                ACCOUNT_AMOUNT = #{accountAmount,jdbcType=DOUBLE},
+            </if>
+            <if test="createDt != null">
+                CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="midifyDt != null">
+                MIDIFY_DT = #{midifyDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                CREATE_USER = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyUser != null">
+                MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zhiyi.falcon.core.model.AccountInfo">
+    update TB_ACCOUNT_INFO
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      ACCOUNT_AMOUNT = #{accountAmount,jdbcType=DOUBLE},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      MIDIFY_DT = #{midifyDt,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      MODIFY_USER = #{modifyUser,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+
+    <!--sql查询条件-->
+    <sql id="searchDto_select_conditions">
+        <trim prefix="where" prefixOverrides="AND |OR ">
+            <if test="id != null">
+                <![CDATA[ ID = #{id}]]>
+            </if>
+            <if test="userId != null and userId != ''">
+                <![CDATA[ AND USER_ID = #{userId}]]>
+            </if>
+            <if test="userName != null and userName != ''">
+                <![CDATA[ AND USER_NAME = #{userName}]]>
+            </if>
+            <if test="phone != null and phone != ''">
+                <![CDATA[ AND PHONE = #{phone}]]>
+            </if>
+            <if test="accountAmount != null and accountAmount != ''">
+                <![CDATA[ AND ACCOUNT_AMOUNT = #{accountAmount}]]>
+            </if>
+            <if test="createDt != null ">
+                <![CDATA[ AND CREATE_DT = #{createDt}]]>
+            </if>
+            <if test="createUser != null and createUser !=''">
+                <![CDATA[ AND CREATE_USER = #{createUser}]]>
+            </if>
+            <if test="midifyDt != null ">
+                <![CDATA[ AND MIDIFY_DT = #{midifyDt}]]>
+            </if>
+            <if test="modifyUser != null and modifyUser != ''">
+                <![CDATA[ AND MODIFY_USER = #{modifyUser}]]>
+            </if>
+        </trim>
+    </sql>
+
+
+    <!--根据条件查询-->
+    <select id="search" parameterType="com.zhiyi.falcon.api.dto.AccountInfoDto" resultMap="BaseResultMap">
+        select * from TB_ACCOUNT_INFO
+        <include refid="searchDto_select_conditions"/>
+    </select>
+
+    <!--查询数据总条数-->
+    <select id="count" parameterType="com.zhiyi.falcon.api.dto.AccountInfoDto" resultType="Integer">
+        SELECT count(*) from TB_ACCOUNT_INFO
+        <include refid="searchDto_select_conditions"/>
+    </select>
+
+    <!--APP：根据用户ID获取财富余额-->
+    <select id="getAccountAmount" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT * FROM TB_ACCOUNT_INFO WHERE  USER_ID= #{userId}
+    </select>
+
+</mapper>

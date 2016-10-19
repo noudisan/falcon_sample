@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=MS4zlH39EpbXoCDULNaD2xuZ"></script>
+<title>地址</title>
+<style type="text/css">
+body,html,#containerCommunitySendSectionPoint {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	margin: 0;
+}
+</style>
+</head>
+<body>
+	<div id="containerCommunitySendSectionPoint"></div>
+</body>
+</html>
+<script type="text/javascript">
+	var map = null;
+	var centerPoint;
+	var lng,lat;
+	if(!map){
+		map = new BMap.Map("containerCommunitySendSectionPoint");
+	}
+	map.enableScrollWheelZoom();//启用滚轮放大缩小，默认禁用
+	map.enableContinuousZoom();//启用地图惯性拖拽，默认禁用
+	map.addControl(new BMap.NavigationControl());//添加默认缩放平移控件
+	
+	searchPoint = function(longitude,latitude,city,address){
+		map.clearOverlays();
+		if(null == longitude || 0 == longitude || null == latitude || 0 == latitude){
+			var myGeo = new BMap.Geocoder();
+			myGeo.getPoint(address, function(point) {
+				if (point) {
+					centerPoint = point;
+					map.clearOverlays();
+					map.centerAndZoom(point, 17);
+					map.addOverlay(new BMap.Marker(point));
+				}
+			}, city);
+		}else{
+			centerPoint = new BMap.Point(parseFloat(longitude),parseFloat(latitude));
+			var marker = new BMap.Marker(centerPoint);
+			map.centerAndZoom(centerPoint, 17);
+			map.addOverlay(marker);
+		}
+		map.addEventListener("click", function(e) {
+			lng = e.point.lng;
+			lat = e.point.lat;
+			map.clearOverlays();
+			centerPoint = new BMap.Point(lng,lat);
+			var marker = new BMap.Marker(centerPoint);
+			map.addOverlay(marker);
+		});
+	};
+	clearOverlays = function(){
+		map.clearOverlays();
+	};
+	getPoints = function(){
+		return centerPoint;
+	};
+	
+</script>

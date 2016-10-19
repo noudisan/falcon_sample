@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyi.hero.user.dao.SysUserMapper">
+
+	<resultMap id="sysUserMap" type="com.zhiyi.hero.user.model.SysUser">
+		<id column="USER_ID" property="id" />
+		<result column="USER_NAME" property="userName" />
+		<result column="PASSWORD" property="password" />
+		<result column="USER_FLAG" property="userFlag" />
+		<result column="STATUS_FLAG" property="statusFlag" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DT" property="createDt" />
+		<result column="MODIFY_USER" property="modifyUser" />
+		<result column="MODIFY_TIME" property="modifyDt" />
+	</resultMap>
+
+
+	<resultMap id="sysUserRoleMap" type="com.zhiyi.hero.user.dto.SysUserRoleDto">
+		<id column="USER_ID" property="user.id" />
+		<result column="ROLE_ID" property="role.id" />
+		<result column="ROLE_NAME" property="role.roleName" />
+		<result column="ROLE_DESC" property="role.roleDesc" />
+		<result column="MODIFY_USER" property="assignUser" />
+		<result column="MODIFY_DT" property="assignDt" />
+	</resultMap>
+
+	<resultMap id="sysRoleMap" type="com.zhiyi.hero.role.model.SysRole">
+		<id column="ROLE_ID" property="id" />
+		<result column="ROLE_NAME" property="roleName" />
+		<result column="ROLE_DESC" property="roleDesc" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DT" property="createDt" />
+		<result column="MODIFY_USER" property="modifyUser" />
+		<result column="MODIFY_TIME" property="modifyDt" />
+	</resultMap>
+
+	<resultMap id="resourcesMap" type="com.zhiyi.hero.resources.model.Resources">
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" />
+		<result column="DESCRIBER" property="describer" />
+		<result column="PARENT_ID" property="parentId" />
+		<result column="LEAF_FLAG" property="leafFlag" />
+		<result column="LINK_URL" property="linkUrl" />
+		<result column="ICON_CLS" property="iconCls" />
+		<result column="PLATFORM_ID" property="platformId" />
+		<result column="PLATFORM_NAME" property="platformName" />
+		<result column="ORDERS" property="orders" />
+		<result column="CREATE_USER" property="createUser" />
+		<result column="CREATE_DT" property="createDt" />
+		<result column="MODIFY_USER" property="modifyUser" />
+		<result column="MODIFY_DT" property="modifyDt" />
+	</resultMap>
+	
+	<sql id="result">
+		SELECT * FROM TB_SYS_USER
+	</sql>
+
+	<insert id="save" parameterType="com.zhiyi.hero.user.model.SysUser">
+		<selectKey resultType="java.lang.Long" order="AFTER"
+			keyProperty="id">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+		</selectKey>
+        <![CDATA[
+          insert into TB_SYS_USER(USER_NAME,PASSWORD,USER_FLAG,STATUS_FLAG,CREATE_USER,CREATE_DT,MODIFY_USER,MODIFY_TIME)
+              values (
+                #{userName},#{password},#{userFlag},#{statusFlag},#{createUser},now(), #{modifyUser},now()
+              )
+        ]]>
+	</insert>
+
+
+	<update id="update" parameterType="com.zhiyi.hero.user.model.SysUser">
+		update
+		TB_SYS_USER
+		set
+		USER_NAME
+		= #{userName},
+		PASSWORD = #{password},
+		USER_FLAG = #{userFlag},
+		STATUS_FLAG= #{statusFlag},
+		MODIFY_USER = #{modifyUser},
+		MODIFY_TIME =
+		now()
+		where
+		USER_ID =#{id}
+	</update>
+
+	<update id="updatePassword">
+		update TB_SYS_USER set PASSWORD = #{1},MODIFY_USER =
+		#{0},MODIFY_TIME =
+		now() where USER_NAME = #{0}
+	</update>
+
+
+	<select id="search" resultMap="sysUserMap"
+		parameterType="com.zhiyi.hero.user.dto.SysUserSearchDto">
+		<include refid="result" />
+		<include refid="searchCondition" />
+	</select>
+
+	<select id="searchCount" resultType="int"
+		parameterType="com.zhiyi.hero.user.dto.SysUserSearchDto">
+		select count(*) from TB_SYS_USER
+		<include refid="searchCondition" />
+	</select>
+
+	<select id="get" resultMap="sysUserMap">
+		<include refid="result" />
+		where USER_ID =#{0}
+	</select>
+
+	<select id="getByUserName" resultMap="sysUserMap" parameterType="string">
+		<include refid="result" />
+		where USER_NAME =#{0}
+	</select>
+
+	<sql id="searchCondition">
+		<trim prefix="where" prefixOverrides="AND | OR ">
+			<if test="@Ognl@isNotEmpty(userName)">
+				AND USER_NAME like concat('%', #{userName}, '%')
+			</if>
+			<if test="@Ognl@isNotEmpty(startD)">
+                <![CDATA[ AND MODIFY_TIME >= #{startD}]]>
+			</if>
+			<if test="@Ognl@isNotEmpty(endD)">
+                <![CDATA[  AND MODIFY_TIME <= #{endD}]]>
+			</if>
+		</trim>
+	</sql>
+
+
+	<select id="searchRole" resultMap="sysUserRoleMap"
+		parameterType="com.zhiyi.hero.user.dto.SysUserRoleSearchDto">
+		select
+		UR.USER_ID USER_ID,
+		UR.ROLE_ID ROLE_ID,
+		R.ROLE_NAME ROLE_NAME,
+		R.ROLE_DESC ROLE_DESC,
+		UR.MODIFY_USER MODIFY_USER,
+		UR.MODIFY_DT
+		MODIFY_DT
+		from TB_SYS_USER_ROLE UR,TB_SYS_ROLE R,TB_SYS_USER U
+		<include refid="searchRoleCondition" />
+	</select>
+
+	<select id="searchRoleCount" resultType="java.lang.Integer"
+		parameterType="com.zhiyi.hero.user.dto.SysUserRoleSearchDto">
+		select count(*) from TB_SYS_USER_ROLE UR,TB_SYS_ROLE R,TB_SYS_USER U
+		<include refid="searchRoleCondition" />
+	</select>
+
+
+	<sql id="searchRoleCondition">
+		<trim prefix="where" prefixOverrides="AND | OR ">
+			UR.ROLE_ID = R.ROLE_ID AND UR.USER_ID = U.USER_ID
+			<if test="@Ognl@isNotEmpty(userName)">
+				AND U.USER_NAME = #{userName}
+			</if>
+			<if test="@Ognl@isNotEmpty(userId)">
+				AND UR.USER_ID = #{userId}
+			</if>
+		</trim>
+	</sql>
+
+
+	<delete id="deleteRole">
+		delete from TB_SYS_USER_ROLE where USER_ID = #{0} and
+		ROLE_ID = #{1}
+	</delete>
+
+	<insert id="saveRole" parameterType="com.zhiyi.hero.user.model.SysUserRole">
+		insert into
+		TB_SYS_USER_ROLE(USER_ID,ROLE_ID,CREATE_USER,CREATE_DT,MODIFY_USER,MODIFY_DT)
+		values (
+		#{userId},#{roleId},#{createUser},now(), #{modifyUser},now()
+		)
+	</insert>
+
+	<select id="getRoles" resultMap="sysRoleMap" parameterType="java.lang.String">
+		SELECT
+		a.ROLE_NAME
+		FROM TB_SYS_ROLE a
+		INNER JOIN TB_SYS_USER_ROLE b ON
+		a.ROLE_ID = b.ROLE_ID
+		INNER JOIN TB_SYS_USER c ON b.USER_ID = c.USER_ID
+		WHERE c.USER_NAME = #{userName}
+	</select>
+
+	<select id="getPermission" resultMap="resourcesMap" parameterType="java.util.HashMap">
+		SELECT  DISTINCT a.* FROM TB_SYS_RESOURCES a,TB_SYS_ROLE_RESOURCES b
+		WHERE a.ID=b.RESOURCE_ID
+		AND b.ROLE_ID IN 
+		<foreach collection="roleIdList" item="roleId"  open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+		AND a.PARENT_ID = #{parentId}
+		AND a.PLATFORM_ID = #{platformId}
+		ORDER BY a.ORDERS ASC;
+		
+	</select>
+
+</mapper>

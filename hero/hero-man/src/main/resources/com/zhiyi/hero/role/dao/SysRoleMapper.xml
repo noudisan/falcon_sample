@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiyi.hero.role.dao.SysRoleMapper">
+
+    <resultMap id="sysRoleMap" type="com.zhiyi.hero.role.model.SysRole">
+        <id column="ROLE_ID" property="id"/>
+        <result column="ROLE_NAME" property="roleName"/>
+        <result column="ROLE_DESC" property="roleDesc"/>
+        <result column="CREATE_USER" property="createUser"/>
+        <result column="CREATE_DT" property="createDt"/>
+        <result column="MODIFY_USER" property="modifyUser"/>
+        <result column="MODIFY_TIME" property="modifyDt"/>
+    </resultMap>
+
+    <sql id="result">
+        SELECT * FROM TB_SYS_ROLE
+    </sql>
+
+    <insert id="save" parameterType="com.zhiyi.hero.role.model.SysRole">
+        <selectKey resultType="java.lang.Long" order="AFTER"
+                   keyProperty="id">
+            <![CDATA[SELECT LAST_INSERT_ID() ]]>
+        </selectKey>
+        <![CDATA[
+          insert into TB_SYS_ROLE(ROLE_NAME,ROLE_DESC,CREATE_USER,CREATE_DT,MODIFY_USER,MODIFY_TIME)
+              values (
+                #{roleName},#{roleDesc},#{createUser},now(),#{modifyUser}, now()
+              )
+        ]]>
+    </insert>
+
+
+    <update id="update" parameterType="com.zhiyi.hero.role.model.SysRole">
+        update
+        TB_SYS_ROLE
+        set
+        ROLE_NAME = #{roleName},
+        ROLE_DESC = #{roleDesc},
+        MODIFY_USER = #{modifyUser},
+        MODIFY_TIME = now()
+        where
+        ROLE_ID =#{id}
+    </update>
+
+
+    <select id="search" resultMap="sysRoleMap"
+            parameterType="com.zhiyi.hero.role.dto.SysRoleSearchDto">
+        <include refid="result"/>
+        <include refid="searchCondition"/>
+    </select>
+
+    <select id="searchCount" resultType="int"
+            parameterType="com.zhiyi.hero.role.dto.SysRoleSearchDto">
+        select count(*) from TB_SYS_ROLE
+        <include refid="searchCondition"/>
+    </select>
+
+    <select id="get" resultMap="sysRoleMap">
+        <include refid="result"/>
+        where ROLE_ID =#{id}
+    </select>
+
+
+    <sql id="searchCondition">
+        <trim prefix="where" prefixOverrides="AND | OR ">
+            <if test="@Ognl@isNotEmpty(roleName)">
+                AND ROLE_NAME like concat('%',#{roleName},'%')
+            </if>
+            <if test="@Ognl@isNotEmpty(roleDesc)">
+                AND ROLE_DESC like concat('%',#{roleDesc},'%')
+            </if>
+            <if test="@Ognl@isNotEmpty(startD)">
+                <![CDATA[ AND MODIFY_TIME >= #{startD}]]>
+            </if>
+            <if test="@Ognl@isNotEmpty(endD)">
+                <![CDATA[  AND MODIFY_TIME <= #{endD}]]>
+            </if>
+        </trim>
+    </sql>
+
+
+    <resultMap id="sysRoleResourcesMap" type="com.zhiyi.hero.role.dto.SysRoleResourcesDto">
+        <id column="ID" property="id"/>
+        <result column="ROLE_ID" property="role.id"/>
+        <result column="RESOURCES_ID" property="resources.id"/>
+        <result column="RESOURCES_NAME" property="resources.name"/>
+        <result column="RESOURCES_PARENT_ID" property="resources.parent.id"/>
+        <result column="RESOURCES_LINK_URL" property="resources.linkUrl"/>
+        <result column="RESOURCES_DESCRIBER" property="resources.describer"/>
+        <result column="RESOURCES_ORDERS" property="resources.orders"/>
+        <result column="MODIFY_DT" property="modifyDt"/>
+        <result column="MODIFY_USER" property="modifyUser"/>
+        <result column="CREATE_DT" property="createDt"/>
+        <result column="CREATE_USER" property="createUser"/>
+    </resultMap>
+
+    <select id="searchResources" resultMap="sysRoleResourcesMap"
+            parameterType="com.zhiyi.hero.role.dto.SysRoleResourcesSearchDto">
+        select
+        RR.ID ID,
+        RR.MODIFY_DT MODIFY_DT,
+        RR.MODIFY_USER MODIFY_USER,
+        RR.CREATE_USER CREATE_USER,
+        RR.CREATE_DT CREATE_DT,
+        RR.RESOURCE_ID RESOURCES_ID,
+        RR.ROLE_ID ROLE_ID,
+        RS.NAME RESOURCES_NAME,
+        RS.PARENT_ID PARENT_ID,
+        RS.LINK_URL RESOURCES_LINK_URL,
+        RS.DESCRIBER RESOURCES_DESCRIBER,
+        RS.ORDERS RESOURCES_ORDERS
+        from TB_SYS_ROLE_RESOURCES RR,TB_SYS_RESOURCES RS,TB_SYS_ROLE R
+        <include refid="searchResourcesCondition"/>
+    </select>
+
+    <sql id="searchResourcesCondition">
+        <trim prefix="where" prefixOverrides="AND | OR ">
+            RR.ROLE_ID = R.ROLE_ID AND RR.RESOURCE_ID = RS.ID
+            <if test="@Ognl@isNotEmpty(roleId)">
+                AND RR.ROLE_ID = #{roleId}
+            </if>
+            <if test="@Ognl@isNotEmpty(platformId)">
+                AND RS.PLATFORM_ID = #{platformId}
+            </if>
+        </trim>
+    </sql>
+
+
+    <select id="searchRoleCount" resultType="int">
+        select count(*) from TB_SYS_ROLE_RESOURCES RR,TB_SYS_RESOURCES RS,TB_SYS_ROLE R
+        <include refid="searchResourcesCondition"/>
+    </select>
+
+    <delete id="deleteResources">
+        delete from TB_SYS_ROLE_RESOURCES where ROLE_ID = #{0} and RESOURCE_ID = #{1}
+    </delete>
+
+    <insert id="saveResources" parameterType="com.zhiyi.hero.role.model.SysRoleResources">
+        insert into TB_SYS_ROLE_RESOURCES(ROLE_ID,RESOURCE_ID,CREATE_USER,CREATE_DT,MODIFY_USER,MODIFY_DT)
+        values (
+        #{roleId},#{resourcesId},#{createUser},now(), #{modifyUser},now()
+        )
+    </insert>
+
+</mapper>

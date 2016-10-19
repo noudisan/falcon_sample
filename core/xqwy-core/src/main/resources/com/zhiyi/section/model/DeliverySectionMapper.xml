@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.section.dao.DeliverySectionMapper">
+    <resultMap id="BaseResultMap" type="com.zhiyi.section.model.DeliverySection">
+        <id column="SECTION_ID" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="CITY" property="city" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="LATITUDE" property="latitude" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+        <result column="LONGITUDE" property="longitude" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+        <result column="SECTION_NAME" property="sectionName" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="STATUS_FLAG" property="statusFlag" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="MODIFY_USER" property="modifyUser" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="MODIFY_DT" property="modifyDt" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="CREATE_DT" property="createDt" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+    </resultMap>
+
+    <resultMap id="ResultMap" type="com.zhiyi.section.model.DeliverySection" extends="BaseResultMap">
+        <collection property="deliverySectionPoints"
+                    resultMap="com.zhiyi.section.dao.DeliverySectionPointMapper.BaseResultMap" column="section_id"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    ID SECTION_ID, ADDRESS, CITY, LATITUDE, LONGITUDE, SECTION_NAME, STATUS_FLAG, MODIFY_USER, MODIFY_DT,
+    CREATE_USER, CREATE_DT
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from TB_BASE_DELIVERY_SECTION
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByPrimaryKeyJoinPoints" resultMap="ResultMap" parameterType="java.lang.Integer">
+      select  tbds.ID SECTION_ID, tbds.ADDRESS, tbds.CITY, tbds.LATITUDE, tbds.LONGITUDE, tbds.SECTION_NAME, tbds.STATUS_FLAG,
+      tbds.MODIFY_USER, tbds.MODIFY_DT,
+      tbds.CREATE_USER, tbds.CREATE_DT,
+      tbsp.ID POINT_ID,tbsp.LATITUDE LATITUDE_P ,tbsp.LONGITUDE LONGITUDE_P,tbsp.POINT_INDEX
+      from TB_BASE_DELIVERY_SECTION tbds join TB_BASE_SECTION_POINT tbsp ON tbds.ID = tbsp.SECTION_ID
+      WHERE tbds.ID = #{sectionId}
+  </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from TB_BASE_DELIVERY_SECTION
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zhiyi.section.model.DeliverySection">
+    insert into TB_BASE_DELIVERY_SECTION (ID, ADDRESS, CITY, 
+      LATITUDE, LONGITUDE, SECTION_NAME, 
+      STATUS_FLAG, MODIFY_USER, MODIFY_DT, 
+      CREATE_USER, CREATE_DT)
+    values (#{id,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=DOUBLE}, #{longitude,jdbcType=DOUBLE}, #{sectionName,jdbcType=VARCHAR}, 
+      #{statusFlag,jdbcType=VARCHAR}, #{modifyUser,jdbcType=VARCHAR}, #{modifyDt,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.zhiyi.section.model.DeliverySection" keyProperty="id"
+            useGeneratedKeys="true">
+        insert into TB_BASE_DELIVERY_SECTION
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="address != null">
+                ADDRESS,
+            </if>
+            <if test="city != null">
+                CITY,
+            </if>
+            <if test="latitude != null">
+                LATITUDE,
+            </if>
+            <if test="longitude != null">
+                LONGITUDE,
+            </if>
+            <if test="sectionName != null">
+                SECTION_NAME,
+            </if>
+            <if test="statusFlag != null">
+                STATUS_FLAG,
+            </if>
+            <if test="modifyUser != null">
+                MODIFY_USER,
+            </if>
+            <if test="modifyDt != null">
+                MODIFY_DT,
+            </if>
+            <if test="createUser != null">
+                CREATE_USER,
+            </if>
+            <if test="createDt != null">
+                CREATE_DT,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=DOUBLE},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=DOUBLE},
+            </if>
+            <if test="sectionName != null">
+                #{sectionName,jdbcType=VARCHAR},
+            </if>
+            <if test="statusFlag != null">
+                #{statusFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyUser != null">
+                #{modifyUser,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyDt != null">
+                #{modifyDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDt != null">
+                #{createDt,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.section.model.DeliverySection">
+        update TB_BASE_DELIVERY_SECTION
+        <set>
+            <if test="address != null">
+                ADDRESS = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                CITY = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="latitude != null">
+                LATITUDE = #{latitude,jdbcType=DOUBLE},
+            </if>
+            <if test="longitude != null">
+                LONGITUDE = #{longitude,jdbcType=DOUBLE},
+            </if>
+            <if test="sectionName != null">
+                SECTION_NAME = #{sectionName,jdbcType=VARCHAR},
+            </if>
+            <if test="statusFlag != null">
+                STATUS_FLAG = #{statusFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyUser != null">
+                MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyDt != null">
+                MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                CREATE_USER = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createDt != null">
+                CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zhiyi.section.model.DeliverySection">
+    update TB_BASE_DELIVERY_SECTION
+    set ADDRESS = #{address,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      LATITUDE = #{latitude,jdbcType=DOUBLE},
+      LONGITUDE = #{longitude,jdbcType=DOUBLE},
+      SECTION_NAME = #{sectionName,jdbcType=VARCHAR},
+      STATUS_FLAG = #{statusFlag,jdbcType=VARCHAR},
+      MODIFY_USER = #{modifyUser,jdbcType=VARCHAR},
+      MODIFY_DT = #{modifyDt,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+
+    <select id="queryListByCondition" parameterType="com.zhiyi.communitybuilding.dto.DeliveryCommunityBuildingSearchDto" resultMap="ResultMap">
+        select tbds.ID SECTION_ID, tbds.ADDRESS, tbds.CITY, tbds.LATITUDE, tbds.LONGITUDE, tbds.SECTION_NAME,
+        tbds.STATUS_FLAG,
+        tbds.MODIFY_USER, tbds.MODIFY_DT,
+        tbds.CREATE_USER, tbds.CREATE_DT,
+        tbsp.ID POINT_ID,tbsp.LATITUDE LATITUDE_P,tbsp.LONGITUDE LONGITUDE_P,tbsp.POINT_INDEX
+        from TB_BASE_DELIVERY_SECTION tbds join TB_BASE_SECTION_POINT tbsp ON tbds.ID = tbsp.SECTION_ID
+        WHERE 1=1
+        <include refid="searchDto_select_conditions"/>
+    </select>
+
+    <sql id="searchDto_select_conditions">
+        <trim suffixOverrides=",">
+            <if test="cityName != null and cityName !='' ">
+                AND CITY like concat('%', #{cityName}, '%')
+            </if>
+            <if test="sectionName != null and sectionName !='' ">
+                AND SECTION_NAME like concat('%', #{sectionName}, '%')
+            </if>
+        </trim>
+    </sql>
+
+    <select id="querySectionCityList" resultType="string">
+        <![CDATA[select distinct city from TB_BASE_DELIVERY_SECTION ]]>
+    </select>
+
+
+    <select id="search" parameterType="com.zhiyi.section.dto.DeliverySectionSearchDto" resultMap="BaseResultMap">
+        SELECT  * from TB_BASE_DELIVERY_SECTION WHERE 1=1
+        <include refid="searchDto_select_conditions"></include>
+    </select>
+    <select id="count" parameterType="com.zhiyi.section.dto.DeliverySectionSearchDto" resultType="int">
+        SELECT  COUNT(*) from TB_BASE_DELIVERY_SECTION WHERE 1=1
+        <include refid="searchDto_select_conditions"></include>
+    </select>
+</mapper>

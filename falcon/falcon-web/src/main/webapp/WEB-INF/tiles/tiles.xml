@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+    <!--步数管理-->
+    <definition name="deliverysteps" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/deliverySteps.jsp"/>
+    </definition>
+
+    <!--版本管理-->
+    <definition name="deliveryversion" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/deliveryVersion.jsp"/>
+    </definition>
+
+    <definition name="employee" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/employee.jsp"/>
+    </definition>
+
+    <definition name="deliverytask" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/deliveryTask.jsp"/>
+    </definition>
+
+    <definition name="city" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/city.jsp"/>
+    </definition>
+
+    <definition name="section" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/section.jsp"/>
+    </definition>
+
+    <definition name="communityExport" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/communityExport.jsp"/>
+    </definition>
+
+    <definition name="communityNearby" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/communityNearby.jsp"/>
+    </definition>
+
+    <definition name="deliveryCommunity" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/deliveryCommunity.jsp"/>
+    </definition>
+    <definition name="deliveryCommunityBuilding" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/deliveryCommunityBuilding.jsp"/>
+    </definition>
+    <definition name="deliveryCommunityUnit" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/deliveryCommunityUnit.jsp"/>
+    </definition>
+
+    <definition name="deliveryDataBuilding" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/deliveryDataBuilding.jsp"/>
+    </definition>
+
+    <definition name="deliveryDataCommunityUnit" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/deliveryDataCommunityUnit.jsp"/>
+    </definition>
+
+    <definition name="deliveryDataCommunity" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/deliveryDataCommunity.jsp"/>
+    </definition>
+    <!--账户管理-->
+    <definition name="account" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/account.jsp"/>
+    </definition>
+    <!--提现管理-->
+    <definition name="cashout" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/cashout.jsp"/>
+    </definition>
+
+    <!--结算管理-->
+    <definition name="settle" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/settle.jsp"/>
+    </definition>
+
+    <!--结算单价-->
+    <definition name="settlePrice" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/settlePrice.jsp"/>
+    </definition>
+
+    <!--定时任务管理页面-->
+    <definition name="task" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/task.jsp"/>
+    </definition>
+
+
+    <definition name="welcome" template="/WEB-INF/pages/template.jsp">
+        <put-attribute name="content" value="/WEB-INF/pages/welcome.jsp"/>
+    </definition>
+
+    <definition name="login" template="/WEB-INF/pages/login.jsp"></definition>
+
+    <definition name="error404" template="/WEB-INF/404.jsp">
+    </definition>
+
+    <definition name="error500" template="/WEB-INF/500.jsp">
+    </definition>
+
+    <definition name="authenticationError" template="/WEB-INF/authenticationError.jsp">
+    </definition>
+</tiles-definitions>

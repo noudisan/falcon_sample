@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.falcon.core.dao.DeliveryStepsMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyi.falcon.core.model.DeliverySteps" >
+    <constructor >
+      <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="USER_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TASK_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="STEPS" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="START_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="END_TIME" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, TASK_ID, STEPS, START_TIME, END_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_DELIVERY_STEPS
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TB_DELIVERY_STEPS
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zhiyi.falcon.core.model.DeliverySteps" >
+    insert into TB_DELIVERY_STEPS (ID, USER_ID, TASK_ID, 
+      STEPS, START_TIME, END_TIME
+    )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, 
+      #{steps,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zhiyi.falcon.core.model.DeliverySteps" >
+    insert into TB_DELIVERY_STEPS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="taskId != null" >
+        TASK_ID,
+      </if>
+      <if test="steps != null" >
+        STEPS,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="steps != null" >
+        #{steps,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.falcon.core.model.DeliverySteps" >
+    update TB_DELIVERY_STEPS
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null" >
+        TASK_ID = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="steps != null" >
+        STEPS = #{steps,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zhiyi.falcon.core.model.DeliverySteps" >
+    update TB_DELIVERY_STEPS
+    set USER_ID = #{userId,jdbcType=INTEGER},
+      TASK_ID = #{taskId,jdbcType=INTEGER},
+      STEPS = #{steps,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <sql id="searchDto_select_conditions">
+    <trim prefix="where" prefixOverrides="AND |OR ">
+      <if test="userId != null" >
+        <![CDATA[ USER_ID = #{userId}]]>
+      </if>
+      <if test="taskId != null" >
+        <![CDATA[ AND TASK_ID = #{taskId}]]>
+      </if>
+      <if test="steps != null and steps != ''" >
+        <![CDATA[ AND STEPS = #{steps}]]>
+      </if>
+      <if test="startTime != null and startTime != ''" >
+        <![CDATA[ AND START_TIME >= #{startTime}]]>
+      </if>
+      <if test="endTime != null and endTime != ''" >
+        <![CDATA[ AND END_TIME <= #{endTime}]]>
+      </if>
+    </trim>
+  </sql>
+
+
+  <select id="search" parameterType="com.zhiyi.falcon.api.dto.DeliveryStepsSearchDto"  resultMap="BaseResultMap">
+    SELECT * FROM TB_DELIVERY_STEPS
+    <include refid="searchDto_select_conditions" />
+  </select>
+
+  <select id="count" parameterType="com.zhiyi.falcon.api.dto.DeliveryStepsSearchDto"  resultType="int">
+    SELECT COUNT(*) FROM TB_DELIVERY_STEPS
+    <include refid="searchDto_select_conditions" />
+  </select>
+
+</mapper>

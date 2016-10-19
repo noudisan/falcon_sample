@@ -1,0 +1,32 @@
+<dataset>
+    <table name="TB_SYS_RESOURCES">
+        <column>ID</column>
+        <column>NAME</column>
+        <column>DESCRIBER</column>
+        <column>PARENT_ID</column>
+        <column>LEAF_FLAG</column>
+        <column>LINK_URL</column>
+        <column>ICON_CLS</column>
+        <column>PLATFORM_ID</column>
+        <column>ORDERS</column>
+        <column>CREATE_USER</column>
+        <column>CREATE_DT</column>
+        <column>MODIFY_USER</column>
+        <column>MODIFY_DT</column>
+        <row>
+            <value>211</value>
+            <value>opertion_interface</value>
+            <value>opertion_interface_describe</value>
+            <value>21</value>
+            <value>2</value>
+            <value>zhiyi/operation/operation_interface</value>
+            <value>anything</value>
+            <value>3</value>
+            <value>1</value>
+            <value>admin</value>
+            <value>2014-08-11 08:00:00</value>
+            <value>wolf</value>
+            <value>2014-08-11 08:00:00</value>
+        </row>
+    </table>
+</dataset>

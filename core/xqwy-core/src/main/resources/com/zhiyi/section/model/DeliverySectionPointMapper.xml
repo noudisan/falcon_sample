@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.section.dao.DeliverySectionPointMapper">
+    <!-- 注意 列名-->
+    <resultMap id="BaseResultMap" type="com.zhiyi.section.model.DeliverySectionPoint">
+        <id column="POINT_ID" property="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        <result column="LATITUDE_P" property="latitude" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+        <result column="LONGITUDE_P" property="longitude" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+        <result column="POINT_INDEX" property="pointIndex" jdbcType="TINYINT" javaType="java.lang.Byte"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    ID POINT_ID, LATITUDE LATITUDE_P, LONGITUDE LATITUDE_P, POINT_INDEX, SECTION_ID
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from TB_BASE_SECTION_POINT
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from TB_BASE_SECTION_POINT
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zhiyi.section.model.DeliverySectionPoint">
+    insert into TB_BASE_SECTION_POINT (ID, LATITUDE, LONGITUDE, 
+      POINT_INDEX, SECTION_ID)
+    values (#{id,jdbcType=INTEGER}, #{latitude,jdbcType=DOUBLE}, #{longitude,jdbcType=DOUBLE}, 
+      #{pointIndex,jdbcType=TINYINT}, #{sectionId,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.zhiyi.section.model.DeliverySectionPoint">
+        insert into TB_BASE_SECTION_POINT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="latitude != null">
+                LATITUDE,
+            </if>
+            <if test="longitude != null">
+                LONGITUDE,
+            </if>
+            <if test="pointIndex != null">
+                POINT_INDEX,
+            </if>
+            <if test="sectionId != null">
+                SECTION_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=DOUBLE},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=DOUBLE},
+            </if>
+            <if test="pointIndex != null">
+                #{pointIndex,jdbcType=TINYINT},
+            </if>
+            <if test="sectionId != null">
+                #{sectionId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.section.model.DeliverySectionPoint">
+        update TB_BASE_SECTION_POINT
+        <set>
+            <if test="latitude != null">
+                LATITUDE = #{latitude,jdbcType=DOUBLE},
+            </if>
+            <if test="longitude != null">
+                LONGITUDE = #{longitude,jdbcType=DOUBLE},
+            </if>
+            <if test="pointIndex != null">
+                POINT_INDEX = #{pointIndex,jdbcType=TINYINT},
+            </if>
+            <if test="deliverySection!=null and deliverySection.id != null">
+                SECTION_ID = #{deliverySection.id,jdbcType=INTEGER},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zhiyi.section.model.DeliverySectionPoint">
+    update TB_BASE_SECTION_POINT
+    set LATITUDE = #{latitude,jdbcType=DOUBLE},
+      LONGITUDE = #{longitude,jdbcType=DOUBLE},
+      POINT_INDEX = #{pointIndex,jdbcType=TINYINT},
+      SECTION_ID = #{sectionId,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+    <insert id="insertManyPoint">
+        insert into TB_BASE_SECTION_POINT(LATITUDE, LONGITUDE,
+        POINT_INDEX, SECTION_ID) values
+        <trim suffixOverrides=",">
+            <foreach collection="deliverySectionPoints" item="deliverySectionPoint" separator=",">
+                (
+                #{deliverySectionPoint.latitude},
+                #{deliverySectionPoint.longitude},
+                #{deliverySectionPoint.pointIndex},
+                #{deliverySectionPoint.deliverySection.id}
+                )
+            </foreach>
+        </trim>
+    </insert>
+
+    <delete id="deleteBySectionId" parameterType="int">
+        delete from TB_BASE_SECTION_POINT where SECTION_ID = #{sectionId}
+    </delete>
+
+
+</mapper>

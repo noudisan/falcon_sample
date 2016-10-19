@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyi.falcon.core.dao.SettleDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.zhiyi.falcon.core.model.SettleDetail" >
+    <constructor >
+      <idArg column="ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SETTLE_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SEND_STYLE" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="BOOK_NUM" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PRICE" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="SETTLE_AMOUNT" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="STATUS" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="COMMUNITY_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="BUILDING_NUM" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="COMMUNITY_UNIT_NUM" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="BUILD_NAME" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="COMMUNITY_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="BUILDING_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="DELIVERY_RESULT" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="USER_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TASK_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SETTLE_DT" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="COMMUNITY_UNIT_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+
+    </constructor>
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ID, SETTLE_ID, SEND_STYLE, BOOK_NUM, PRICE, SETTLE_AMOUNT, STATUS, COMMUNITY_NAME,
+    BUILDING_NUM, COMMUNITY_UNIT_NUM, BUILD_NAME, COMMUNITY_ID, BUILDING_ID, DELIVERY_RESULT, USER_ID, TASK_ID, SETTLE_DT,COMMUNITY_UNIT_ID
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_SETTLE_DETAIL
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TB_SETTLE_DETAIL
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.zhiyi.falcon.core.model.SettleDetail" >
+    insert into TB_SETTLE_DETAIL (ID, SETTLE_ID, SEND_STYLE, 
+      BOOK_NUM, PRICE, SETTLE_AMOUNT, STATUS, COMMUNITY_NAME, BUILDING_NUM,
+      COMMUNITY_UNIT_NUM, BUILD_NAME, COMMUNITY_ID, BUILDING_ID, DELIVERY_RESULT,
+       USER_ID, TASK_ID, SETTLE_DT,COMMUNITY_UNIT_ID)
+    values (#{id,jdbcType=INTEGER}, #{settleId,jdbcType=INTEGER}, #{sendStyle,jdbcType=VARCHAR}, 
+      #{bookNum,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE}, #{settleAmount,jdbcType=DOUBLE}, 
+      #{status,jdbcType=INTEGER}, #{communityName,jdbcType=VARCHAR}, #{buildingNum,jdbcType=INTEGER},
+      #{communityUnitNum,jdbcType=INTEGER}, #{buildName,jdbcType=VARCHAR}, #{communityId,jdbcType=INTEGER},
+      #{buildingId,jdbcType=INTEGER}, #{deliveryResult,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER},
+      #{taskId,jdbcType=INTEGER}, #{settleDt,jdbcType=TIMESTAMP}, #{communityUnitId,jdbcType=INTEGER})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zhiyi.falcon.core.model.SettleDetail" >
+    update TB_SETTLE_DETAIL
+    <set >
+      <if test="settleId != null" >
+        SETTLE_ID = #{settleId,jdbcType=INTEGER},
+      </if>
+      <if test="sendStyle != null" >
+        SEND_STYLE = #{sendStyle,jdbcType=VARCHAR},
+      </if>
+      <if test="bookNum != null" >
+        BOOK_NUM = #{bookNum,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="settleAmount != null" >
+        SETTLE_AMOUNT = #{settleAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="communityName != null" >
+        COMMUNITY_NAME = #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingNum != null" >
+        BUILDING_NUM = #{buildingNum,jdbcType=INTEGER},
+      </if>
+      <if test="communityUnitNum != null" >
+        COMMUNITY_UNIT_NUM = #{communityUnitNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <sql id="searchDto_select_conditions">
+    <trim prefix="where" prefixOverrides="AND |OR ">
+      <if test="id != null">
+        <![CDATA[ ID = #{id}]]>
+      </if>
+      <if test="settleId != null and settleId != ''">
+        <![CDATA[ AND SETTLE_ID = #{settleId}]]>
+      </if>
+      <if test="sendStyle != null and sendStyle != ''">
+        <![CDATA[ AND SEND_STYLE = #{sendStyle}]]>
+      </if>
+      <if test="bookNum != null and bookNum != ''">
+        <![CDATA[ AND BOOK_NUM = #{bookNum}]]>
+      </if>
+      <if test="price != null and price != ''" >
+        <![CDATA[ AND PRICE = #{price}]]>
+      </if>
+      <if test="settleAmount != null and settleAmount != ''">
+        <![CDATA[ AND SETTLE_AMOUNT = #{settleAmount}]]>
+      </if>
+      <if test="status != null and status != ''">
+        <![CDATA[ AND STATUS = #{status}]]>
+      </if>
+      <if test="communityName != null and communityName != ''">
+        <![CDATA[ AND COMMUNITY_NAME = #{communityName}]]>
+      </if>
+      <if test="buildingNum != null and buildingNum != ''">
+        <![CDATA[ AND BUILDING_NUM = #{buildingNum}]]>
+      </if>
+      <if test="communityUnitNum != null and communityUnitNum != ''">
+        <![CDATA[ AND COMMUNITY_UNIT_NUM = #{communityUnitNum}]]>
+      </if>
+       <if test="userId != null ">
+        <![CDATA[ AND USER_ID = #{userId}]]>
+      </if>
+        <if test="taskId != null">
+        <![CDATA[ AND TASK_ID = #{taskId}]]>
+      </if>
+      <if test="communityId != null">
+        <![CDATA[ AND COMMUNITY_ID = #{communityId}]]>
+      </if>
+      <if test="buildingId != null">
+        <![CDATA[ AND BUILDING_ID = #{buildingId}]]>
+      </if>
+      <if test="settleTime != null ">
+        <![CDATA[ AND SETTLE_DT LIKE "${settleTime}%"]]>
+      </if>
+      <if test="communityUnitId != null ">
+        <![CDATA[ AND COMMUNITY_UNIT_ID  = #{communityUnitId}]]>
+      </if>
+    </trim>
+  </sql>
+
+
+  <select id="query" parameterType="com.zhiyi.falcon.api.dto.SettleDetailDto" resultMap="BaseResultMap">
+    SELECT * FROM TB_SETTLE_DETAIL
+    <include refid="searchDto_select_conditions"/>
+  </select>
+
+
+  <!--查询结算的详细信息-->
+  <select id="querySettleDetail" parameterType="com.zhiyi.falcon.api.dto.SettleDetailDto" resultMap="BaseResultMap">
+    SELECT * FROM TB_SETTLE_DETAIL
+    <include refid="searchDto_select_conditions"/>
+  </select>
+
+  <!--查询小区的结算信息-->
+  <select id="queryCommunity" parameterType="com.zhiyi.falcon.api.dto.SettleDetailDto" resultMap="BaseResultMap">
+    SELECT * FROM TB_SETTLE_DETAIL SD
+    <include refid="searchDto_select_conditions"/>
+    GROUP BY SD.COMMUNITY_ID
+  </select>
+
+  <select id="querySection" parameterType="com.zhiyi.falcon.api.dto.SettleDetailDto" resultType="com.zhiyi.falcon.api.dto.SettleDetailDto">
+    SELECT BDS.SECTION_NAME AS sectionName, BDS.ID AS sectionId
+    FROM TB_DELIVERY_TASK DT, TB_BASE_DELIVERY_SECTION BDS, TB_DELIVERY_TASK_SECTION DTS
+    WHERE DT.ID = DTS.SEND_TASK_ID AND BDS.ID = DTS.SECTION_ID AND DT.ID = #{taskId};
+  </select>
+
+  <select id="querySettleDetailResultBySettleId" parameterType="int" resultType="com.zhiyi.falcon.api.dto.SettleDetailResultDto">
+
+    select d.COMMUNITY_NAME as communityName ,d.BUILD_NAME as communityBuildingName ,d.DELIVERY_RESULT as deliveryStatus,
+    SEND_STYLE as deliveryType ,count(send_style) as communityUnitNum,sum(book_num) as deliveryNum,sum(settle_amount) as amount
+    from TB_SETTLE_DETAIL d where settle_id =#{settleId} group by send_style;
+  </select>
+</mapper>
